@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class Tab1Page {
   list = [
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 7",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -16,7 +16,7 @@ export class Tab1Page {
       "note":"Payment for June shipment"
     },
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 6",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -24,7 +24,7 @@ export class Tab1Page {
       "note":"Payment for June shipment"
     },
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 5",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -32,7 +32,7 @@ export class Tab1Page {
       "note":"Payment for June shipment"
     },
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 4",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -41,7 +41,7 @@ export class Tab1Page {
     },
 
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 3",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -50,7 +50,7 @@ export class Tab1Page {
     },
    
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 2",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",
@@ -59,7 +59,7 @@ export class Tab1Page {
     },
 
     {
-      "transaction_type": "Payment",
+      "transaction_type": "Payment 1",
       "number":"8644321",
       "amount":"$355.00",
       "date":"15 June 2020",

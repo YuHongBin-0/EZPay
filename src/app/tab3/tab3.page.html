@@ -13,10 +13,9 @@
         <h2>Profile</h2>
       </ion-item-divider>
       <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
-      <ion-item detail button (click)="openAbout()">About</ion-item>
-      <ion-item detail [routerLink]="'/ccalist'">CCAs</ion-item>
-      <ion-item detail button (click)="openFacilities()">Facilities</ion-item>
-      <ion-item detail [routerLink]="'/faq'">Did You Know...</ion-item>
+      <ion-item detail button (click)="openAbout()"><ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> Account Info</ion-item>
+      <ion-item detail [routerLink]="'/ccalist'"><ion-icon name="wallet-outline" style="margin-right: 10px;"></ion-icon >Manage Wallet</ion-item>
+ 
       <!-- <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>Herbology
       </ion-item> -->
@@ -24,10 +23,12 @@
       <ion-item-divider style="color: #0079C1;" >
         <h2>Get Support</h2>
       </ion-item-divider>
-      <ion-item detail [routerLink]="'/aboutapp'">About App</ion-item>
-      <ion-item detail [routerLink]="'/developers'">Developers</ion-item>
-      <ion-item detail button (click)="openFeedback()">Feedback</ion-item>
-      <ion-item detail button (click)="showRatePrompt()">Rate our App!</ion-item>
+      <ion-item detail [routerLink]="'/settings'"><ion-icon name="settings-outline" style="margin-right: 10px;"></ion-icon>Settings</ion-item>
+      <ion-item detail button (click)="showRatePrompt()"><ion-icon name="star-outline" style="margin-right: 10px;"></ion-icon> Rate our App!</ion-item>
     </ion-item-group>
+
+    <ion-item-divider>
+    </ion-item-divider>
+    <ion-item detail><ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon> Logout</ion-item>
   </ion-list>
 </ion-content>
