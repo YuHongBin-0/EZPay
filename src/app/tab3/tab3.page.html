@@ -1,17 +1,33 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 3
+      More
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 3</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-list lines="full" style="padding: 0px;">
+    <ion-item-group >
+      <ion-item-divider style="color: #0079C1;">
+        <h2>Profile</h2>
+      </ion-item-divider>
+      <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
+      <ion-item detail button (click)="openAbout()">About</ion-item>
+      <ion-item detail [routerLink]="'/ccalist'">CCAs</ion-item>
+      <ion-item detail button (click)="openFacilities()">Facilities</ion-item>
+      <ion-item detail [routerLink]="'/faq'">Did You Know...</ion-item>
+      <!-- <ion-item>
+        <ion-icon name="leaf" item-start></ion-icon>Herbology
+      </ion-item> -->
 
-  <app-explore-container name="Tab 3 page"></app-explore-container>
+      <ion-item-divider style="color: #0079C1;" >
+        <h2>Get Support</h2>
+      </ion-item-divider>
+      <ion-item detail [routerLink]="'/aboutapp'">About App</ion-item>
+      <ion-item detail [routerLink]="'/developers'">Developers</ion-item>
+      <ion-item detail button (click)="openFeedback()">Feedback</ion-item>
+      <ion-item detail button (click)="showRatePrompt()">Rate our App!</ion-item>
+    </ion-item-group>
+  </ion-list>
 </ion-content>
