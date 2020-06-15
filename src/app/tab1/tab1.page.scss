@@ -4,3 +4,12 @@ ion-content {
 ion-toolbar{
     --background: #0079C1;
 }
+ion-card {
+    display: flex !important;
+    border-radius: 25px;
+    margin-bottom: 16px;
+    --background: #272424;
+    color: #b9b9b9;
+    border-style: groove;
+    border-color: gold;
+  }
