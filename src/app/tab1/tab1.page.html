@@ -8,14 +8,20 @@
 
 <ion-content [fullscreen]="true">
   <ion-card class="ion-padding" *ngFor="let re of list" (click)="navigate(re.nav)">
-    <div style="width: 20%;">
+    <!-- <div style="width: 20%;">
       <ion-avatar id="avatar">
         <img [src]="re.img">
       </ion-avatar>
-    </div>
+    </div> -->
     <div style="margin: auto;
- width: 80%;">
-      <h4>{{re.title}}</h4>
+ width: 100%;">
+      <h4>{{re.transaction_type}}</h4>
+      <!-- <p>Name:  {{re.name}}</p>
+      <p>Contact:   {{re.number}}</p>
+      <p>Amount:  {{re.amount}}</p>
+      <p>Date of Transaction:   {{re.date}}</p>
+      <p>Note:  {{re.note}}</p> -->
+      <a style="float: right; color: white;" (click)="details(crd.id)">>></a>
     </div>
   </ion-card>
 

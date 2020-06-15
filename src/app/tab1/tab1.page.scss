@@ -3,13 +3,22 @@ ion-content {
 }
 ion-toolbar{
     --background: #0079C1;
+    color: white;
 }
 ion-card {
     display: flex !important;
     border-radius: 25px;
     margin-bottom: 16px;
-    --background: #272424;
-    color: #b9b9b9;
-    border-style: groove;
-    border-color: gold;
+    --background: #0079C1;
+    color: white;
+    border-style: solid;
+    border-color: #FFFFFF;
   }
+  h4{
+      font-size: 25px;
+      font-weight: bold;
+      
+  }
+p{
+    font-size: 18px;
+}
