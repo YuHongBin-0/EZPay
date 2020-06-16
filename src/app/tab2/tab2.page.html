@@ -22,10 +22,10 @@
 
 
 
-<ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
-  <ion-card-header>
-    <ion-card-subtitle>Auto Debit On
-      <ion-button fill="outline" style="margin-left: 60px;" class="managebutton" shape="round">Manage</ion-button></ion-card-subtitle>
+<ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
+  <ion-card-header style="margin-top: 10px;">
+    <ion-card-subtitle><b>You have : </b>
+      <ion-button fill="outline" style="margin-left: 60px; float: right;" class="managebutton" shape="round" >Manage</ion-button></ion-card-subtitle>
     <ion-card-title>SGD : $55.00</ion-card-title>
     
     
@@ -37,28 +37,28 @@
         <ion-avatar id="avatar" (click)="openPay()">
           <ion-icon name="paper-plane-outline"></ion-icon>
         </ion-avatar>
-        <p>Pay</p>
+        <p id="card-content">Pay</p>
       
       </ion-col>
       <ion-col size="3" routerLink="/.....">
         <ion-avatar id="avatar" (click)="openScan()">
           <ion-icon name="scan-outline"></ion-icon>
         </ion-avatar>
-        <p>Scan</p>
+        <p id="card-content">Scan</p>
       
       </ion-col>
       <ion-col size="3" routerLink="/...">
         <ion-avatar id="avatar" (click)="openRequest()">
           <ion-icon name="chatbox-outline"></ion-icon>
         </ion-avatar>
-        <p>Request</p>
+        <p id="card-content">Request</p>
       
       </ion-col>
       <ion-col size="3" routerLink="/....">
         <ion-avatar id="avatar" (click)="openMyqr()">
           <ion-icon name="qr-code-outline"></ion-icon>
         </ion-avatar>
-        <p>My QR</p>
+        <p id="card-content">My QR</p>
       
       </ion-col>
     </ion-row>
