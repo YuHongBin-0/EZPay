@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
+    <ion-card-header style="margin-bottom: 0px;">
+      <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img>
+      <h2>Login</h2>
+    </ion-card-header>
+    <ion-card-content style="margin-top: 0;">
+      <hr style="background:lightgrey;color:lightgrey;">
+      <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+        <ion-item>
+          <ion-label style="color: grey;" position="floating">Phone Number</ion-label>
+          <ion-input ngModel type="tel" pattern="tel" name="phone"></ion-input>
+        </ion-item>
+        <ion-item style="margin-bottom: 12px;">
+          <ion-label style="color: grey;" position="floating">Password</ion-label>
+          <ion-input ngModel type="password" name="password"></ion-input>
+        </ion-item>
+        <p style="margin: 8px 0 54px 0">Forgot Password?</p>
+        <ion-button expand="block" type="submit" fill="outline" href="http://localhost:8100/tabs/tab2">Login</ion-button>
+      </form>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
