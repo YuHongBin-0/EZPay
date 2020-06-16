@@ -20,6 +20,10 @@ const routes: Routes = [
   {
     path: 'myqr',
     loadChildren: () => import('./myqr/myqr.module').then( m => m.MyqrPageModule)
+  },
+  {
+    path: 'manage-wallet',
+    loadChildren: () => import('./manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
   }
 
 ];
