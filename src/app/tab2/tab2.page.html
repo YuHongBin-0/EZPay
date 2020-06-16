@@ -8,30 +8,53 @@
 
 <ion-content [fullscreen]="true">
 <div style="text-align: center; font-size: 24px;color: white; margin-top: 20px;">(Carousel)</div>
-<ion-card>
+<ion-card style="margin-left: 20px; margin-right: 20px;">
   <ion-card-header>
-    <ion-card-subtitle>Auto Debit On<ion-button fill="outline" style="margin-left: 110px;">Manage</ion-button></ion-card-subtitle>
+    <ion-card-subtitle>Auto Debit On
+      <ion-button fill="outline" style="margin-left: 60px;" class="managebutton" shape="round">Manage</ion-button></ion-card-subtitle>
     <ion-card-title>SGD : $55.00</ion-card-title>
     
     
   </ion-card-header>
 
   <ion-card-content>
-    <ion-button>
+    <ion-row>
+      <ion-col size="3" routerLink="/">
+        <ion-avatar id="avatar">
+          <ion-icon name="paper-plane-outline"></ion-icon>
+        </ion-avatar>
+        <p>Pay</p>
+      
+      </ion-col>
+      <ion-col size="3" routerLink="/">
+        <ion-avatar id="avatar">
+          <ion-icon name="scan-outline"></ion-icon>
+        </ion-avatar>
+        <p>Scan</p>
+      
+      </ion-col>
+      <ion-col size="3" routerLink="/">
+        <ion-avatar id="avatar">
+          <ion-icon name="chatbox-outline"></ion-icon>
+        </ion-avatar>
+        <p>Request</p>
+      
+      </ion-col>
+      <ion-col size="3" routerLink="/">
+        <ion-avatar id="avatar">
+          <ion-icon name="qr-code-outline"></ion-icon>
+        </ion-avatar>
+        <p>My QR</p>
+      
+      </ion-col>
+    </ion-row>
+
+
+ 
     
-      <ion-item button (click)="openAbout()"><ion-icon name="paper-plane-outline" style="margin-right: 10px;"></ion-icon>Pay</ion-item>
-    
-    
-      <ion-item button (click)="openAbout()"><ion-icon name="scan-outline" style="margin-right: 10px;"></ion-icon>Scan</ion-item> 
-   
-    
-      <ion-item button (click)="openAbout()"><ion-icon name="chatbox-outline" style="margin-right: 10px;"></ion-icon>Request</ion-item>
-    
-    
-      <ion-item button (click)="openAbout()"><ion-icon name="qr-code-outline" style="margin-right: 10px;"></ion-icon>My QR</ion-item>
-    
-    </ion-button>
   </ion-card-content>
+
+  
 </ion-card>
 
 
