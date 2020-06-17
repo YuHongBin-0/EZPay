@@ -5,29 +5,25 @@ ion-toolbar{
     --background: #0079C1;
     color: white;
 }
-
-ion-icon {
-    font-size: 35px;
-    // width: 50%;
-    margin-top: 20px;
-    margin-left: 10px;
-  }
-  .card-content{
-      margin-bottom: 20px;
-      text-align: center;
-      margin-right: 10px;
-  }
-
 .managebutton{
     border-radius: 5px;
 }
 
-.overviewCardImageContainer {
-    display: block;
-    margin:auto;
-    text-align: center;
-}
+ion-icon {
+    font-size: 35px;
+    width: 50%;
+    margin-top: 20px;
+    margin-left: 10px;
+  }
 
-.ovwButton{
-    box-shadow: none;
-}
+
+
+// .overviewCardImageContainer {
+//     display: block;
+//     margin:auto;
+//     text-align: center;
+// }
+
+// .ovwButton{
+//     box-shadow: none;
+// }
