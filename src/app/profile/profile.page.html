@@ -1,9 +1,53 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>profile</ion-title>
+    <ion-title>Your Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-
+  <br>
+  <br>
+  <ion-grid>
+    <ion-row style="height: 50px;">
+      <ion-col offset="1" size="5">
+        <ion-card style="background:none;box-shadow:none;">
+          <ion-card-header>
+            <ion-avatar>
+                <ion-icon style="color:white;display:block;width:120px;height:120px;" name="person-circle"></ion-icon>
+            </ion-avatar>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-card-subtitle>
+              <a href="#" style="display:block;text-align:center;text-decoration:none;color: white;">Change Picture</a>
+            </ion-card-subtitle>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col pull="1" size="5">
+          <h2>Andrew Nigger</h2>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col offset="5" size="7">
+        <h5>Zimbabwe</h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div style="padding:35px;"></div>
+  <ion-grid>
+    <ion-row>
+      <ion-col offset="2" size="4">
+        <p>
+          Phone Number:
+        </p>
+      </ion-col>
+      <ion-col size="6">
+        <ion-input style="color: white;" disabled ngModel type="tel" value="">6780 1234</ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <br>
+  <br>
+  <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs/tab3" shape="round">Back To Options</ion-button>
+  <ion-button expand="block" type="submit" fill="outline" routerLink="/login" shape="round">Sign Out</ion-button>
 </ion-content>
