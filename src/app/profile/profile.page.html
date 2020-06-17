@@ -1,5 +1,8 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
     <ion-title>Your Profile</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -18,36 +21,60 @@
           </ion-card-header>
           <ion-card-content>
             <ion-card-subtitle>
-              <a href="#" style="display:block;text-align:center;text-decoration:none;color: white;">Change Picture</a>
+              <a href="#" style="display:block;text-align:center;text-decoration:none;color: white; margin-top: 40px;margin-left: 5px;font-size: 12px;">Change Picture</a>
             </ion-card-subtitle>
           </ion-card-content>
         </ion-card>
       </ion-col>
       <ion-col pull="1" size="5">
-          <h2>Andrew Nigger</h2>
+          <h2 style="color: white; margin-left: 15px; margin-top: 60px;">Justin</h2>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col offset="5" size="7">
-        <h5>Zimbabwe</h5>
+        <h5 style="color: white; margin-left: 15px; margin-top: 60px; width: 100%;height: 100%;">Singapore</h5>
       </ion-col>
     </ion-row>
   </ion-grid>
   <div style="padding:35px;"></div>
   <ion-grid>
     <ion-row>
-      <ion-col offset="2" size="4">
-        <p>
+      <ion-col offset="2" size="3">
+        <p style="color: white;">
           Phone Number:
         </p>
       </ion-col>
-      <ion-col size="6">
-        <ion-input style="color: white;" disabled ngModel type="tel" value="">6780 1234</ion-input>
+      <ion-col size="7">
+        <ion-input style="background-color: inherit;color: white; margin-top: 7px; border-style: groove; border-radius: 15px;" disabled ngModel type="tel" value="">+65 9876 5432</ion-input>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <br>
-  <br>
-  <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs/tab3" shape="round">Back To Options</ion-button>
-  <ion-button expand="block" type="submit" fill="outline" routerLink="/login" shape="round">Sign Out</ion-button>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col offset="2" size="3">
+        <p style="color: white;">
+          Date Joined:
+        </p>
+      </ion-col>
+      <ion-col size="7">
+        <ion-input style="background-color: inherit;color: white; margin-top: 7px; border-style: groove; border-radius: 15px; " disabled ngModel type="tel" value="">10 June 2020</ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col offset="2" size="3">
+        <p style="color: white;">
+          Address:
+        </p>
+      </ion-col>
+      <ion-col size="7">
+        <ion-input style="background-color: inherit;color: white; margin-top: 7px; border-style: groove; border-radius: 15px; " disabled ngModel type="tel" value=""> Tampines Avenue 1 Block 6</ion-input>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- <ion-button expand="block" type="submit" fill="outline" routerLink="/login" shape="round">Sign Out</ion-button> -->
 </ion-content>
