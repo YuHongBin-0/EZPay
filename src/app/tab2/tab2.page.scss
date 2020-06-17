@@ -80,12 +80,10 @@ ion-icon {
 // }
 
 
-// .overviewCardImageContainer {
-//     display: block;
-//     margin:auto;
-//     text-align: center;
-// }
-
-// .ovwButton{
-//     box-shadow: none;
-// }
+.footer-buttons-section{
+    position: fixed;
+    display: block;
+    margin: auto;
+    width: 100%;
+    bottom: 56px;
+}

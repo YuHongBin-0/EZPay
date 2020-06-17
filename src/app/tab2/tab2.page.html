@@ -23,7 +23,7 @@
 
 
 
-  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
+  <ion-card style="z-index:0;margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
     <ion-card-header style="margin-top: 10px;">
       <ion-card-subtitle><b>You have : </b>
       </ion-card-subtitle>
@@ -70,13 +70,12 @@
 
         </ion-col>
       </ion-row>
-
     </ion-card-content>
-
-
   </ion-card>
+
   <br>
-  <h2 style="color: white;">Services</h2>
+  <div class="footer-buttons-section">
+  <h2 style="color: white; margin: 0 0 12px 8px;text-shadow:-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;">Services</h2>
   <div class="class-bg" style="border-radius: 30px 30px 0 0 !important;">
 
     <ion-row id="row1">
@@ -103,7 +102,7 @@
       </ion-col>
     </ion-row>
     <ion-row id="row1">
-      <ion-col size="4">
+      <ion-col size="4" offset="2">
         <ion-card id="menuCard" [routerLink]="'/schedule'" (click)="click()">
           <ion-icon name="receipt-outline"></ion-icon>
           <ion-card-header><b>e-Invoice</b></ion-card-header>
@@ -127,6 +126,7 @@
     </ion-row>
 
   </div>
+</div>
 
 
 </ion-content>
