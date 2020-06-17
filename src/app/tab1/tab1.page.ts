@@ -6,67 +6,26 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  list = [
-    {
-      "transaction_type": "Payment 7",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
-    {
-      "transaction_type": "Payment 6",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
-    {
-      "transaction_type": "Payment 5",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
-    {
-      "transaction_type": "Payment 4",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
+  public items: any = [];
 
-    {
-      "transaction_type": "Payment 3",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
-   
-    {
-      "transaction_type": "Payment 2",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
+  constructor() {this.items = [
+      { expanded: false },
+    ];
+  }
 
-    {
-      "transaction_type": "Payment 1",
-      "number":"8644321",
-      "amount":"$355.00",
-      "date":"15 June 2020",
-      "name":"Andrew",
-      "note":"Payment for June shipment"
-    },
-  ]
-  constructor() {}
+  expandItem(item): void {
+    if (item.expanded) {
+      item.expanded = false;
+    } else {
+      this.items.map(listItem => {
+        if (item == listItem) {
+          listItem.expanded = !listItem.expanded;
+        } else {
+          listItem.expanded = false;
+        }
+        return listItem;
+      });
+    }
+  }
 
 }
