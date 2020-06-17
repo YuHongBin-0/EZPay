@@ -3,79 +3,130 @@
     <ion-title style="text-align: center;">
       EZPay
     </ion-title>
-    
+
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-<ion-slides #sliders (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
-  <ion-slide (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
-    <img src="../../assets/icon/slider1.jpg" alt="" srcset="">
-  </ion-slide>
-  <ion-slide>
-    <img src="../../assets/icon/slider2.png" alt="" srcset="">
-  </ion-slide>
-  <ion-slide>
-    <img src="../../assets/icon/slider3.jpg" alt="" srcset="">
-  </ion-slide>
+  <ion-slides #sliders (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
+    <ion-slide (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
+      <img src="../../assets/icon/slider1.jpg" alt="" srcset="">
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/icon/slider2.png" alt="" srcset="">
+    </ion-slide>
+    <ion-slide>
+      <img src="../../assets/icon/slider3.jpg" alt="" srcset="">
+    </ion-slide>
   </ion-slides>
 
 
 
 
-<ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
-  <ion-card-header style="margin-top: 10px;">
-    <ion-card-subtitle><b>You have : </b>
+  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
+    <ion-card-header style="margin-top: 10px;">
+      <ion-card-subtitle><b>You have : </b>
       </ion-card-subtitle>
-    <ion-card-title style="font-size: 20px; font-weight: 300;">$55.00</ion-card-title>
-    
-    
-  </ion-card-header>
+      <ion-card-title style="font-size: 20px; font-weight: 300;">$55.00</ion-card-title>
 
-  <ion-card-content>
-    <ion-row style="text-align: center;">
-      <ion-col size="3" (click)="openPay()">
-          
-            <ion-avatar id="avatar1">
+
+    </ion-card-header>
+
+    <ion-card-content>
+      <ion-row style="text-align: center;">
+        <ion-col size="3" (click)="openPay()">
+
+          <ion-avatar id="avatar1">
             <ion-icon name="paper-plane-outline"></ion-icon>
           </ion-avatar>
-          <p >Pay</p>
-        
-      </ion-col>
+          <p>Pay</p>
 
-      <ion-col size="3"  (click)="openScan()">
-        
-          <ion-avatar id="avatar2" >
+        </ion-col>
+
+        <ion-col size="3" (click)="openScan()">
+
+          <ion-avatar id="avatar1">
             <ion-icon name="scan-outline"></ion-icon>
           </ion-avatar>
-          <p >Scan</p>
-        
-      </ion-col>
+          <p>Scan</p>
 
-      <ion-col size="3" (click)="openRequest()">
-        
-          <ion-avatar id="avatar3" >
+        </ion-col>
+
+        <ion-col size="3" (click)="openRequest()">
+
+          <ion-avatar id="avatar1">
             <ion-icon name="chatbox-outline"></ion-icon>
           </ion-avatar>
-          <p>Request</p>    
-        
-      </ion-col>
+          <p>Request</p>
 
-      <ion-col size="3" (click)="openMyqr()">
-        
-          <ion-avatar id="avatar4" >
+        </ion-col>
+
+        <ion-col size="3" (click)="openMyqr()">
+
+          <ion-avatar id="avatar1">
             <ion-icon name="qr-code-outline"></ion-icon>
           </ion-avatar>
-          <p>My QR</p>    
-        
+          <p>My QR</p>
+
+        </ion-col>
+      </ion-row>
+
+    </ion-card-content>
+
+
+  </ion-card>
+  <br>
+  <h2 style="color: white;">Services</h2>
+  <div class="class-bg" style="border-radius: 30px 30px 0 0 !important;">
+
+    <ion-row id="row1">
+      <ion-col size="4">
+        <ion-card id="menuCard" [routerLink]="'/schedule'" (click)="click()">
+          <ion-icon name="bulb-outline"></ion-icon>
+          <ion-card-header><b>Utility</b></ion-card-header>
+
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card id="menuCard" [routerLink]="'/courses'" (click)="click()">
+          <ion-icon name="send-outline"></ion-icon>
+          <ion-card-header><b>Remittance</b></ion-card-header>
+
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card id="menuCard" [routerLink]="'/food'" (click)="click()">
+          <ion-icon name="document-outline"></ion-icon>
+          <ion-card-header><b>Taxes</b></ion-card-header>
+
+        </ion-card>
       </ion-col>
     </ion-row>
+    <ion-row id="row1">
+      <ion-col size="4">
+        <ion-card id="menuCard" [routerLink]="'/schedule'" (click)="click()">
+          <ion-icon name="receipt-outline"></ion-icon>
+          <ion-card-header><b>e-Invoice</b></ion-card-header>
 
-  </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="4">
+        <ion-card id="menuCard" [routerLink]="'/courses'" (click)="click()">
+          <ion-icon name="people-outline"></ion-icon>
+          <ion-card-header><b>Contacts</b></ion-card-header>
 
-  
-</ion-card>
+        </ion-card>
+      </ion-col>
+      <!-- <ion-col size="4">
+    <ion-card id="menuCard" [routerLink]="'/food'" (click)="click()">
+      <ion-icon name="chatbubbles-outline"></ion-icon>
+      <ion-card-header><b>Messages</b></ion-card-header>
+      
+    </ion-card>
+  </ion-col> -->
+    </ion-row>
 
+  </div>
 
 
 </ion-content>

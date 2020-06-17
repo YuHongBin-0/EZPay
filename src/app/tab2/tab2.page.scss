@@ -5,17 +5,79 @@ ion-toolbar{
     --background: #0079C1;
     color: white;
 }
-.managebutton{
-    border-radius: 5px;
-}
+// .managebutton{
+//     border-radius: 5px;
+// }
 
 ion-icon {
     font-size: 30px;
     margin-top: 15px;
     margin-left: 10px;
   }
+  
+  #avatar1{
+    padding: 0em;
+    margin: 0em;
+  }
 
 
+  
+#row1 {
+    margin: -5px -10px;
+    
+    border-radius: 18px; 
+    background-color: white;
+    // padding: 10px 0 10px 0;
+    ion-card-header {
+        margin: 0px !important;
+        padding: 0 !important;
+        color:black;
+    }
+    
+    ion-card-content {
+        display: none;
+    }
+    
+    
+}
+#menuCard { // Menu Items
+    padding: 10px !important;
+    text-align: center;
+    margin: 0px !important;
+    color:inherit;
+    // background-color: coral ;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1em !important;
+    box-shadow: none !important;
+    
+    ion-icon {
+        // position: relative;
+        display: inline-block;
+        padding: 5px;
+        // width: 30px;
+        // height: 30px;
+        -moz-border-radius:50%;
+        -webkit-border-radius:50%;
+        border-radius: 50%;
+        text-align: center;
+        
+        // box-shadow: 10px 10px 20px #888888;
+        border: 1px solid;
+    }
+    
+
+    ion-card-header {
+        padding: 8px;
+        text-align: center;
+        margin-left: 15px;
+        color: inherit;
+    }
+}
+
+// #stock{
+//     color: #0079C1;
+// }
 
 
 // .overviewCardImageContainer {
