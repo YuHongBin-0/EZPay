@@ -27,13 +27,13 @@ const routes: Routes = [
     loadChildren: () => import('./myqr/myqr.module').then( m => m.MyqrPageModule)
   },
   {
-<<<<<<< HEAD
-    path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
-=======
     path: 'manage-wallet',
     loadChildren: () => import('./manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
->>>>>>> f9aa0c50bf2c1811ec269eef6aa3b2d484b6fbb5
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+  
   }
 
 ];
