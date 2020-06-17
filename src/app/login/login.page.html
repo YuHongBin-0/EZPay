@@ -7,7 +7,7 @@
 <ion-content>
   <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;">
     <ion-card-header style="margin-bottom: 0px;">
-      <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img>
+      <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
       <h2>Login</h2>
     </ion-card-header>
     <ion-card-content style="margin-top: 0;">
@@ -22,7 +22,7 @@
           <ion-input ngModel type="password" name="password"></ion-input>
         </ion-item>
         <p style="margin: 8px 0 54px 0">Forgot Password?</p>
-        <ion-button expand="block" type="submit" fill="outline" href="http://localhost:8100/tabs/tab2">Login</ion-button>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs">Login</ion-button>
       </form>
     </ion-card-content>
   </ion-card>
