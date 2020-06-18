@@ -37,6 +37,30 @@ const routes: Routes = [
   },  {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'utility',
+    loadChildren: () => import('./utility/utility.module').then( m => m.UtilityPageModule)
+  },
+  {
+    path: 'remit',
+    loadChildren: () => import('./remit/remit.module').then( m => m.RemitPageModule)
+  },
+  {
+    path: 'tax',
+    loadChildren: () => import('./tax/tax.module').then( m => m.TaxPageModule)
+  },
+  {
+    path: 'invoice',
+    loadChildren: () => import('./invoice/invoice.module').then( m => m.InvoicePageModule)
+  },
+  {
+    path: 'contacts',
+    loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   }
 
 
