@@ -8,11 +8,17 @@ ion-toolbar{
 // .managebutton{
 //     border-radius: 5px;
 // }
+#card-wallet{
+    z-index:0;
+    margin: 20px 20px 0 20px;
+    border-radius: 30px;
+}
 
 ion-icon {
     font-size: 30px;
     margin-top: 15px;
     margin-left: 10px;
+    
   }
 p{
     padding-right: 15px;
@@ -33,7 +39,7 @@ p{
     ion-card-header {
         margin: 0px !important;
         padding: 0 !important;
-        color:black;
+        // color:white;
     }
     
     ion-card-content {
@@ -49,7 +55,7 @@ p{
     ion-card-header {
         margin: 0px !important;
         padding: 0 !important;
-        color:black;
+        // color:black;
     }
     
     ion-card-content {

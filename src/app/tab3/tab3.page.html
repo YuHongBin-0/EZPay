@@ -8,27 +8,37 @@
 
 <ion-content [fullscreen]="true">
   <ion-list lines="full" style="padding: 0px;">
-    <ion-item-group >
+    <ion-item-group>
       <ion-item-divider style="color: #0079C1;">
         <h2>Profile</h2>
       </ion-item-divider>
       <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
-      <ion-item detail button (click)="openAbout()"><ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile</ion-item>
-      <ion-item detail routerLink="/manage-wallet"><ion-icon name="wallet-outline" style="margin-right: 10px;"></ion-icon >Manage Wallet</ion-item>
- 
+      <ion-item detail button (click)="openAbout()">
+        <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile
+      </ion-item>
+      <ion-item detail routerLink="/manage-wallet">
+        <ion-icon name="wallet-outline" style="margin-right: 10px;"></ion-icon>Manage Wallet
+      </ion-item>
+
       <!-- <ion-item>
         <ion-icon name="leaf" item-start></ion-icon>Herbology
       </ion-item> -->
 
-      <ion-item-divider style="color: #0079C1;" >
+      <ion-item-divider style="color: #0079C1;">
         <h2>Get Support</h2>
       </ion-item-divider>
-      <ion-item detail [routerLink]="'/settings'"><ion-icon name="settings-outline" style="margin-right: 10px;"></ion-icon>Settings</ion-item>
-      <ion-item detail button (click)="showRatePrompt()"><ion-icon name="star-outline" style="margin-right: 10px;"></ion-icon> Rate our App!</ion-item>
+      <ion-item detail [routerLink]="'/settings'">
+        <ion-icon name="settings-outline" style="margin-right: 10px;"></ion-icon>Settings
+      </ion-item>
+      <ion-item detail button (click)="showRatePrompt()">
+        <ion-icon name="star-outline" style="margin-right: 10px;"></ion-icon> Rate our App!
+      </ion-item>
     </ion-item-group>
 
     <ion-item-divider>
     </ion-item-divider>
-    <ion-item detail routerLink="/login"><ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon> Logout</ion-item>
+    <ion-item detail routerLink="/login">
+      <ion-icon name="log-in-outline" style="margin-right: 10px;"></ion-icon> Logout
+    </ion-item>
   </ion-list>
 </ion-content>

@@ -7,79 +7,79 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
+
   <ion-card (click)="expandItem(item)" *ngFor="let item of items">
     <div>
-    <ion-card-header>
-      <ion-card-title style="color:white; font-size: 24px;"><b>Payment 1</b></ion-card-title>
-      <ion-card-subtitle>Click to view details</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <app-expandable expandHeight="wrap-content" [expanded]="item.expanded">
-        <ion-grid fixed="true">
-          <ion-row class="transactionDetailRows">
+      <ion-card-header>
+        <ion-card-title style="color:white; font-size: 24px;"><b>Payment 1</b></ion-card-title>
+        <ion-card-subtitle>Click to view details</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <app-expandable expandHeight="wrap-content" [expanded]="item.expanded">
+          <ion-grid fixed="true">
+            <ion-row class="transactionDetailRows">
               <ion-col size="5">
-                  <p>
+                <p>
                   Reference ID:
-                  </p>
+                </p>
               </ion-col>
               <ion-col size="7">
-                  <p>
+                <p>
                   8644321
-                  </p>
+                </p>
               </ion-col>
-          </ion-row>
-          <ion-row class="transactionDetailRows">
+            </ion-row>
+            <ion-row class="transactionDetailRows">
               <ion-col size="5">
-                  <p>
+                <p>
                   Transfer Amount:
-                  </p>
+                </p>
               </ion-col>
               <ion-col size="7">
-                  <p>
+                <p>
                   S$355.00
-                  </p>
+                </p>
               </ion-col>
-          </ion-row>
-          <ion-row class="transactionDetailRows">
+            </ion-row>
+            <ion-row class="transactionDetailRows">
               <ion-col size="5">
-                  <p>
+                <p>
                   Date:
-                  </p>
+                </p>
               </ion-col>
               <ion-col size="7">
-                  <p>
+                <p>
                   15 June 2020, 17:05:22 hours GMT+8
-                  </p>
+                </p>
               </ion-col>
-          </ion-row>
-          <ion-row class="transactionDetailRows">
+            </ion-row>
+            <ion-row class="transactionDetailRows">
               <ion-col size="5">
-                  <p>
+                <p>
                   Name:
-                  </p>
+                </p>
               </ion-col>
               <ion-col size="7">
-                  <p>
+                <p>
                   Andrew
-                  </p>
+                </p>
               </ion-col>
-          </ion-row>
-          <ion-row class="transactionDetailRows">
+            </ion-row>
+            <ion-row class="transactionDetailRows">
               <ion-col size="5">
-                  <p>
+                <p>
                   Note:
-                  </p>
+                </p>
               </ion-col>
               <ion-col size="7">
-                  <p>
+                <p>
                   Payment for June Shipments
-                  </p>
+                </p>
               </ion-col>
-          </ion-row>
-        </ion-grid>
-      </app-expandable>
-    </ion-card-content>
+            </ion-row>
+          </ion-grid>
+        </app-expandable>
+      </ion-card-content>
     </div>
   </ion-card>
 

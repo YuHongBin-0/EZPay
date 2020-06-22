@@ -23,7 +23,7 @@
 
 
 
-  <ion-card style="z-index:0;margin: 20px 20px 0 20px; border-radius: 30px;">
+  <ion-card id="card-wallet">
     <ion-card-header style="margin:12px 0 0 8px">
       <ion-card-subtitle style="font-size: 18px;"><b>You have : </b>
       </ion-card-subtitle>
@@ -75,57 +75,59 @@
 
   <br>
   <div class="footer-buttons-section">
-  <h2 style="color: white; margin: 0 0 12px 8px;text-shadow:-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;">Services</h2>
-  <div class="class-bg" style="border-radius: 30px 30px 0 0 !important;">
-    <ion-row id="row1">
-      <ion-col size="4">
-        <ion-card id="menuCard" [routerLink]="'/utility'" (click)="click()">
-          <ion-icon name="bulb-outline"></ion-icon>
-          <ion-card-header>Utility</ion-card-header>
+    <h2
+      style="color: white; margin: 0 0 12px 8px;text-shadow:-1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;">
+      Services</h2>
+    <div class="class-bg" style="border-radius: 30px 30px 0 0 !important;">
+      <ion-row id="row1">
+        <ion-col size="4">
+          <ion-card id="menuCard" [routerLink]="'/utility'" (click)="click()">
+            <ion-icon name="bulb-outline"></ion-icon>
+            <ion-card-header>Utility</ion-card-header>
 
-        </ion-card>
-      </ion-col>
-      <ion-col size="4">
-        <ion-card id="menuCard" [routerLink]="'/remit'" (click)="click()">
-          <ion-icon name="send-outline"></ion-icon>
-          <ion-card-header>Remittance</ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="4">
+          <ion-card id="menuCard" [routerLink]="'/remit'" (click)="click()">
+            <ion-icon name="send-outline"></ion-icon>
+            <ion-card-header>Remittance</ion-card-header>
 
-        </ion-card>
-      </ion-col>
-      <ion-col size="4">
-        <ion-card id="menuCard" [routerLink]="'/tax'" (click)="click()">
-          <ion-icon name="document-outline"></ion-icon>
-          <ion-card-header>Taxes</ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="4">
+          <ion-card id="menuCard" [routerLink]="'/tax'" (click)="click()">
+            <ion-icon name="document-outline"></ion-icon>
+            <ion-card-header>Taxes</ion-card-header>
 
-        </ion-card>
-      </ion-col>
-    </ion-row>
-    <ion-row id="row2">
-      <ion-col size="4" offset="2">
-        <ion-card id="menuCard" [routerLink]="'/invoice'" (click)="click()">
-          <ion-icon name="receipt-outline"></ion-icon>
-          <ion-card-header>e-Invoice</ion-card-header>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row id="row2">
+        <ion-col size="4" offset="2">
+          <ion-card id="menuCard" [routerLink]="'/invoice'" (click)="click()">
+            <ion-icon name="receipt-outline"></ion-icon>
+            <ion-card-header>e-Invoice</ion-card-header>
 
-        </ion-card>
-      </ion-col>
-      <ion-col size="4">
-        <ion-card id="menuCard" [routerLink]="'/contacts'" (click)="click()">
-          <ion-icon name="people-outline"></ion-icon>
-          <ion-card-header>Contacts</ion-card-header>
+          </ion-card>
+        </ion-col>
+        <ion-col size="4">
+          <ion-card id="menuCard" [routerLink]="'/contacts'" (click)="click()">
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-card-header>Contacts</ion-card-header>
 
-        </ion-card>
-      </ion-col>
-      <!-- <ion-col size="4">
+          </ion-card>
+        </ion-col>
+        <!-- <ion-col size="4">
     <ion-card id="menuCard" [routerLink]="'/food'" (click)="click()">
       <ion-icon name="chatbubbles-outline"></ion-icon>
       <ion-card-header><b>Messages</b></ion-card-header>
       
     </ion-card>
   </ion-col> -->
-    </ion-row>
+      </ion-row>
 
+    </div>
   </div>
-</div>
 
 
 </ion-content>
