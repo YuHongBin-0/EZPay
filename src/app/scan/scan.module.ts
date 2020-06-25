@@ -8,12 +8,16 @@ import { ScanPageRoutingModule } from './scan-routing.module';
 
 import { ScanPage } from './scan.page';
 
+
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule
+    ScanPageRoutingModule,
+    NgxQRCodeModule
   ],
   declarations: [ScanPage]
 })

@@ -11,14 +11,16 @@ import { PayPage } from '../pay/pay.page';
 import { ScanPage } from '../scan/scan.page';
 import { RequestPage } from '../request/request.page';
 import { MyqrPage } from '../myqr/myqr.page';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
-  imports: [
+  imports:  [
     IonicModule,
     CommonModule,
     FormsModule,
     ExploreContainerComponentModule,
-    Tab2PageRoutingModule
+    Tab2PageRoutingModule,
+    NgxQRCodeModule
   ],
   declarations: [Tab2Page, PayPage, ScanPage, RequestPage, MyqrPage],
   entryComponents: [PayPage, ScanPage, RequestPage, MyqrPage]

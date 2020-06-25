@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
+import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 @Component({
   selector: 'app-scan',
@@ -8,7 +10,12 @@ import { ModalController } from '@ionic/angular';
 })
 export class ScanPage implements OnInit {
 
-  constructor(private modalController: ModalController) {}
+  qrData = 'http://youtube.com';
+  scannedCode = null;
+  elementType: 'url' | 'canvas' | 'img' = 'canvas';
+
+  constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner, private base64ToGallery: Base64ToGallery,
+    private toastCtrl: ToastController) {}
   ngOnInit() {
   }
 
@@ -16,5 +23,31 @@ export class ScanPage implements OnInit {
     await this.modalController.dismiss();
   }
 
+  scanCode() {
+    this.barcodeScanner.scan().then(
+      barcodeData => {
+        this.scannedCode = barcodeData.text;
+      }
+    );
+  }  
+
+
+  downloadQR(){
+    const canvas = document.querySelector('canvas') as HTMLCanvasElement;
+    const imageData = canvas.toDataURL('image/jpeg').toString();
+    console.log('data: ', imageData);
+
+    let data = imageData.split(',')[1];
+
+    this.base64ToGallery.base64ToGallery(data, 
+      {prefix: '_img', mediaScanner: true})
+      .then(async res => {
+          let toast = await this.toastCtrl.create({
+            header: 'QR Code saved in your PhotoLibrary'
+          });
+          toast.present();
+      }, err => console.log('err:', err)
+      );
+  }
 
 }
