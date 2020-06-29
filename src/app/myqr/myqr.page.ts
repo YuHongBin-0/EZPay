@@ -10,7 +10,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 })
 export class MyqrPage implements OnInit {
 
-  qrData = 'Your number : +65 83817047';
+  qrData = 'null';
   scannedCode = null;
   elementType: 'canvas';
 

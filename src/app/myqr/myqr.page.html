@@ -11,19 +11,30 @@
 
 <ion-content>
 
-  <ion_item>
-    <ion-input type="text" disabled="true" placeholder="My QR Code data" [(ngModel)]="qrData" style="text-align: center; font-size: 20px; color: black;"></ion-input>
-  </ion_item>
+  <ion-item lines="full">
+    <!-- <ion-input type="text" disabled="true" placeholder="My QR Code data" [(ngModel)]="qrData"
+      style="text-align: center; font-size: 20px; color: black;"></ion-input> -->
+      <h4 text-center style="font-weight: bold;font-size: 20px; color: black;">My Wallet QR Code</h4>
+  </ion-item>
 
-  <ion-card *ngIf="qrData" text-center>
+  <ion-item *ngIf="qrData" item-center id="qrCode" lines="none">
     <ngx-qrcode [value]="qrData" [elementType]="elementType" id="qrCode">
     </ngx-qrcode>
-    <ion-card-content>
-      <!-- <ion-button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType === 'canvas'">
+
+    <!-- <ion-card-content> -->
+
+    <!-- <ion-button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType === 'canvas'">
         <ion-icon name="download" slot="start"></ion-icon>
         Download QR Code
       </ion-button> -->
-    </ion-card-content>
-  </ion-card>
+    <!-- </ion-card-content> -->
+  </ion-item>
 
+  <ion-item lines="full" style="border-style: solid; border-radius: 30px; border-color: #00457C;">
+    <ion-label style="font-size: 13px; ">Share your username instead of your mobile number</ion-label>
+    <ion-toggle slot="end" name="request" checked></ion-toggle>
+  </ion-item>
+
+
+  <ion-button shape="round" expand="full" id="share">Share link</ion-button>
 </ion-content>
