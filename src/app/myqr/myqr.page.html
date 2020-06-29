@@ -12,17 +12,17 @@
 <ion-content>
 
   <ion_item>
-    <ion-input type="text" placeholder="My QR Code data" [(ngModel)]="qrData"></ion-input>
+    <ion-input type="text" disabled="true" placeholder="My QR Code data" [(ngModel)]="qrData" style="text-align: center; font-size: 20px; color: black;"></ion-input>
   </ion_item>
 
   <ion-card *ngIf="qrData" text-center>
-    <ngx-qrcode [value]="qrData" [elementType]="elementType" cssClass = "my-code">
+    <ngx-qrcode [value]="qrData" [elementType]="elementType" id="qrCode">
     </ngx-qrcode>
     <ion-card-content>
-      <ion-button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType === 'canvas'">
+      <!-- <ion-button expand="full" color="tertiary" (click)="downloadQR()" *ngIf="elementType === 'canvas'">
         <ion-icon name="download" slot="start"></ion-icon>
         Download QR Code
-      </ion-button>
+      </ion-button> -->
     </ion-card-content>
   </ion-card>
 

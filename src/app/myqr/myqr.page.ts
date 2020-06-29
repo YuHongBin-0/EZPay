@@ -10,7 +10,7 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 })
 export class MyqrPage implements OnInit {
 
-  qrData = '+65 83817047';
+  qrData = 'Your number : +65 83817047';
   scannedCode = null;
   elementType: 'canvas';
 
@@ -23,22 +23,22 @@ export class MyqrPage implements OnInit {
     await this.modalController.dismiss();
   }
 
-  downloadQR(){
-    const canvas = document.querySelector('canvas') as HTMLCanvasElement;
-    const imageData = canvas.toDataURL('image/jpeg').toString();
-    console.log('data: ', imageData);
+  // downloadQR(){
+  //   const canvas = document.querySelector('canvas') as HTMLCanvasElement;
+  //   const imageData = canvas.toDataURL('image/jpeg').toString();
+  //   console.log('data: ', imageData);
 
-    let data = imageData.split(',')[1];
+  //   let data = imageData.split(',')[1];
 
-    this.base64ToGallery.base64ToGallery(data, 
-      {prefix: '_img', mediaScanner: true})
-      .then(async res => {
-          let toast = await this.toastCtrl.create({
-            header: 'QR Code saved in your PhotoLibrary'
-          });
-          toast.present();
-      }, err => console.log('err:', err)
-      );
-  }
+  //   this.base64ToGallery.base64ToGallery(data, 
+  //     {prefix: '_img', mediaScanner: true})
+  //     .then(async res => {
+  //         let toast = await this.toastCtrl.create({
+  //           header: 'QR Code saved in your PhotoLibrary'
+  //         });
+  //         toast.present();
+  //     }, err => console.log('err:', err)
+  //     );
+  // }
 
 }
