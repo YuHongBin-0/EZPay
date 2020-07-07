@@ -14,11 +14,17 @@ import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 import { FormsModule } from '@angular/forms';
 
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment'
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+
+
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, 
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule],
   providers: [
     StatusBar,
     SplashScreen,

@@ -3,7 +3,17 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: "AIzaSyBpVc4QerMddtledu-yGPaKJYjvlnvso7M",
+    authDomain: "ezpay-fbb08.firebaseapp.com",
+    databaseURL: "https://ezpay-fbb08.firebaseio.com",
+    projectId: "ezpay-fbb08",
+    storageBucket: "ezpay-fbb08.appspot.com",
+    messagingSenderId: "115575592781",
+    appId: "1:115575592781:web:5c39ef7f59e80e9b3f8904",
+    measurementId: "G-4QM4KN459P"
+  }
 };
 
 /*
