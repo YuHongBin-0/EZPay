@@ -17,14 +17,14 @@
             <ion-item lines="none" >
               <ion-label style="margin-left:0px;color: grey;" position="stacked">Country</ion-label>
               <ion-select [(ngModel)]="selectedCode" interface="action-sheet" name="countrycode">
-                <ion-select-option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code}})</ion-select-option>
+                <ion-select-option *ngFor="let country of countries"[value]="country.code">{{country.name + ' (' + country.code}})</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>
           <ion-col size="8">
             <ion-item>
               <ion-label style="color: grey; width:50%;" position="stacked">Phone Number</ion-label>
-              <ion-input ngModel type="number" name="phone"></ion-input>
+              <ion-input ngModel type="text" name="phone"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>

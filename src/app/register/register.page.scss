@@ -21,11 +21,8 @@ ion-button{
 }
 ion-icon.fielderrorattention{
     font-size: 20px;
-    background: none;
-    padding:none;
 }
 .errorFields {
-    display: none;
+    visibility: collapse;
     color:rgb(255, 0, 76);
-    padding: 0 0 5px 0 !important;
 }
