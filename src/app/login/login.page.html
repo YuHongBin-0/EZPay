@@ -23,8 +23,8 @@
         </ion-item>
         <p style="margin: 8px 0 54px 0">Forgot Password?</p>
 
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Login</ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Use Biometric<ion-icon
+        <ion-button expand="block" type="submit" fill="outline" (click)="loginUser()" shape="round">Login</ion-button>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Use Biometrics<ion-icon
             name="finger-print-outline" style="font-size: 25px; margin-bottom: 20px;"></ion-icon>
         </ion-button>
       </form>

@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;height: 75%;">
+  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;height: auto;">
     <ion-card-header style="margin-bottom: 0px;">
       <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
       <h2>Login</h2>
@@ -14,20 +14,50 @@
     <ion-card-content style="margin-top: 0;">
       <hr style="background:lightgrey;color:lightgrey;">
       <form #form="ngForm" (ngSubmit)="login(form)" method="post">
+        <br>
+        <div style="filter: drop-shadow(5px 5px 5px rgb(77, 77, 77));border: white 4px solid;border-radius: 50%;width:230px;height:230px;margin:0 auto 0 auto; background:rgb(49, 48, 48);padding: 24px;">
+          <div style="margin-top: 48%;"></div>
+          <a onClick="" style="cursor: pointer;"><h2 style="color:white;text-align:center">UPLOAD PROFILE PHOTO</h2></a>
+        </div>
+        <br>
         <ion-item>
-          <ion-label style="color: grey;" position="floating">Phone Number</ion-label>
+          <ion-label style="color: grey;" position="stacked">First Name</ion-label>
+          <ion-input ngModel type="text" name="fName"></ion-input>
+          <p id="fNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
+        </ion-item>
+        <ion-item>
+          <ion-label style="color: grey;" position="stacked">Last Name</ion-label>
+          <ion-input ngModel type="text" name="lName"></ion-input>
+          <p id="lNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
+        </ion-item>
+        <ion-item>
+          <ion-label style="color: grey;" position="stacked">Phone Number</ion-label>
           <ion-input ngModel type="tel" pattern="tel" name="phone"></ion-input>
+          <p id="phoneNumErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
-        <ion-item style="margin-bottom: 12px;">
-          <ion-label style="color: grey;" position="floating">Password</ion-label>
-          <ion-input ngModel type="password" name="password"></ion-input>
+        <ion-item>
+          <ion-label style="color: grey;" position="stacked">Password</ion-label>
+          <ion-input [(ngModel)]="password" type="password" name="password"></ion-input>
+        <p class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> The passwords do not match!</p>
+        <p id="passErrorEmpty" class="errorFields passwordUnmatched"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
-        <p style="margin: 8px 0 54px 0">Forgot Password?</p>
+        <ion-item>
+          <ion-label style="color: grey;" position="stacked">Retype Password</ion-label>
+          <ion-input [(ngModel)]="cPass" type="password" name="cPass"></ion-input>
+          <p class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> The passwords do not match!</p>
+          <p id="cPassErrorEmpty" class="errorFields passwordUnmatched"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
+        </ion-item>
+        <ion-item>
+          <ion-label style="color: grey;" position="stacked">Date of Birth</ion-label>
+          <ion-input ngModel type="text" name="doB"></ion-input>
+        </ion-item>
+        <ion-item style="padding-bottom: 20px;">
+          <ion-label>I agree with EZ Pay's Terms & Conditions</ion-label>
+          <ion-checkbox slot="start" id="tncChecked" [(ngModel)]="tncAgreed" name="checkboxTnc" [checked]="tncAgreed"></ion-checkbox>
+        </ion-item>
+        <br>
 
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Login</ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Use Biometric<ion-icon
-            name="finger-print-outline" style="font-size: 25px; margin-bottom: 20px;"></ion-icon>
-        </ion-button>
+        <ion-button [disabled]="!tncAgreed" expand="block" type="submit" fill="outline" (click)="registerAccount()" shape="round">Login</ion-button>
       </form>
     </ion-card-content>
   </ion-card>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-
 import { AngularFireAuth } from "@angular/fire/auth"
 import * as firebase from "firebase"
 
@@ -55,7 +54,4 @@ export class RequestPage implements OnInit {
   async closeModal() {
     await this.modalController.dismiss();
   }
-
-
-
 }
