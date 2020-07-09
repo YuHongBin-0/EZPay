@@ -5,25 +5,37 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;height: 75%;">
+  <ion-card style="margin: 20px 30px 20px 20px; border-radius: 30px;height: auto;">
     <ion-card-header style="margin-bottom: 0px;">
       <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
-      <h2>Login</h2>
+      <h1 style="margin-left:16px;">Login</h1>
     </ion-card-header>
     <ion-card-content style="margin-top: 0;">
-      <hr style="background:lightgrey;color:lightgrey;">
       <form #form="ngForm" (ngSubmit)="login(form)" method="post">
-        <ion-item>
-          <ion-label style="color: grey;" position="floating">Phone Number</ion-label>
-          <ion-input ngModel type="tel" pattern="tel" name="phone"></ion-input>
-        </ion-item>
+        <ion-row>
+          <ion-col size="4">
+            <ion-item lines="none" >
+              <ion-label style="margin-left:0px;color: grey;" position="stacked">Country</ion-label>
+              <ion-select [(ngModel)]="selectedCode" interface="action-sheet" name="countrycode">
+                <ion-select-option *ngFor="let country of countries" [value]="country.code">{{country.name + ' (' + country.code}})</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+          <ion-col size="8">
+            <ion-item>
+              <ion-label style="color: grey; width:50%;" position="stacked">Phone Number</ion-label>
+              <ion-input ngModel type="number" name="phone"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
         <ion-item style="margin-bottom: 12px;">
-          <ion-label style="color: grey;" position="floating">Password</ion-label>
+          <ion-label style="color: grey;" position="stacked">Password</ion-label>
           <ion-input ngModel type="password" name="password"></ion-input>
         </ion-item>
-        <p style="margin: 8px 0 54px 0">Forgot Password?</p>
+        <a style="text-decoration: none;" href="/register"><p style="margin: 12px 0 2px 16px">Forgot password</p></a>
+        <a style="text-decoration: none;" href="/register"><p style="margin: 0 0 34px 16px">No account? Register for an account here.</p></a>
 
-        <ion-button expand="block" type="submit" fill="outline" (click)="loginUser()" shape="round">Login</ion-button>
+        <ion-button expand="block" type="submit" fill="outline" (click)="loginUser()" routerLink="/tabs" shape="round">Login</ion-button>
         <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Use Biometrics<ion-icon
             name="finger-print-outline" style="font-size: 25px; margin-bottom: 20px;"></ion-icon>
         </ion-button>

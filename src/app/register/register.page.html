@@ -6,7 +6,7 @@
 
 <ion-content>
 
-  <ion-card style="margin-left: 20px; margin-right: 20px; margin-top: 20px; border-radius: 30px;height: auto;">
+  <ion-card style="margin: 20px 30px 20px 20px; border-radius: 30px;height: auto;">
     <ion-card-header style="margin-bottom: 0px;">
       <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
       <h2>Login</h2>
@@ -20,38 +20,39 @@
           <a onClick="" style="cursor: pointer;"><h2 style="color:white;text-align:center">UPLOAD PROFILE PHOTO</h2></a>
         </div>
         <br>
+        <br>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">First Name</ion-label>
           <ion-input ngModel type="text" name="fName"></ion-input>
-          <p id="fNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
+        <p id="fNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">Last Name</ion-label>
           <ion-input ngModel type="text" name="lName"></ion-input>
-          <p id="lNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
+        <p id="lNameErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">Phone Number</ion-label>
           <ion-input ngModel type="tel" pattern="tel" name="phone"></ion-input>
-          <p id="phoneNumErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
+        <p id="phoneNumErrorEmpty" class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">Password</ion-label>
           <ion-input [(ngModel)]="password" type="password" name="password"></ion-input>
+        </ion-item>
         <p class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> The passwords do not match!</p>
         <p id="passErrorEmpty" class="errorFields passwordUnmatched"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
-        </ion-item>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">Retype Password</ion-label>
           <ion-input [(ngModel)]="cPass" type="password" name="cPass"></ion-input>
-          <p class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> The passwords do not match!</p>
-          <p id="cPassErrorEmpty" class="errorFields passwordUnmatched"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         </ion-item>
+        <p class="errorFields"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> The passwords do not match!</p>
+        <p id="cPassErrorEmpty" class="errorFields passwordUnmatched"><ion-icon class="fielderrorattention" name="alert-circle"></ion-icon> This field is mandatory!</p>
         <ion-item>
           <ion-label style="color: grey;" position="stacked">Date of Birth</ion-label>
           <ion-input ngModel type="text" name="doB"></ion-input>
         </ion-item>
-        <ion-item style="padding-bottom: 20px;">
+        <ion-item style="margin: 12px 0 20px 0" lines="none">
           <ion-label>I agree with EZ Pay's Terms & Conditions</ion-label>
           <ion-checkbox slot="start" id="tncChecked" [(ngModel)]="tncAgreed" name="checkboxTnc" [checked]="tncAgreed"></ion-checkbox>
         </ion-item>
