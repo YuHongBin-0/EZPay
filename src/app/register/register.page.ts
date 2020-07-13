@@ -53,6 +53,15 @@ export class RegisterPage implements OnInit {
     }).catch(err =>{
       alert(err);
     })
+
+    this.afAuth.authState.subscribe(auth =>{
+      this.afDatabase.database.ref(`users/${auth.uid}`).once("value", snapshot => {
+        if (snapshot.exists()){
+           console.log("exists!");
+        }
+     });
+    })
+
   }
 
   verifyOTP() {
