@@ -4,6 +4,12 @@ import { auth } from 'firebase/app'
 import * as firebase from "firebase"
 import { isEmptyExpression } from '@angular/compiler';
 import { fingerprint } from '@angular/compiler/src/i18n/digest';
+import { AngularFireDatabase } from 'angularfire2/database'
+
+import { Tab2PageRoutingModule } from "../tab2/tab2-routing.module";
+import { Router } from '@angular/router'
+import { Register } from '../modals/register';  
+
 
 export class checkFields{
   
@@ -16,70 +22,57 @@ export class checkFields{
 })
 export class RegisterPage implements OnInit {
 
-  public tncAgreed:boolean = false;
-  phoneNumber: string;
-  password: string;
-  cPass: string;
-  fName: string;
-  lName: string;
+  register = { } as Register;
 
-  constructor(public af: AngularFireAuth) { }
+  public tncAgreed:boolean = false;
+
+  recaptchaVerifier;
+  confirmationResult: firebase.auth.ConfirmationResult;
+  otpSent = false;
+  phoneNumber;
+
+  constructor(public afAuth :AngularFireAuth, private afDatabase: AngularFireDatabase, public router: Router) { }
 
   ngOnInit() {
+    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{'size': 'invisible'});
+  }
+
+  sentOTP(){
+    var pNumber = (<HTMLInputElement>document.getElementById("phoneNumber")).value;
+    this.afAuth.auth.signInWithPhoneNumber(pNumber, this.recaptchaVerifier).then((result) => {
+
+
+      this.otpSent = true;
+
+      this.phoneNumber = pNumber;
+
+      this.confirmationResult = result;
+      alert("OTP Sent!");
     
+
+    }).catch(err =>{
+      alert(err);
+    })
+  }
+
+  verifyOTP() {
+    var otp = (<HTMLInputElement>document.getElementById("otp")).value;
+
+    this.confirmationResult.confirm(otp).then(() => {
+      alert("OTP Verified!");
+    }).catch(err =>{
+      alert(err);
+    })
+
+    this.afAuth.authState.subscribe(auth =>{
+      this.afDatabase.object(`users/${auth.uid}`).set(this.register).then(() => this.router.navigate(['/tabs/tab1'])
+
+    )
+  })
+
+
   }
   
 
-  async registerAccount(){
-    const {phoneNumber, password, cPass, fName, lName} = this;
-    // this.com   pareFields(password, cPass, 'passwordUnmatched');
-    // this.checkIfEmpty(password, 'passErrorEmpty');
-    // this.checkIfEmpty(cPass, 'cPassErrorEmpty');
-    // this.checkIfEmpty(fName,'fNameErrorEmpty');
-    // this.checkIfEmpty(lName,'lNameErrorEmpty');
-    // this.checkIfEmpty(phoneNumber,'phoneNumErrorEmpty');
-    if (password !== cPass){
-      var items:any = document.getElementsByClassName('passwordUnmatched');
-      for (let i = 0; i < items.length; i++) {
-        let element = items[i];
-        element.style.visibility = "visible";
-      }
-    }
-    if(password === cPass){
-      var items:any = document.getElementsByClassName('passwordUnmatched');
-      for (let i = 0; i < items.length; i++) {
-        let element = items[i];
-        element.style.visibility = "hidden";
-      }
-    }else{
 
-    }
-  }
-  registerForm(){
-    
-  }
-  // compareFields(val1,val2,commonClass: string) {
-  //   if(val1 !== val2){
-    //   var items:any = document.getElementsByClassName(commonClass);
-    //   for (let i = 0; i < items.length; i++) {
-    //       let element = items[i];
-    //       element.style.visibility = "visible";
-    //   }
-    // }
-  //   if(val1 === val2){
-  //     var items:any = document.getElementsByClassName(commonClass);
-  //     for (let i = 0; i < items.length; i++) {
-  //         let element = items[i];
-  //         element.style.visibility = "hidden";
-  //     }
-  //   }
-  // }
-  // checkIfEmpty(variable, htmlID: string){
-  //   if(variable.length === 0){
-  //     document.getElementById(htmlID).style.visibility = 'visible';
-  //   }
-  //   if(variable.length !== 0){
-  //     document.getElementById(htmlID).style.visibility = 'hidden';
-  //   }
-  // }
 }
