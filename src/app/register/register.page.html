@@ -15,7 +15,7 @@
 
     <ion-item>
       <ion-label position="floating"> Phone Number </ion-label>
-      <ion-input id="phoneNumber" [(ngModel)]="register.number"></ion-input>
+      <ion-input id="phoneNumber" [(ngModel)]="phoneNo.number"></ion-input>
     </ion-item>
 
     <ion-button style="float: right;margin-top: 30px;" (click)="sentOTP()">
@@ -38,20 +38,7 @@
     </ion-button>
   </div>
 
-  <ion-item>
-    <ion-label floating> Username </ion-label>
-    <ion-input [(ngModel)]="register.username"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating> First Name </ion-label>
-    <ion-input [(ngModel)]="register.firstName"></ion-input>
-  </ion-item>
-
-  <ion-item>
-    <ion-label floating> Last Name </ion-label>
-    <ion-input [(ngModel)]="register.lastName"></ion-input>
-  </ion-item>
+  
 
 
 </ion-content>

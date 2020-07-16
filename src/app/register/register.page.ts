@@ -8,11 +8,11 @@ import { AngularFireDatabase } from 'angularfire2/database'
 
 import { Tab2PageRoutingModule } from "../tab2/tab2-routing.module";
 import { Router } from '@angular/router'
-import { Register } from '../modals/register';  
+import { Register } from '../modals/register';
 
 
-export class checkFields{
-  
+export class checkFields {
+
 }
 
 @Component({
@@ -22,46 +22,51 @@ export class checkFields{
 })
 export class RegisterPage implements OnInit {
 
-  register = { } as Register;
+  phoneNo = {} as Register;
 
-  public tncAgreed:boolean = false;
+  public tncAgreed: boolean = false;
 
   recaptchaVerifier;
   confirmationResult: firebase.auth.ConfirmationResult;
   otpSent = false;
   phoneNumber;
 
-  constructor(public afAuth :AngularFireAuth, private afDatabase: AngularFireDatabase, public router: Router) { }
+  constructor(public afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, public router: Router) { }
 
   ngOnInit() {
-    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container',{'size': 'invisible'});
+    this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', { 'size': 'invisible' });
   }
 
-  sentOTP(){
-    var pNumber = (<HTMLInputElement>document.getElementById("phoneNumber")).value;
-    this.afAuth.auth.signInWithPhoneNumber(pNumber, this.recaptchaVerifier).then((result) => {
-
-
-      this.otpSent = true;
-
-      this.phoneNumber = pNumber;
-
-      this.confirmationResult = result;
-      alert("OTP Sent!");
+  sentOTP() {
     
+    var pNumber = (<HTMLInputElement>document.getElementById("phoneNumber")).value;
+    console.log('invoked')
+    let fire = firebase.database().ref('/phoneNo/')
+    fire.on('value', resp => {
+      if (resp) {
+        let item = resp
+        item.forEach(element => {
+          let obj = element.val()
+          console.log(obj.number)
+          if (obj.number == this.phoneNo.number) {
+            this.router.navigate(['/login'])
+            window.alert('duplicate')
+          } else {
+            this.afAuth.auth.signInWithPhoneNumber(pNumber, this.recaptchaVerifier).then((result) => {
 
-    }).catch(err =>{
-      alert(err);
-    })
-
-    this.afAuth.authState.subscribe(auth =>{
-      this.afDatabase.database.ref(`users/${auth.uid}`).once("value", snapshot => {
-        if (snapshot.exists()){
-           console.log("exists!");
-        }
-     });
-    })
-
+              this.otpSent = true;
+    
+              this.phoneNumber = pNumber;
+    
+              this.confirmationResult = result;
+              alert("OTP Sent!");
+            })    
+            
+          }
+        });
+      }
+    }
+    )
   }
 
   verifyOTP() {
@@ -69,19 +74,27 @@ export class RegisterPage implements OnInit {
 
     this.confirmationResult.confirm(otp).then(() => {
       alert("OTP Verified!");
-    }).catch(err =>{
+    }).catch(err => {
       alert(err);
     })
 
-    this.afAuth.authState.subscribe(auth =>{
-      this.afDatabase.object(`users/${auth.uid}`).set(this.register).then(() => this.router.navigate(['/tabs/tab1'])
+    this.afAuth.authState.subscribe(auth => {
 
-    )
-  })
+      console.log(this.phoneNo)
+      this.afDatabase.object(`phoneNo/${auth.phoneNumber}`).set(this.phoneNo).then(() => this.router.navigate(['/tabs/tab2'])
+
+      )
+    })
 
 
   }
-  
+
+  duplicate(num) {
+
+
+  }
+
+
 
 
 }
