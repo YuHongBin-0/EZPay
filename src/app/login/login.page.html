@@ -17,7 +17,7 @@
             <ion-item lines="none" >
               <ion-label style="margin-left:0px;color: grey;" position="stacked">Country</ion-label>
               <ion-select [(ngModel)]="selectedCode" interface="action-sheet" name="countrycode">
-                <ion-select-option *ngFor="let country of countries"[value]="country.code">{{country.name + ' (' + country.code}})</ion-select-option>
+                <ion-select-option *ngFor="let country of countries"[value]="country.code">{{country.code}}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>

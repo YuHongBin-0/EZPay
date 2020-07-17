@@ -28,46 +28,56 @@
       <ion-card-subtitle style="font-size: 18px;"><b>You have : </b>
       </ion-card-subtitle>
       <ion-card-title style="font-size: 26px; font-weight: 300;">$69.00</ion-card-title>
-
-
     </ion-card-header>
-
     <ion-card-content>
-      <ion-row style="text-align: center; margin-bottom: 8px;">
+      <ion-row style="text-align: center;">
         <ion-col size="3" (click)="openPay()">
-
-          <ion-avatar id="avatar1">
-            <ion-icon name="paper-plane-outline"></ion-icon>
-          </ion-avatar>
-          <p>Pay</p>
-
+          <ion-item lines="none">
+            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
+              <ion-icon name="paper-plane-outline"></ion-icon>
+            </ion-avatar>
+          </ion-item>
         </ion-col>
 
         <ion-col size="3" (click)="openScan()">
-
-          <ion-avatar id="avatar1">
-            <ion-icon name="scan-outline"></ion-icon>
-          </ion-avatar>
-          <p>Scan</p>
-
+          <ion-item lines="none">
+            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
+              <ion-icon name="scan-outline"></ion-icon>
+            </ion-avatar>
+          </ion-item>
         </ion-col>
 
         <ion-col size="3" (click)="openRequest()">
-
-          <ion-avatar id="avatar1">
-            <ion-icon name="chatbox-outline"></ion-icon>
-          </ion-avatar>
-          <p>Request</p>
-
+          <ion-item lines="none">
+            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
+              <ion-icon name="chatbox-outline"></ion-icon>
+            </ion-avatar>
+          </ion-item>
         </ion-col>
 
         <ion-col size="3" (click)="openMyqr()">
+          <ion-item lines="none">
+            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
+              <ion-icon name="qr-code-outline"></ion-icon>
+            </ion-avatar>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row style="margin-bottom: 8px">
+        <ion-col size="3" (click)="openPay()">
+          <p style="text-align: center;">Pay</p>
+        </ion-col>
 
-          <ion-avatar id="avatar1">
-            <ion-icon name="qr-code-outline"></ion-icon>
-          </ion-avatar>
-          <p>My QR</p>
-
+        <ion-col size="3" (click)="openScan()">
+          <p style="text-align: center;">Scan</p>
+        </ion-col>
+        
+        <ion-col size="3" (click)="openRequest()">
+          <p style="text-align: center;">Request</p>
+        </ion-col>
+        
+        <ion-col size="3" (click)="openMyqr()">
+          <p style="text-align: center;">My QR</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
