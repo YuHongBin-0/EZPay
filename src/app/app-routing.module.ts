@@ -42,7 +42,27 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
+  },
+  {
+    path: 'level',
+    loadChildren: () => import('./level/level.module').then( m => m.LevelPageModule)
+  },
+  {
+    path: 'manage',
+    loadChildren: () => import('./manage/manage.module').then( m => m.ManagePageModule)
+  },
+  {
+    path: 'payment',
+    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
+  },
+  {
+    path: 'report',
+    loadChildren: () => import('./report/report.module').then( m => m.ReportPageModule)
   }
+
 
 ];
 @NgModule({
