@@ -19,14 +19,6 @@ const routes: Routes = [
     loadChildren: () => import('./scan/scan.module').then( m => m.ScanPageModule)
   },
   {
-    path: 'request',
-    loadChildren: () => import('./request/request.module').then( m => m.RequestPageModule)
-  },
-  {
-    path: 'myqr',
-    loadChildren: () => import('./myqr/myqr.module').then( m => m.MyqrPageModule)
-  },
-  {
     path: 'manage-wallet',
     loadChildren: () => import('./manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
   },
@@ -34,21 +26,6 @@ const routes: Routes = [
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   
-  },  {
-    path: 'profile',
-    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
-  },
-  {
-    path: 'utility',
-    loadChildren: () => import('./utility/utility.module').then( m => m.UtilityPageModule)
-  },
-  {
-    path: 'remit',
-    loadChildren: () => import('./remit/remit.module').then( m => m.RemitPageModule)
-  },
-  {
-    path: 'tax',
-    loadChildren: () => import('./tax/tax.module').then( m => m.TaxPageModule)
   },
   {
     path: 'invoice',
@@ -65,12 +42,7 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
-    path: 'test',
-    loadChildren: () => import('./test/test.module').then( m => m.TestPageModule)
   }
-
 
 ];
 @NgModule({
