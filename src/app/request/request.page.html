@@ -14,7 +14,7 @@
 
   <div *ngIf="!otpSent">
     <ion-note style="font-weight: bold; font-size: medium;">
-        Enter the phone number you want to verify with OTP
+      Enter the phone number you want to verify with OTP
     </ion-note>
 
     <ion-item>
@@ -23,13 +23,13 @@
     </ion-item>
 
     <ion-button style="float: right;margin-top: 30px;" (click)="sentOTP()">
-        Send OTP
+      Send OTP
     </ion-button>
   </div>
 
   <div *ngIf="otpSent">
     <ion-note style="font-weight: bold; font-size: medium;">
-      Enter the OTP sent to {{phoneNumber}}
+      Enter the OTP sent to {{phoneNumber}} 5555555555
     </ion-note>
 
     <ion-item>
@@ -38,7 +38,10 @@
     </ion-item>
 
     <ion-button style="float: right;margin-top: 30px;" (click)="verifyOTP()">
-        Verify OTP1212121
+      Verify the one and only OTP *HELLO*
+    </ion-button>
+    <ion-button style="float: right;margin-top: 30px;" (click)="verifyOTP()">
+      Test button
     </ion-button>
   </div>
 
