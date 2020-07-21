@@ -11,29 +11,9 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'pay',
-    loadChildren: () => import('./pay/pay.module').then( m => m.PayPageModule)
-  },
-  {
-    path: 'scan',
-    loadChildren: () => import('./scan/scan.module').then( m => m.ScanPageModule)
-  },
-  {
-    path: 'manage-wallet',
-    loadChildren: () => import('./manage-wallet/manage-wallet.module').then( m => m.ManageWalletPageModule)
-  },
-  {
     path: 'login',
     loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   
-  },
-  {
-    path: 'invoice',
-    loadChildren: () => import('./invoice/invoice.module').then( m => m.InvoicePageModule)
-  },
-  {
-    path: 'contacts',
-    loadChildren: () => import('./contacts/contacts.module').then( m => m.ContactsPageModule)
   },
   {
     path: 'settings',
@@ -42,7 +22,8 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },  {
+  },
+  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
