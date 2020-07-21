@@ -20,10 +20,6 @@ const routes: Routes = [
     loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
-  },
-  {
     path: 'admin',
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
@@ -48,9 +44,19 @@ const routes: Routes = [
     loadChildren: () => import('./dashboard/dashboard.module').then( m => m.DashboardPageModule)
   },
   {
-    path: 'register',
-    loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+    path: 'pages',
+    loadChildren: () => import('./register/pages/pages.module').then( m => m.PagesPageModule)
+  },
+  {
+    path: 'page1',
+    loadChildren: () => import('./register/page1/page1.module').then( m => m.Page1PageModule)
+  },
+  {
+    path: 'page2',
+    loadChildren: () => import('./register/page2/page2.module').then( m => m.Page2PageModule)
   }
+
+
 
 
 ];
