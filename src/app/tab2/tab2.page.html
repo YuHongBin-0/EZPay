@@ -25,59 +25,34 @@
 
   <ion-card id="card-wallet">
     <ion-card-header style="margin:12px 0 0 8px">
-      <ion-card-subtitle style="font-size: 18px;"><b>You have : </b>
-      </ion-card-subtitle>
-      <ion-card-title style="font-size: 26px; font-weight: 300;">$69.00</ion-card-title>
-    </ion-card-header>
+      <ion-card-title style="text-align: center;">
+        Good evening, Ye Chen
+      </ion-card-title>
+      <ion-card-subtitle center style="font-size: 18px;text-align: center;"><b>Your balance: $69.00</b></ion-card-subtitle>
+      </ion-card-header>
     <ion-card-content>
       <ion-row style="text-align: center;">
-        <ion-col size="3" (click)="openPay()">
+        <ion-col size="6" (click)="openPay()">
           <ion-item lines="none">
-            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
-              <ion-icon size="small" name="paper-plane-outline"></ion-icon>
+            <ion-avatar style="margin: 0 auto 4px auto" id="avatar1">
+              <ion-icon center style="text-align: center;" name="paper-plane-outline"></ion-icon>
             </ion-avatar>
           </ion-item>
         </ion-col>
-
-        <ion-col size="3" (click)="openScan()">
+        <ion-col size="6" (click)="openHistory()">
           <ion-item lines="none">
-            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
-              <ion-icon size="small" name="scan-outline"></ion-icon>
-            </ion-avatar>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3" (click)="openRequest()">
-          <ion-item lines="none">
-            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
-              <ion-icon size="small" name="chatbox-outline"></ion-icon>
-            </ion-avatar>
-          </ion-item>
-        </ion-col>
-
-        <ion-col size="3" (click)="openMyqr()">
-          <ion-item lines="none">
-            <ion-avatar style="margin: 0 auto 0 auto" id="avatar1">
-              <ion-icon size="small" name="qr-code-outline"></ion-icon>
+            <ion-avatar style="margin: 0 auto 4px auto" id="avatar1">
+              <ion-icon center style="text-align:center;color:none" name="newspaper"></ion-icon>
             </ion-avatar>
           </ion-item>
         </ion-col>
       </ion-row>
       <ion-row style="margin-bottom: 8px">
-        <ion-col size="3" (click)="openPay()">
+        <ion-col size="6" (click)="openPay()">
           <p style="text-align: center;">Pay</p>
         </ion-col>
-
-        <ion-col size="3" (click)="openScan()">
-          <p style="text-align: center;">Scan</p>
-        </ion-col>
-        
-        <ion-col size="3" (click)="openRequest()">
-          <p style="text-align: center;">Request</p>
-        </ion-col>
-        
-        <ion-col size="3" (click)="openMyqr()">
-          <p style="text-align: center;">My QR</p>
+        <ion-col size="6" (click)="openHistory()">
+          <p style="text-align: center;">Payment History</p>
         </ion-col>
       </ion-row>
     </ion-card-content>
