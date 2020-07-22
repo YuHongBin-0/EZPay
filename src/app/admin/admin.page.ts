@@ -20,7 +20,7 @@ export class AdminPage implements OnInit {
 
   MakeAcc() {
 
-    this.router.navigate(['/register']);
+    this.router.navigate(['/pages']);
 
 }
 
