@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {MatExpansionModule} from '@angular/material/expansion';
+
 
 @Component({
   selector: 'app-tab1',
@@ -6,26 +8,11 @@ import { Component } from '@angular/core';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  public items: any = [];
-
-  constructor() {this.items = [
-      { expanded: false },
-    ];
+  
+  constructor(public matExpansionModule: MatExpansionModule) {
   }
 
-  expandItem(item): void {
-    if (item.expanded) {
-      item.expanded = false;
-    } else {
-      this.items.map(listItem => {
-        if (item == listItem) {
-          listItem.expanded = !listItem.expanded;
-        } else {
-          listItem.expanded = false;
-        }
-        return listItem;
-      });
-    }
-  }
+  panelOpenState = false;
+
 
 }

@@ -19,6 +19,7 @@ import { environment } from '../environments/environment'
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -26,7 +27,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, 
-    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule],
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule, BrowserAnimationsModule],
   providers: [
     StatusBar,
     SplashScreen,

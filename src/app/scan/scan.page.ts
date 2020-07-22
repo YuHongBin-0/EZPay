@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-scan',
@@ -15,7 +16,7 @@ export class ScanPage implements OnInit {
   elementType: 'url' | 'canvas' | 'img' = 'canvas';
 
   constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner, private base64ToGallery: Base64ToGallery,
-    private toastCtrl: ToastController) {}
+    private toastCtrl: ToastController, public router: Router) {}
   ngOnInit() {
   }
 
@@ -27,6 +28,7 @@ export class ScanPage implements OnInit {
     this.barcodeScanner.scan().then(
       barcodeData => {
         this.scannedCode = barcodeData.text;
+        this.router.navigate(['/payment']);
       }
     );
   }  
