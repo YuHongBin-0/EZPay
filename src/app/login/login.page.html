@@ -5,41 +5,95 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="margin: 20px 30px 20px 20px; border-radius: 30px;height: auto;">
-    <ion-card-header style="margin-bottom: 0px;">
-      <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
-      <h1 style="margin-left:16px;">Login</h1>
-    </ion-card-header>
-    <ion-card-content style="margin-top: 0;">
-      <form #form="ngForm" (ngSubmit)="login(form)" method="post">
-        <ion-row>
-          <ion-col size="4">
-            <ion-item lines="none" >
-              <ion-label style="margin-left:0px;color: grey;" position="stacked">Country</ion-label>
-              <ion-select [(ngModel)]="selectedCode" interface="action-sheet" name="countrycode">
-                <ion-select-option *ngFor="let country of countries"[value]="country.code">{{country.code}}</ion-select-option>
-              </ion-select>
-            </ion-item>
-          </ion-col>
-          <ion-col size="8">
-            <ion-item>
-              <ion-label style="color: grey; width:50%;" position="stacked">Phone Number</ion-label>
-              <ion-input ngModel type="text" name="phone"></ion-input>
-            </ion-item>
-          </ion-col>
-        </ion-row>
-        <ion-item style="margin-bottom: 12px;">
-          <ion-label style="color: grey;" position="stacked">Password</ion-label>
-          <ion-input ngModel type="password" name="password"></ion-input>
+    <ion-toolbar>
+      <ion-segment [(ngModel)]="segment" mode="md">
+        <ion-segment-button value="user">
+          Student
+        </ion-segment-button>
+        <ion-segment-button value="card">
+          Vendors
+        </ion-segment-button>
+        <ion-segment-button value="card1">
+          Admin
+        </ion-segment-button>
+      </ion-segment>
+    </ion-toolbar>
+  
+  
+  <ion-content>
+    <div style="text-align: center;">
+      <img src="assets/tp.png" style="height: 80px; margin: 30px;">
+    </div>
+  
+    <div [ngSwitch]="segment">
+      <div *ngSwitchCase="'user'" style="text-align: center;">
+        <!-- header and user type -->
+        <h2 style="text-align: center; color: rgb(250, 246, 246);">Student</h2>
+  
+        <!-- username -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>      
+          <ion-input type="text"></ion-input>
         </ion-item>
-        <a style="text-decoration: none;" href="/register"><p style="margin: 12px 0 2px 16px">Forgot password</p></a>
-        <a style="text-decoration: none;" href="/register"><p style="margin: 0 0 34px 16px">No account? Register for an account here.</p></a>
-
-        <ion-button expand="block" type="submit" fill="outline" (click)="loginUser()" routerLink="/tabs" shape="round">Login</ion-button>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Use Biometrics<ion-icon
-            name="finger-print-outline" style="font-size: 25px; margin-bottom: 20px;"></ion-icon>
+  
+        <!-- password -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+  
+        <!-- ion button -->
+        <ion-button>
+          Login
         </ion-button>
-      </form>
-    </ion-card-content>
-  </ion-card>
+        
+      </div>
+    
+      <div *ngSwitchCase="'card1'" style="text-align: center;">
+        <!-- header and user type -->
+        <h2 style="text-align: center; color: rgb(250, 246, 246);">Admin</h2>
+  
+        <!-- username -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>      
+          <ion-input type="text"></ion-input>
+        </ion-item>
+  
+        <!-- password -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+  
+        <!-- ion button -->
+        <ion-button routerLink="/tabs">
+          Login
+        </ion-button>
+      </div>
+  
+      <div *ngSwitchCase="'card'" style="text-align: center; color: rgb(250, 246, 246);">
+        <!-- header and user type -->
+        <h2 style="text-align: center;">Staff</h2>
+  
+        <!-- username -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>      
+          <ion-input type="text"></ion-input>
+        </ion-item>
+  
+        <!-- password -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-input type="password"></ion-input>
+        </ion-item>
+  
+        <!-- ion button -->
+        <ion-button routerLink="/tabs">
+          Login
+        </ion-button>
+      </div>
+  
+  
+    </div>
+  </ion-content>
 </ion-content>
