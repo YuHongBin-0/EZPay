@@ -21,13 +21,16 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { HttpClientModule } from '@angular/common/http';
+import 'chartjs-plugin-zoom';
+
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, 
-    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule, BrowserAnimationsModule],
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule],
   providers: [
     StatusBar,
     SplashScreen,
