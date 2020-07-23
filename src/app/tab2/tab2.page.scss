@@ -1,13 +1,11 @@
 ion-content {
-    --background: linear-gradient( #0079C1 0%, #00457C 100%);
+    --background: inherit   ;
 }
+
 ion-toolbar{
     --background: #0079C1;
     color: white;
 }
-// .managebutton{
-//     border-radius: 5px;
-// }
 #card-wallet{
     z-index:0;
     margin: 20px 20px 0 20px;

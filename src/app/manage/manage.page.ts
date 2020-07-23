@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage.page.scss'],
 })
 export class ManagePage implements OnInit {
-  private level:string="4";
+  level:string="4";
 
   constructor() { }
 
