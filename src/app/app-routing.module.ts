@@ -54,7 +54,11 @@ const routes: Routes = [
   {
     path: 'page2',
     loadChildren: () => import('./register/page2/page2.module').then( m => m.Page2PageModule)
+  },  {
+    path: 'adm-history',
+    loadChildren: () => import('./adm-history/adm-history.module').then( m => m.AdmHistoryPageModule)
   }
+
 
 
 
