@@ -12,6 +12,7 @@ import { ScanPage } from '../scan/scan.page';
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 
+
 @NgModule({
   imports:  [
     IonicModule,

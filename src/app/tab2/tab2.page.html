@@ -3,10 +3,10 @@
     <ion-title style="text-align: center;">
       EZPay
     </ion-title>
-    <ion-buttons routerLink="/login" slot="end">
+    <ion-buttons class="ion2" routerLink="/login" slot="end">
       <ion-icon  name="exit-outline"></ion-icon>
     </ion-buttons>
-    <ion-buttons routerLink="/settings" slot="start">
+    <ion-buttons class="ion2"  routerLink="/settings" slot="start">
       <ion-icon   name="settings-outline"></ion-icon>
     </ion-buttons>
 
@@ -15,14 +15,11 @@
 
 <ion-content [fullscreen]="true">
   <ion-slides #sliders (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
-    <ion-slide (ionSlidesDidLoad)='slidesDidLoad(sliders)' pager='true' [options]='slideOpts'>
-      <img src="../../assets/slider1.jpg" alt="" srcset="">
-    </ion-slide>
-    <ion-slide>
-      <img src="../../assets/slider2.png" alt="" srcset="">
-    </ion-slide>
-    <ion-slide>
-      <img src="../../assets/slider3.jpg" alt="" srcset="">
+
+    <ion-slide *ngFor="let sli of slide">
+      <ion-card class="slide-card" (click)="open(sli.nav)">
+        <img id="poster" [src]="sli.thumbnail" alt="">
+      </ion-card>
     </ion-slide>
   </ion-slides>
   <ion-card id="card-wallet" style="background:lightgrey;">

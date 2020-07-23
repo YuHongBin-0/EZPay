@@ -24,6 +24,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import 'chartjs-plugin-zoom';
 
+import * as firebase from 'firebase';
+
+firebase.initializeApp(environment.firebase);
 
 
 @NgModule({
