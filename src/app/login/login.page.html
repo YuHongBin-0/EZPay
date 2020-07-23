@@ -1,17 +1,20 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title style="text-align: center; background-color:#0079C1; color: white;">EZPay</ion-title>
-  </ion-toolbar>
+
 </ion-header>
 
 <ion-content>
+
+  <div style="text-align: center;background-color: white; ">
+    <img src="assets/tp.png" style="height: 80px; margin: 30px;">
+  </div>
+
     <ion-toolbar>
       <ion-segment [(ngModel)]="segment" mode="md">
         <ion-segment-button value="user">
           Student
         </ion-segment-button>
         <ion-segment-button value="card">
-          Vendors
+          Vendor
         </ion-segment-button>
         <ion-segment-button value="card1">
           Admin
@@ -19,12 +22,9 @@
       </ion-segment>
     </ion-toolbar>
   
-  
   <ion-content>
-    <div style="text-align: center;">
-      <img src="assets/tp.png" style="height: 80px; margin: 30px;">
-    </div>
-  
+
+    <br>
     <div [ngSwitch]="segment">
       <div *ngSwitchCase="'user'" style="text-align: center;">
         <!-- header and user type -->
@@ -43,7 +43,7 @@
         </ion-item>
   
         <!-- ion button -->
-        <ion-button>
+        <ion-button routerLink="/tabs">
           Login
         </ion-button>
         
@@ -66,14 +66,14 @@
         </ion-item>
   
         <!-- ion button -->
-        <ion-button routerLink="/tabs">
+        <ion-button routerLink="/admin">
           Login
         </ion-button>
       </div>
   
       <div *ngSwitchCase="'card'" style="text-align: center; color: rgb(250, 246, 246);">
         <!-- header and user type -->
-        <h2 style="text-align: center;">Staff</h2>
+        <h2 style="text-align: center;">Vendor</h2>
   
         <!-- username -->
         <ion-item lines="none">
