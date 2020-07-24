@@ -1,9 +1,45 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>report</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: black;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Report</ion-title>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content>
+
+  <ion-item>
+    <ion-label>Reason</ion-label>
+    <ion-select value="Others" okText="Okay" cancelText="Dismiss">
+      <ion-select-option value="1">1</ion-select-option>
+      <ion-select-option value="2">2</ion-select-option>
+      <ion-select-option value="3">3</ion-select-option>
+      <ion-select-option value="Others">Others</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-list> 
+    <ion-item>
+        <ion-label>Name</ion-label>
+        <ion-input ></ion-input> 
+    </ion-item>
+    <ion-item>
+        <ion-label>Admin Number:</ion-label>
+        <ion-input ></ion-input>
+    </ion-item> 
+  </ion-list>
+
+  
+<ion-list> 
+  <ion-item>
+      <ion-textarea>Description
+      </ion-textarea> 
+  </ion-item>
+</ion-list>
+
+<ion-button>Submit</ion-button>
+
 
 </ion-content>
