@@ -57,6 +57,10 @@ const routes: Routes = [
   },  {
     path: 'adm-history',
     loadChildren: () => import('./adm-history/adm-history.module').then( m => m.AdmHistoryPageModule)
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
   }
 
 
