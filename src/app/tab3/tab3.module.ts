@@ -7,6 +7,8 @@ import { Tab3Page } from './tab3.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { Tab3PageRoutingModule } from './tab3-routing.module'
+import { ExpandableComponent } from "../components/expandable/expandable.component"
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -16,7 +18,8 @@ import { Tab3PageRoutingModule } from './tab3-routing.module'
     ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: Tab3Page }]),
     Tab3PageRoutingModule,
+    MatExpansionModule
   ],
-  declarations: [Tab3Page]
+  declarations: [Tab3Page, ExpandableComponent]
 })
 export class Tab3PageModule {}
