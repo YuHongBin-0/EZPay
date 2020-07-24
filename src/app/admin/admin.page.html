@@ -1,13 +1,16 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title style="text-align: center; background-color:#0079C1; color: rgb(252, 247, 247);">Admin</ion-title>
+    <ion-buttons routerLink="/login" slot="end">
+      <ion-icon name="exit-outline"></ion-icon>
+    </ion-buttons>
+    <ion-title>Admin</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <section style="text-align: center; padding: 20px;">
-    <ion-icon name="person"></ion-icon>
+    <ion-icon class="icon" name="person"></ion-icon>
     <h1 style="font-size:1.4em; text-align: center;" no-margin>Welcome, <br>
       Mr. John Doe</h1>
   </section>
@@ -16,20 +19,20 @@
     <ion-row>
       <ion-col col-6>
         <ion-card style="background-color: #0079C1; color: white; text-align: center; padding: 20px;" (click)="ManageStudents()">
-          <ion-icon name="person"></ion-icon>
+          <ion-icon  class="icon" name="person"></ion-icon>
           <h2>Manage Student</h2>
         </ion-card>
       </ion-col>
       <ion-col col-6>
         <ion-card style="background-color: #0079C1; color: white; text-align: center; padding: 20px;" (click)="MakeAcc()">
-          <ion-icon name="people"></ion-icon>
+          <ion-icon  class="icon" name="people"></ion-icon>
           <h2>Create Account</h2>
         </ion-card>
       </ion-col>
     </ion-row>
       <ion-col col-6>
         <ion-card style="background-color: #0079C1; color: white; text-align: center; padding: 20px;" (click)="AdminHistory()">
-          <ion-icon name="settings"></ion-icon>
+          <ion-icon  class="icon" name="settings"></ion-icon>
           <h2>Check History</h2>
         </ion-card>
       </ion-col>
