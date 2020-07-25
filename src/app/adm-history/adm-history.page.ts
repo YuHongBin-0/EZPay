@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-adm-history',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdmHistoryPage implements OnInit {
 
-  constructor() { }
+  constructor(public matExpansionModule: MatExpansionModule) { }
 
   ngOnInit() {
   }

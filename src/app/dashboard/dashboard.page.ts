@@ -22,7 +22,7 @@ export class DashboardPage implements OnInit {
     responsive: true,
     title: {
       display: true,
-      text: 'Historic Stock price'
+      text: 'Historic Sales Amount'
     },
     pan: {
       enabled: true,
