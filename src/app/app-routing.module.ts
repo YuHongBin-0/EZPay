@@ -62,7 +62,11 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then( m => m.ProfilePageModule)
+  },  {
+    path: 'payven',
+    loadChildren: () => import('./payven/payven.module').then( m => m.PayvenPageModule)
   }
+
 
 
 

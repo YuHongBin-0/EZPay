@@ -72,6 +72,15 @@
           </ng-container>
         </div>
         <ion-item>
+          <ion-label position="floating">Stall Number</ion-label>
+          <ion-input formControlName="stallNo"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.stallNo">
+          <ng-container *ngIf="stallNo.hasError(error.type) && (stallNo.dirty || stallNo.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        <ion-item>
           <ion-label position="floating">Balance</ion-label>
           <ion-input formControlName="balance"></ion-input>
         </ion-item>
@@ -80,6 +89,7 @@
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
+        
       </ion-list>
       <ion-button [disabled]="!registrationForm.valid" type="submit" expand="block">Submit <ion-icon slot="end"
           name="create">

@@ -27,6 +27,9 @@ export class Page2Page implements OnInit {
   get balance() {
     return this.registrationForm.get('profile.balance');
   }
+  get stallNo() {
+    return this.registrationForm.get('profile.stallNo');
+  }
   public errorMessages = {
     name: [
       { type: 'required', message: 'Name is required' },
@@ -61,6 +64,14 @@ export class Page2Page implements OnInit {
         type: 'pattern',
         message: 'Please enter a valid Balance Amount'
       }
+    ],
+    stallNo: [
+      { type: 'required', message: 'Stall Number is required' },
+      {
+        type: 'maxlength',
+        message: 'Stall Number cant be longer than 9 characters'
+      }
+      
     ]
   };
   registrationForm = this.formBuilder.group({
@@ -85,7 +96,8 @@ export class Page2Page implements OnInit {
       balance: [
         '',
         [Validators.required, Validators.pattern('^[0-9]{0,4}[.][0-9]{0,2}$')]
-      ]
+      ],
+      stallNo: ['', [Validators.required, Validators.maxLength(9)]],
     })
   });
   public submit() {
