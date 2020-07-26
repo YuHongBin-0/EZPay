@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { PayvenPageRoutingModule } from './payven-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { PayvenPage } from './payven.page';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     PayvenPageRoutingModule
   ],
