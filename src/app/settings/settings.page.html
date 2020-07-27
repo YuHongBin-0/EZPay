@@ -7,30 +7,36 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
-  <ion-list>
-
- 
-    <br><br><br>
-      <ion-button expand="block" size="medium">Report Error</ion-button>
 <br>
-      <ion-button expand="block" size="medium">View Profile</ion-button>
- <br>
-
-    <ion-item>
-      <ion-label>Change Font Size</ion-label>
-      <ion-select value="Small" okText="Okay" cancelText="Dismiss">
-        <ion-select-option value="Small">Small</ion-select-option>
-        <ion-select-option value="Medium">Medium</ion-select-option>
-        <ion-select-option value="Large">Large</ion-select-option>
-      </ion-select>
-    </ion-item>
-
-
   
-  </ion-list>
+  <ion-content [fullscreen]="true">
+    <ion-list lines="full" style="padding: 0px;">
+      <ion-item-group>
 
+        <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
+        <ion-item detail button (click)="openAbout()">
+          <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile
+        </ion-item>
+        <ion-item detail routerLink="/manage-wallet">
+          <ion-icon name="warning-outline" style="margin-right: 10px;"></ion-icon>Report Error
+        </ion-item>
+
+        <ion-item detail [routerLink]="'/settings'">
+          <ion-icon name="text-outline" style="margin-right: 10px;"></ion-icon>Change Font Size
+          <ion-select value="Small" okText="Okay" cancelText="Dismiss">
+            <ion-select-option value="Small">Small</ion-select-option>
+            <ion-select-option value="Medium">Medium</ion-select-option>
+            <ion-select-option value="Large">Large</ion-select-option>
+          </ion-select>
+        </ion-item>
+
+        <!-- <ion-item>
+          <ion-icon name="leaf" item-start></ion-icon>Herbology
+        </ion-item> -->
+  
+      </ion-item-group>
+    </ion-list>
 </ion-content>
 
 
