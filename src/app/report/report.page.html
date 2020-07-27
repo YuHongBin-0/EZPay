@@ -13,9 +13,9 @@
   <ion-item>
     <ion-label>Reason</ion-label>
     <ion-select value="Others" okText="Okay" cancelText="Dismiss">
-      <ion-select-option value="1">1</ion-select-option>
-      <ion-select-option value="2">2</ion-select-option>
-      <ion-select-option value="3">3</ion-select-option>
+      <ion-select-option value="1">Transaction Failed</ion-select-option>
+      <ion-select-option value="2">Wrong Value</ion-select-option>
+      <ion-select-option value="3">Wrong Receiver</ion-select-option>
       <ion-select-option value="Others">Others</ion-select-option>
     </ion-select>
   </ion-item>
@@ -30,16 +30,15 @@
         <ion-input ></ion-input>
     </ion-item> 
   </ion-list>
-
   
 <ion-list> 
   <ion-item>
-      <ion-textarea>Description
-      </ion-textarea> 
+      <ion-textarea placeholder="Enter more information here..."style="height: 200px;">Description</ion-textarea>
   </ion-item>
 </ion-list>
 
-<ion-button>Submit</ion-button>
-
+<ion-list>
+  <ion-button float-right>Submit</ion-button>
+</ion-list>
 
 </ion-content>
