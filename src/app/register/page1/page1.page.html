@@ -93,15 +93,7 @@
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
-        <ion-item>
-          <ion-label position="floating">Balance</ion-label>
-          <ion-input formControlName="balance" [(ngModel)]="registu.balance" id="balance"></ion-input>
-        </ion-item>
-        <div *ngFor="let error of errorMessages.balance">
-          <ng-container *ngIf="balance.hasError(error.type) && (balance.dirty || balance.touched)">
-            <small class="error-message">{{error.message}}</small>
-          </ng-container>
-        </div>
+        
       </ion-list>
       <ion-button [disabled]="!registrationForm.valid" (click)="register()" expand="block">Submit <ion-icon slot="end"
           name="create">

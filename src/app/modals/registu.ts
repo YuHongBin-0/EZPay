@@ -5,4 +5,7 @@ export interface Registu {
     class: string;
     NRIC: string;
     balance: Number;
+    stallNo: string;
+    department: string;
+    role: string;
 }

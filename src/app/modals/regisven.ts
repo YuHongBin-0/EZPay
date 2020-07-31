@@ -1,8 +1,11 @@
 export interface Regisven {
     email: string;
     name: string;
-    department: string;
-    stallNo: string;
+    year: string;
+    class: string;
     NRIC: string;
     balance: Number;
+    stallNo: string;
+    department: string;
+    role: string;
 }

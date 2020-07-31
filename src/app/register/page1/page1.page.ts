@@ -47,9 +47,7 @@ export class Page1Page implements OnInit {
   get NRIC() {
     return this.registrationForm.get('registu.NRIC');
   }
-  get balance() {
-    return this.registrationForm.get('registu.balance');
-  }
+  
   public errorMessages = {
     name: [
       { type: 'required', message: 'Name is required' },
@@ -84,13 +82,6 @@ export class Page1Page implements OnInit {
 
     ],
     year:[],
-    balance: [
-      { type: 'required', message: 'Balance Amount is required' },
-      {
-        type: 'pattern',
-        message: 'Please enter a valid Balance Amount'
-      }
-    ]
   };
   registrationForm = this.formBuilder.group({
     username: ['', [Validators.required, Validators.maxLength(100)]],
@@ -107,10 +98,6 @@ export class Page1Page implements OnInit {
       NRIC: ['', [Validators.required, Validators.maxLength(9)]],
       year:['',[]],
       email: ['',[ Validators.required,Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')]],
-      balance: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{0,4}[.][0-9]{0,2}$')]
-      ]
     })
   });
   public submit() {
@@ -134,7 +121,7 @@ export class Page1Page implements OnInit {
 		try {
       const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@gmail.com', password)
 
-			this.presentAlert('Success', 'Created An User!')
+			this.presentAlert('Success', 'Created A Student!')
 		} catch(err) {
       console.dir(err)
       if(err.code === "auth/email-already-in-use") {
@@ -146,8 +133,19 @@ export class Page1Page implements OnInit {
     }
 
     this.afAuth.authState.subscribe(auth => {
-      this.afdatabase.object(`users/students/${auth.uid}`).set(this.registu)
-      
+      this.afdatabase.object(`users/${auth.uid}`).set(this.registu)
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/balance`).set("0.00")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/stallNo`).set("")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/department`).set("")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/role`).set("student")
     })
     
     
