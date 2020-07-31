@@ -33,19 +33,17 @@
         <!-- username -->
         <ion-item lines="none">
             <ion-icon slot="start" name="person-outline"></ion-icon>      
-          <ion-input type="text" ></ion-input>
+          <ion-input type="text" [(ngModel)]="username" ></ion-input>
         </ion-item>
   
         <!-- password -->
         <ion-item lines="none">
             <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-          <ion-input type="password"></ion-input>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
   
         <!-- ion button -->
-        <ion-button routerLink="/tabs">
-          Login
-        </ion-button>
+        <ion-button (click)="loginStu()">Login</ion-button>
         
       </div>
     
@@ -78,19 +76,17 @@
         <!-- username -->
         <ion-item lines="none">
             <ion-icon slot="start" name="person-outline"></ion-icon>      
-          <ion-input type="text"></ion-input>
+          <ion-input type="text" [(ngModel)]="username"></ion-input>
         </ion-item>
   
         <!-- password -->
         <ion-item lines="none">
             <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-          <ion-input type="password"></ion-input>
+          <ion-input type="password" [(ngModel)]="password"></ion-input>
         </ion-item>
   
         <!-- ion button -->
-        <ion-button routerLink="/tabs">
-          Login
-        </ion-button>
+        <ion-button  (click)="loginVen()">Login</ion-button>
       </div>
   
   
