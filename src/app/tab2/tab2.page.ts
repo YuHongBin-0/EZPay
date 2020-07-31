@@ -3,8 +3,10 @@ import { IonSlides } from '@ionic/angular'
 import { ModalController } from '@ionic/angular';
 
 import * as firebase from 'firebase/app';
+import { Tab2Service } from '../services/tab2.service';
 
 import { ScanPage } from '../scan/scan.page';
+import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
 import {
   BarcodeScannerOptions,
@@ -29,7 +31,7 @@ export class Tab2Page implements OnInit {
   ref2 = firebase.database().ref('slide/');
 
 
-  constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner, ) {
+  constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner,private iab: InAppBrowser ) {
     this.encodeData = "https://www.FreakyJolly.com";
     //Options
     this.barcodeScannerOptions = {
@@ -37,8 +39,33 @@ export class Tab2Page implements OnInit {
       showFlipCameraButton: true
     };
 
-     
   }
+
+  options: InAppBrowserOptions = {
+    location: 'yes',
+    hidden: 'no',
+    // clearcache: 'yes',
+    // clearsessioncache: 'yes',
+    // cleardata: 'yes', // iOS only
+    zoom: 'no', // Android only
+    hardwareback: 'yes', // Android only, navigate backwards through the InAppBrowser's history
+    mediaPlaybackRequiresUserAction: 'yes',
+    lefttoright: 'yes', // navigation buttons go to the left and close button to the right
+    shouldPauseOnSuspend: 'yes', // Android only, make InAppBrowser WebView to pause/resume with the app to stop background audio
+    hideurlbar: 'yes', // Android only, hide the url bar on the location toolbar
+    // toolbar: 'yes', // iOS only
+    toolbarcolor: '#1b1b1b',
+    navigationbuttoncolor: 'red',
+    footercolor: 'white', // Android only
+    hidenavigationbuttons: 'yes',
+    closebuttoncolor: '#CABD24',
+    toolbarposition: 'bottom',
+    allowInlineMediaPlayback: 'yes',
+    enableViewportScale: 'yes',
+    // disallowoverscroll: 'yes'
+    // closebuttoncaption: 'Close',
+  };
+
   openScan() {
     this.barcodeScanner
       .scan()
@@ -72,10 +99,14 @@ export class Tab2Page implements OnInit {
   ngOnInit() {
   this.ref2.on('value', resp => {
     this.slide = snapshotToArray1(resp)
-  })
+  })}
+
+  open(youtube){
+    this.iab.create(youtube, "_blank", this.options);
+  }
 }
 
-}
+
 
 export const snapshotToArray1 = snapshot => { // for slides
   let returnArr = [];
