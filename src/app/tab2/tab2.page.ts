@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IonSlides } from '@ionic/angular'
 import { ModalController } from '@ionic/angular';
+import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database'
+import { ToastController, IonicModule } from '@ionic/angular';
 
+import { Router } from '@angular/router'
 import * as firebase from 'firebase/app';
 import { Tab2Service } from '../services/tab2.service';
-
+import { Observable } from 'rxjs';
 import { ScanPage } from '../scan/scan.page';
 import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/ngx';
 
@@ -20,6 +24,8 @@ import { config } from 'process';
   styleUrls: ['tab2.page.scss']
 })
 export class Tab2Page implements OnInit {
+
+  users: Observable<any>
   encodeData: any;
   scannedData: {};
   barcodeScannerOptions: BarcodeScannerOptions;
@@ -31,7 +37,9 @@ export class Tab2Page implements OnInit {
   ref2 = firebase.database().ref('slide/');
 
 
-  constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner,private iab: InAppBrowser ) {
+  constructor(private modalController: ModalController, private barcodeScanner: BarcodeScanner,private iab: InAppBrowser,
+    private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
+    private toast: ToastController, private router: Router ) {
     this.encodeData = "https://www.FreakyJolly.com";
     //Options
     this.barcodeScannerOptions = {
@@ -104,6 +112,22 @@ export class Tab2Page implements OnInit {
   open(youtube){
     this.iab.create(youtube, "_blank", this.options);
   }
+
+  ionViewWillEnter() {
+    this.afAuth.authState.subscribe(async data => {
+      if (data && data.uid) {
+      
+        this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges()
+      }
+      else {
+        (await this.toast.create({
+          message: `Could not find authentication details.`,
+          duration: 3000
+        })).present();
+      }
+    })
+  }   
+
 }
 
 
