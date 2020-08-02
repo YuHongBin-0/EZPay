@@ -1,9 +1,81 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>profile</ion-title>
+<ion-header class="ion-no-border flat">
+  <ion-toolbar id="top-nav-main">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <div>
+      <ion-title>Profile</ion-title>
+      <input type="submit" id="savebtn" class="save" value="Save">
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
+  <br>
+  <!-- Profile Picture -->
+  <ion-avatar class="center">
+    <!-- <ion-icon name="person-circle" ></ion-icon> -->
+    <img
+      src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png">
+  </ion-avatar>
+
+  <br><br>
+
+  <!-- Name -->
+  <div>
+    <ion-icon name="person" class="small_icon"></ion-icon>
+    <span>Ong Hong Liang</span>
+  </div>
+
+  <hr>
+
+  <!-- Student ID -->
+  <div>
+    <img src="../../assets/icon/id-card.png" width="30" height="30" class="small_icon">
+    <span>1802309C</span>
+  </div>
+
+  <hr>
+
+  <!-- Phone Number -->
+  <div>
+    <ion-icon name="call" class="small_icon"></ion-icon>
+    <form><input type="text" id="inumber" name="iname" onfocus="this.value=''" value="96349193">
+    </form>
+  </div>
+
+  <hr>
+
+  <!-- Date Student Join -->
+  <div>
+    <ion-icon name="calendar" class="small_icon"></ion-icon>
+    <span> 2nd April 2020 </span>
+  </div>
+
+  <hr>
+
+  <br><br>
+
+  <!-- Change Password -->
+  <ion-button routerLink="/change-password" class="wrapper">
+    Change Password
+  </ion-button>
+
+  <br>
+
+  <!-- Log Out Button -->
+  <ion-button routerLink="/" class="wrapper">
+    Log Out
+  </ion-button>
+
 </ion-content>
+
+
+
+<!-- <div routerLink="/change-password">
+    <ion-icon name="lock-closed" class="small_icon"></ion-icon>
+    <span> Change Password </span>
+    <ion-icon name="chevron-forward" class="arrow"></ion-icon>
+  </div>
+  <hr> -->
