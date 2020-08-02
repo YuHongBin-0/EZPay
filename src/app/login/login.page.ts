@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
   async loginStu() {
 		const { username, password } = this
 		try {
-			const res = await this.afAuth.auth.signInWithEmailAndPassword(username + '@gmail.com', password)
+			const res = await this.afAuth.auth.signInWithEmailAndPassword(username + '@thisisastudentaccount.com', password)
 			this.router.navigate(['/tabs'])
 		} catch(err) {
 			console.dir(err)
@@ -48,7 +48,7 @@ export class LoginPage implements OnInit {
   async loginVen() {
 		const { username, password } = this
 		try {
-			const res = await this.afAuth.auth.signInWithEmailAndPassword(username + '@hotmail.com', password)
+			const res = await this.afAuth.auth.signInWithEmailAndPassword(username + '@thisisavendoraccount.com', password)
 			this.router.navigate(['/tabs'])
 		} catch(err) {
 			console.dir(err)

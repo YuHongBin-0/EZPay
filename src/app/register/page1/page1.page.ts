@@ -119,7 +119,7 @@ export class Page1Page implements OnInit {
 		const { usernames, password } = this
 
 		try {
-      const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@gmail.com', password)
+      const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@thisisastudentaccount.com', password)
 
 			this.presentAlert('Success', 'Created A Student!')
 		} catch(err) {

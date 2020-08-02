@@ -130,7 +130,7 @@ export class Page2Page implements OnInit {
 		const { usernames, passwords } = this
 
 		try {
-      const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@hotmail.com', passwords)
+      const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@thisisavendoraccount.com', passwords)
 
 			this.presentAlert('Success', 'Created A Vendor!')
 		} catch(err) {
