@@ -8,55 +8,59 @@
 </ion-header>
 
 <ion-content>
-    <ion-card style="margin: 20px 30px 20px 20px; border-radius: 30px;height: auto;">
+    <ion-card style="border-radius: 30px;height: auto;">
       <ion-card-header style="margin-bottom: 0px;">
         <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
         <!-- <h1 style="margin-left:16px;">Login</h1> -->
       </ion-card-header>
       <ion-card-content style="margin-top: 0;">
-        <ion-row style="margin-left: 16px;height:110px">
-          <ion-col size="4">
-            <ion-icon style="color:black;display:block;width:96px;height:96px;padding-left: 4px;margin-top: 20px;"
-            name="person-circle"></ion-icon>
-          </ion-col>
+        <ion-row>
           <ion-col size="8">
             <ion-item lines="none">
-              <h1 style="margin:40px 0 0 15px;">
-                Justin Low
+              <h1>
+                {{ (users | async)?.name }}  {{ (users | async)?.class }}   
               </h1>
             </ion-item>
           </ion-col>
         </ion-row>
-        <p style="color:grey;font-size:12px;margin:10px 0 0 32px;">Change Picture</p>
-        <br>
-        <br>
-        <ion-row  style="color:grey;margin-left:20px;">
-          <ion-col size="5">
-            <p>Country:</p>
-          </ion-col>
-          <ion-col>
-            <p>Singapore</p>
-          </ion-col>
-        </ion-row>
         <ion-row style="color: grey;margin-left:20px;">
-          <ion-col size="5">
-            <p>Phone Number:</p>
+          <ion-col>
+            <p>Role: {{ (users | async)?.role }}</p>
           </ion-col>
           <ion-col>
-            <p>+65 9876 5432</p>
           </ion-col>
         </ion-row>
         <ion-row style="color:grey;margin-left:20px;">
-          <ion-col size="5">
-            <p>Address:</p>
+          <ion-col>
+            <p>NRIC: {{ (users | async)?.NRIC }}</p>
           </ion-col>
           <ion-col>
-            <p>Tampines Avenue 1, Block 6</p>
+          </ion-col>
+        </ion-row>
+        <ion-row style="color: grey;margin-left:20px;">
+          <ion-col>
+            <p>Email: {{ (users | async)?.email }}</p>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+        </ion-row>
+        <ion-row style="color: grey;margin-left:20px;">
+          <ion-col>
+            <p>Balance: {{ (users | async)?.balance }}</p>
+          </ion-col>
+          <ion-col>
+          </ion-col>
+        </ion-row>
+        <ion-row style="color: grey;margin-left:20px;">
+          <ion-col>
+            <p>{{ (users | async)?.department }}{{ (users | async)?.stallNo }}</p>
+          </ion-col>
+          <ion-col>
           </ion-col>
         </ion-row>
         <br>
         <br>
-        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Update Details</ion-button>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round" style="color:red;">Log Out</ion-button>
         <br>
     </ion-card-content>
   </ion-card>
