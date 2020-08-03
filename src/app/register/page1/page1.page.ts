@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { Router } from '@angular/router';
+import { auth } from 'firebase/app'
+import { AlertController } from '@ionic/angular';
+import { AngularFireDatabase } from 'angularfire2/database'
 import { FormBuilder, Validators } from "@angular/forms";
+import { Registu } from '../../modals/registu'
 
 @Component({
   selector: 'app-page1',
@@ -7,38 +13,56 @@ import { FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['./page1.page.scss'],
 })
 export class Page1Page implements OnInit {
-  constructor(private formBuilder: FormBuilder) {}
+  usernames: string = ""
+  password: string = ""
+  registu = {} as Registu;
+
+  constructor(public afAuth: AngularFireAuth,
+		public afdatabase: AngularFireDatabase,
+		public alertController: AlertController,
+    public router: Router,
+    private formBuilder: FormBuilder) { }
+
+  ngOnInit() {
+  }
+
   get name() {
-    return this.registrationForm.get("profile.name");
+    return this.registrationForm.get("registu.name");
+  }
+  get username() {
+    return this.registrationForm.get('username');
   }
   get email() {
-    return this.registrationForm.get('email');
+    return this.registrationForm.get('registu.email');
   }
-  get password() {
+  get passwords() {
     return this.registrationForm.get('password');
   }
   get year() {
-    return this.registrationForm.get('profile.year');
+    return this.registrationForm.get('registu.year');
   }
   get class() {
-    return this.registrationForm.get('profile.class');
+    return this.registrationForm.get('registu.class');
   }
   get NRIC() {
-    return this.registrationForm.get('profile.NRIC');
+    return this.registrationForm.get('registu.NRIC');
   }
-  get balance() {
-    return this.registrationForm.get('profile.balance');
-  }
+  
   public errorMessages = {
     name: [
       { type: 'required', message: 'Name is required' },
-      { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
+      { type: 'maxlength', message: 'Name cant be longer than 100 characters' },
+      { type: 'pattern', message: 'Name should not contain numbers' }
     ],
     email: [
       { type: 'required', message: 'Email is required' },
       { type: 'pattern', message: 'Please enter a valid email address' }
     ],
-    password: [
+    username: [
+      { type: 'required', message: 'Username is required' },
+      { type: 'maxlength', message: 'Username cant be longer than 100 characters' },
+    ],
+    passwords: [
       { type: 'required', message: 'Password is required' },
       
     ],
@@ -57,45 +81,74 @@ export class Page1Page implements OnInit {
       }
 
     ],
-    balance: [
-      { type: 'required', message: 'Balance Amount is required' },
-      {
-        type: 'pattern',
-        message: 'Please enter a valid Balance Amount'
-      }
-    ]
+    year:[],
   };
   registrationForm = this.formBuilder.group({
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')
-      ]
-    ],
-    password: [
+    username: ['', [Validators.required, Validators.maxLength(100)]],
+    passwords: [
       '',
       [
         Validators.required,
         
       ]
     ],
-    profile: this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(100)]],
+    registu: this.formBuilder.group({
+      name: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z]{0,100}$')]],
       class: ['', [Validators.required, Validators.maxLength(100)]],
       NRIC: ['', [Validators.required, Validators.maxLength(9)]],
-      balance: [
-        '',
-        [Validators.required, Validators.pattern('^[0-9]{0,4}[.][0-9]{0,2}$')]
-      ]
+      year:['',[]],
+      email: ['',[ Validators.required,Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')]],
     })
   });
   public submit() {
     console.log(this.registrationForm.value);
   }
-  ngOnInit() {
+
+  async presentAlert(title: string, content: string) {
+		const alert = await this.alertController.create({
+			header: title,
+			message: content,
+			buttons: ['OK']
+		})
+
+		await alert.present()
   }
-}
   
 
+  async register() {
+		const { usernames, password } = this
 
+		try {
+      const res = await this.afAuth.auth.createUserWithEmailAndPassword(usernames + '@thisisastudentaccount.com', password)
+
+			this.presentAlert('Success', 'Created A Student!')
+		} catch(err) {
+      console.dir(err)
+      if(err.code === "auth/email-already-in-use") {
+        window.alert('Email is already in use')}
+        if(err.code === "auth/invalid-email") {
+          window.alert('Invalid Email')}
+          if(err.code === "auth/weak-password") {
+            window.alert('Weak Password')}
+    }
+
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}`).set(this.registu)
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/balance`).set("0.00")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/stallNo`).set("")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/department`).set("")
+    })
+    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}/role`).set("student")
+    })
+    
+    
+	}
+
+}

@@ -13,6 +13,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner/ngx';
 import { Base64ToGallery } from '@ionic-native/base64-to-gallery/ngx';
 
 import { FormsModule } from '@angular/forms';
+import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment'
@@ -36,7 +37,7 @@ firebase.initializeApp(environment.firebase);
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner, Base64ToGallery, AngularFireAuth
   ],

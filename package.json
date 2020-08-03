@@ -36,6 +36,7 @@
     "cordova-base64-to-gallery": "^4.1.3",
     "cordova-plugin-inappbrowser": "^4.0.0",
     "firebase": "^7.15.5",
+    "jsqr": "^1.3.1",
     "ng2-charts": "^2.3.2",
     "ngx-qrcode2": "^9.0.0",
     "rxjs": "~6.5.1",
