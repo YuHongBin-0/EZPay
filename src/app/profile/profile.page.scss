@@ -1,87 +1,11 @@
-// put picture in the center
-.center {
-    margin-left: auto;
-    text-align: center;
-    height: 100px;
-    margin-right: auto;
-    width: 100px;
-  }
-  
-  // save button 
-  .save{
-    position: absolute;
-    right: 0px;
-    padding: 10px;
-    padding-top: 12px;
-    text-align: center;
-    font-size: 15px;
-    width: 60px;
-    background-color:rgba(0, 0, 0, 0);
-    border: none;
-    outline: none;
-  }
-  
-  // small icon size
-  .small_icon {
-    margin-left: 30px;
-    font-size: 30px;
-  }
-  
-  // line 
-  hr { display: block; margin-before: 0.5em; margin-after: 0.5em; margin-start: auto; margin-end: auto; overflow: hidden; border-style: inset; border-width: 1px; opacity: 0.5;}
-  
-  // bottom button 
-  .wrapper {
-    margin:auto;
-    width: 60%;
-    display:block;
-  }
-  
-  // small icon alignment
-  img{
-    vertical-align: middle;
-  }
-  
-  // click on button then no outline
-  div{
-    outline: none;
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
-  }
-  
-  // field
-  span{
-    padding-left: 60px;
-    text-align: center;
-    font-family: 'Roboto'
-  }
-  
-  // the alignment of the text box
-  form{
-    padding-left: 60px;
-  }
-  
-  // phone number edit text
-  input[type=text] {
-    width: 80%;
-    border: none;
-    outline: none;
-    background-color:rgba(0, 0, 0, 0);
-  }
-  
-  // arrow to the right 
-  // .arrow {
-  //   right: 0px;
-  //   position: absolute;
-  //   padding: 10px;
-  //   font-size:20px;
-  // }
-  
-  // .right{
-  //   position: absolute;
-  //   right: 0px;
-  //   padding: 10px;
-  //   text-align: center;
-  //   font-size: 30px;
-  // }
+ion-content {
+  --background: linear-gradient( #0079C1 0%, #00457C 100%);
+  color:white;
+}
+ion-toolbar{
+  --background: #0079C1;
+  color: white;
+}
+// h2,h5,p{
+//     color: white;
+// }

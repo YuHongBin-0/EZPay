@@ -1,81 +1,65 @@
-<ion-header class="ion-no-border flat">
-  <ion-toolbar id="top-nav-main">
+<ion-header>
+  <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
+      <ion-back-button style="color: white;"></ion-back-button>
     </ion-buttons>
-    <div>
-      <ion-title>Profile</ion-title>
-      <input type="submit" id="savebtn" class="save" value="Save">
-    </div>
+    <ion-title>Your Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <ion-card style="margin: 20px 30px 20px 20px; border-radius: 30px;height: auto;">
+      <ion-card-header style="margin-bottom: 0px;">
+        <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
+        <!-- <h1 style="margin-left:16px;">Login</h1> -->
+      </ion-card-header>
+      <ion-card-content style="margin-top: 0;">
+        <ion-row style="margin-left: 16px;height:110px">
+          <ion-col size="4">
+            <ion-icon style="color:black;display:block;width:96px;height:96px;padding-left: 4px;margin-top: 20px;"
+            name="person-circle"></ion-icon>
+          </ion-col>
+          <ion-col size="8">
+            <ion-item lines="none">
+              <h1 style="margin:40px 0 0 15px;">
+                Justin Low
+              </h1>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <p style="color:grey;font-size:12px;margin:10px 0 0 32px;">Change Picture</p>
+        <br>
+        <br>
+        <ion-row  style="color:grey;margin-left:20px;">
+          <ion-col size="5">
+            <p>Country:</p>
+          </ion-col>
+          <ion-col>
+            <p>Singapore</p>
+          </ion-col>
+        </ion-row>
+        <ion-row style="color: grey;margin-left:20px;">
+          <ion-col size="5">
+            <p>Phone Number:</p>
+          </ion-col>
+          <ion-col>
+            <p>+65 9876 5432</p>
+          </ion-col>
+        </ion-row>
+        <ion-row style="color:grey;margin-left:20px;">
+          <ion-col size="5">
+            <p>Address:</p>
+          </ion-col>
+          <ion-col>
+            <p>Tampines Avenue 1, Block 6</p>
+          </ion-col>
+        </ion-row>
+        <br>
+        <br>
+        <ion-button expand="block" type="submit" fill="outline" routerLink="/tabs" shape="round">Update Details</ion-button>
+        <br>
+    </ion-card-content>
+  </ion-card>
 
-  <br>
-  <!-- Profile Picture -->
-  <ion-avatar class="center">
-    <!-- <ion-icon name="person-circle" ></ion-icon> -->
-    <img
-      src="https://www.pngitem.com/pimgs/m/391-3918613_personal-service-platform-person-icon-circle-png-transparent.png">
-  </ion-avatar>
-
-  <br><br>
-
-  <!-- Name -->
-  <div>
-    <ion-icon name="person" class="small_icon"></ion-icon>
-    <span>Ong Hong Liang</span>
-  </div>
-
-  <hr>
-
-  <!-- Student ID -->
-  <div>
-    <img src="../../assets/icon/id-card.png" width="30" height="30" class="small_icon">
-    <span>1802309C</span>
-  </div>
-
-  <hr>
-
-  <!-- Phone Number -->
-  <div>
-    <ion-icon name="call" class="small_icon"></ion-icon>
-    <form><input type="text" id="inumber" name="iname" onfocus="this.value=''" value="96349193">
-    </form>
-  </div>
-
-  <hr>
-
-  <!-- Date Student Join -->
-  <div>
-    <ion-icon name="calendar" class="small_icon"></ion-icon>
-    <span> 2nd April 2020 </span>
-  </div>
-
-  <hr>
-
-  <br><br>
-
-  <!-- Change Password -->
-  <ion-button routerLink="/change-password" class="wrapper">
-    Change Password
-  </ion-button>
-
-  <br>
-
-  <!-- Log Out Button -->
-  <ion-button routerLink="/" class="wrapper">
-    Log Out
-  </ion-button>
-
+  <!-- <ion-button expand="block" type="submit" fill="outline" routerLink="/login" shape="round">Sign Out</ion-button> -->
 </ion-content>
-
-
-
-<!-- <div routerLink="/change-password">
-    <ion-icon name="lock-closed" class="small_icon"></ion-icon>
-    <span> Change Password </span>
-    <ion-icon name="chevron-forward" class="arrow"></ion-icon>
-  </div>
-  <hr> -->
