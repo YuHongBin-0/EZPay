@@ -15,13 +15,18 @@
     <div style="width: 100px;"></div>
 
     <ion-tab-button tab="tab3" *ngIf='isStudent'>
-      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      <ion-icon name="information-circle-outline"></ion-icon>
       <ion-label>Shop Info</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="tab4" *ngIf='!isStudent'>
-      <ion-icon name="ellipsis-horizontal-outline"></ion-icon>
+      <ion-icon name="bar-chart-outline"></ion-icon>
       <ion-label>Dashboard</ion-label>
+    </ion-tab-button>
+
+    <ion-tab-button tab="tab4" *ngIf='(users | async)?.role == null'>
+      <ion-icon name="ellipsis-horizontal"></ion-icon>
+      <ion-label>More</ion-label>
     </ion-tab-button>
 
   </ion-tab-bar>
