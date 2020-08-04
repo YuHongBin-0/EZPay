@@ -17,22 +17,16 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/
 })
 export class Tab2Page implements OnInit {
 
-  users: Observable<any>;
-
   slideOpts = { loop: true };
   infos = [];
   slide = [];
-
+  balance: number;
+  name: string;
   ref2 = firebase.database().ref('slide/');
 
-
   constructor(private modalController: ModalController, private iab: InAppBrowser,
-              private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
-              private toast: ToastController, private router: Router ) {
-
-
-
-  }
+    private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase,
+    private toast: ToastController, private router: Router) { }
 
   options: InAppBrowserOptions = {
     location: 'yes',
@@ -59,17 +53,29 @@ export class Tab2Page implements OnInit {
     // closebuttoncaption: 'Close',
   };
 
-
   slidesDidLoad(slides: IonSlides) {
     slides.startAutoplay();
   }
 
   ngOnInit() {
-  this.ref2.on('value', resp => {
-    this.slide = snapshotToArray1(resp);
-  });}
+    this.ref2.on('value', resp => {
+      this.slide = snapshotToArray1(resp);
+    });
 
-  open(youtube){
+    var userId = firebase.auth().currentUser.uid;
+    console.log(userId);
+
+    firebase.database().ref('/users/' + userId).once('value').then(res => {
+      var bal = (res.val() && res.val().balance);
+      this.balance = bal;
+      var disName = (res.val() && res.val().name);
+      this.name = disName;
+      console.log(this.name + " has $" + this.balance);
+      
+    })
+  }
+
+  open(youtube) {
     this.iab.create(youtube, '_blank', this.options);
   }
 
@@ -78,23 +84,20 @@ export class Tab2Page implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.afAuth.authState.subscribe(async data => {
-      if (data && data.uid) {
+    // this.afAuth.authState.subscribe(async data => {
+    //   if (data && data.uid) {
 
-        this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges();
-      }
-      else {
-        (await this.toast.create({
-          message: `Could not find authentication details.`,
-          duration: 3000
-        })).present();
-      }
-    });
+    //     this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges();
+    //   }
+    //   else {
+    //     (await this.toast.create({
+    //       message: `Could not find authentication details.`,
+    //       duration: 3000
+    //     })).present();
+    //   }
+    // });
   }
-
 }
-
-
 
 export const snapshotToArray1 = snapshot => { // for slides
   const returnArr = [];
