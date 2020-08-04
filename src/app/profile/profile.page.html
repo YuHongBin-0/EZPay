@@ -1,4 +1,4 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button style="color: white;"></ion-back-button>
@@ -27,36 +27,31 @@
           <ion-col>
             <p>Role: {{ (users | async)?.role }}</p>
           </ion-col>
-          <ion-col>
-          </ion-col>
+          
         </ion-row>
         <ion-row style="color:grey;margin-left:20px;">
           <ion-col>
             <p>NRIC: {{ (users | async)?.NRIC }}</p>
           </ion-col>
-          <ion-col>
-          </ion-col>
+          
         </ion-row>
         <ion-row style="color: grey;margin-left:20px;">
           <ion-col>
             <p>Email: {{ (users | async)?.email }}</p>
           </ion-col>
-          <ion-col>
-          </ion-col>
+          
         </ion-row>
         <ion-row style="color: grey;margin-left:20px;">
           <ion-col>
             <p>Balance: {{ (users | async)?.balance }}</p>
           </ion-col>
-          <ion-col>
-          </ion-col>
+          
         </ion-row>
         <ion-row style="color: grey;margin-left:20px;">
           <ion-col>
-            <p>{{ (users | async)?.department }}{{ (users | async)?.stallNo }}</p>
+            <p>{{ (users | async)?.department }}   {{ (users | async)?.stallNo }}</p>
           </ion-col>
-          <ion-col>
-          </ion-col>
+          
         </ion-row>
         <br>
         <br>
