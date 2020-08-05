@@ -15,10 +15,10 @@
       <ion-item-group>
 
         <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
-        <ion-item detail button (click)="openAbout()">
+        <ion-item detail button (click)="openProfile()">
           <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile
         </ion-item>
-        <ion-item detail routerLink="/manage-wallet">
+        <ion-item detail button (click)="openReport()">
           <ion-icon name="warning-outline" style="margin-right: 10px;"></ion-icon>Report Error
         </ion-item>
 

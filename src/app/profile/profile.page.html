@@ -17,39 +17,51 @@
         <ion-row>
           <ion-col size="8">
             <ion-item lines="none">
+              <ion-item>
               <h1>
-                {{ (users | async)?.name }}  {{ (users | async)?.class }}   
+                {{ name }}  {{ class }}   
               </h1>
+              </ion-item>
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row style="color: grey;margin-left:20px;">
+        <ion-row style="color: black;">
           <ion-col>
-            <p>Role: {{ (users | async)?.role }}</p>
+            <ion-item>
+            <p>Role: {{ role }}</p>
+            </ion-item>
           </ion-col>
           
         </ion-row>
-        <ion-row style="color:grey;margin-left:20px;">
+        <ion-row style="color: black;">
           <ion-col>
-            <p>NRIC: {{ (users | async)?.NRIC }}</p>
+            <ion-item>
+            <p>NRIC: {{ NRIC }}</p>
+            </ion-item>
           </ion-col>
           
         </ion-row>
-        <ion-row style="color: grey;margin-left:20px;">
+        <ion-row style="color: black;">
           <ion-col>
-            <p>Email: {{ (users | async)?.email }}</p>
+            <ion-item>
+            <p>Email: {{ email }}</p>
+            </ion-item>
           </ion-col>
           
         </ion-row>
-        <ion-row style="color: grey;margin-left:20px;">
+        <ion-row style="color: black;">
           <ion-col>
-            <p>Balance: {{ (users | async)?.balance }}</p>
+            <ion-item>
+            <p>Balance: {{ balance | currency }}</p>
+            </ion-item>
           </ion-col>
           
         </ion-row>
-        <ion-row style="color: grey;margin-left:20px;">
+        <ion-row style="color: black;">
           <ion-col>
-            <p>{{ (users | async)?.department }}   {{ (users | async)?.stallNo }}</p>
+            <ion-item>
+            <p>{{ department }}   {{ stallNo }}</p>
+            </ion-item>
           </ion-col>
           
         </ion-row>

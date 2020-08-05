@@ -9,36 +9,74 @@
 
 
 <ion-content>
+  <ion-card style="border-radius: 30px;height: auto;">
+    <ion-card-header style="margin-bottom: 0px;">
+      <!-- <ion-img style="background: blue; width:90%;height:240px;margin:20px auto 34px auto;" src="http://localhost:8100/src/assets/icon/applogo.JPG"></ion-img> -->
+      <!-- <h1 style="margin-left:16px;">Login</h1> -->
+      Submit a report
+    </ion-card-header>
+    <ion-card-content style="margin-top: 0;">
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Reason</ion-label>
+            <ion-select value="Others" okText="Okay" cancelText="Dismiss">
+              <ion-select-option value="Transaction Failed">Transaction Failed</ion-select-option>
+              <ion-select-option value="Wrong Value">Wrong Value</ion-select-option>
+              <ion-select-option value="Wrong Receiver">Wrong Receiver</ion-select-option>
+              <ion-select-option value="Others">Others</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      
 
-  <ion-item>
-    <ion-label>Reason</ion-label>
-    <ion-select value="Others" okText="Okay" cancelText="Dismiss">
-      <ion-select-option value="1">Transaction Failed</ion-select-option>
-      <ion-select-option value="2">Wrong Value</ion-select-option>
-      <ion-select-option value="3">Wrong Receiver</ion-select-option>
-      <ion-select-option value="Others">Others</ion-select-option>
-    </ion-select>
-  </ion-item>
+      <ion-row>
+        <ion-col >
+       
+            <ion-item>
+              <ion-label>Name :</ion-label>
+              <ion-label>{{ name }}</ion-label>
+            </ion-item>
+        
+          </ion-col>
+      </ion-row>
+     
 
-  <ion-list> 
-    <ion-item>
-        <ion-label>Name</ion-label>
-        <ion-input ></ion-input> 
-    </ion-item>
-    <ion-item>
-        <ion-label>Admin Number:</ion-label>
-        <ion-input ></ion-input>
-    </ion-item> 
-  </ion-list>
-  
-<ion-list> 
-  <ion-item>
-      <ion-textarea placeholder="Enter more information here..."style="height: 200px;">Description</ion-textarea>
-  </ion-item>
-</ion-list>
+      <ion-row>
+        <ion-col >
+          <ion-item>
+            <ion-label>NRIC :</ion-label>
+            <ion-label>{{ NRIC }}</ion-label>
+          </ion-item>
+          
+        </ion-col>
+      </ion-row>
+      
 
-<ion-list>
-  <ion-button float-right>Submit</ion-button>
-</ion-list>
+     
+        <ion-row >
+          <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-textarea placeholder="Enter more information here..." style="height: 200px;">Description
+              </ion-textarea>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+        </ion-row>
+        
+
+        <ion-row>
+          <ion-col >
+
+            <ion-button expand="block" type="submit" fill="outline" shape="round" style="color:blue;">Submit</ion-button>
+          </ion-col>
+        </ion-row>
+        
+    </ion-card-content>
+
+  </ion-card>
+
 
 </ion-content>

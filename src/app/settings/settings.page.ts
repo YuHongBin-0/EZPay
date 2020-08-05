@@ -13,9 +13,15 @@ export class SettingsPage implements OnInit {
   ngOnInit() {
   }
 
-  openAbout() {
+  openProfile() {
 
     this.router.navigate(['/profile']);
+
+  }
+
+  openReport() {
+
+    this.router.navigate(['/report']);
 
   }
 
