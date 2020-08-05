@@ -8,12 +8,16 @@ import { Tab4PageRoutingModule } from './tab4-routing.module';
 
 import { Tab4Page } from './tab4.page';
 
+
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    Tab4PageRoutingModule
+    Tab4PageRoutingModule,
+    ChartsModule
   ],
   declarations: [Tab4Page]
 })
