@@ -8,13 +8,18 @@ import { ViewreportPageRoutingModule } from './viewreport-routing.module';
 
 import { ViewreportPage } from './viewreport.page';
 
+import { ExpandableComponent } from "../components/expandable/expandable.component"
+
+import {MatExpansionModule} from '@angular/material/expansion';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ViewreportPageRoutingModule
+    ViewreportPageRoutingModule,
+    MatExpansionModule
   ],
-  declarations: [ViewreportPage]
+  declarations: [ViewreportPage, ExpandableComponent]
 })
 export class ViewreportPageModule {}

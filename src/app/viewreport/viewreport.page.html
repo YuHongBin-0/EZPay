@@ -6,4 +6,25 @@
 
 <ion-content>
 
+  <mat-accordion *ngFor="let reports of infos">
+    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{reports.reason}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{reports.email}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>From: {{reports.name}}</p>
+      <p>Description: {{reports.description}}</p>
+      <p>Date : 25/05/2020 21:25:30</p>
+      <mat-action-row>
+        <ion-button class="reportBtn" (click)="reportError()">
+          Solved
+          <ion-icon name="trash"></ion-icon>
+        </ion-button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
 </ion-content>

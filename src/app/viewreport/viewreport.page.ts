@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-viewreport',
@@ -7,9 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewreportPage implements OnInit {
 
-  constructor() { }
+  infos = [];
+  ref = firebase.database().ref('reports/');
+  constructor(public matExpansionModule: MatExpansionModule) { }
 
-  ngOnInit() {
+  ngOnInit() { this.ref.on('value', resp => {
+    this.infos = snapshotToArray(resp);
+  });
+
   }
 
 }
+
+export const snapshotToArray = snapshot => {  // for heroes
+  const returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
+  });
+
+  return returnArr.reverse();
+};
+
