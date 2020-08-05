@@ -30,8 +30,8 @@
           <ion-label position="floating">Password</ion-label>
           <ion-input inputmode="password" formControlName="passwords" [(ngModel)]="password"></ion-input>
         </ion-item>
-        <div *ngFor="let error of errorMessages.passwords">
-          <ng-container *ngIf="passwords.hasError(error.type) && (passwords.dirty || passwords.touched)">
+        <div *ngFor="let error of errorMessages.password">
+          <ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
