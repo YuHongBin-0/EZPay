@@ -14,20 +14,24 @@
     
     <div style="width: 100px;"></div>
 
-    <ion-tab-button tab="tab3" *ngIf='isStudent'>
-      <ion-icon name="information-circle-outline"></ion-icon>
-      <ion-label>Shop Info</ion-label>
-    </ion-tab-button>
+    <ng-template [ngIf]="isStudent != null" [ngIfElse]="placeholderButton">
+      <ion-tab-button tab="tab3" *ngIf='isStudent'>
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <ion-label>Shop Info</ion-label>
+      </ion-tab-button>
+      
+      <ion-tab-button tab="tab4" *ngIf='!isStudent'>
+        <ion-icon name="bar-chart-outline"></ion-icon>
+        <ion-label>Dashboard</ion-label>
+      </ion-tab-button>
+    </ng-template>
 
-    <ion-tab-button tab="tab4" *ngIf='!isStudent'>
-      <ion-icon name="bar-chart-outline"></ion-icon>
-      <ion-label>Dashboard</ion-label>
-    </ion-tab-button>
-
-    <ion-tab-button tab="tab2" *ngIf='(users | async)?.role == null'>
-      <ion-icon name="ellipsis-horizontal"></ion-icon>
-      <ion-label>More</ion-label>
-    </ion-tab-button>
+    <ng-template #placeholderButton>
+      <ion-tab-button tab="tab2" *ngIf='isStudent == null'>
+        <ion-icon name="ellipsis-horizontal"></ion-icon>
+        <ion-label>More</ion-label>
+      </ion-tab-button>
+    </ng-template>
 
   </ion-tab-bar>
 

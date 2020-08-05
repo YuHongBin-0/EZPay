@@ -20,7 +20,7 @@
         <ion-col>
           <ion-item>
             <ion-label>Reason</ion-label>
-            <ion-select value="Others" okText="Okay" cancelText="Dismiss">
+            <ion-select value="Others" okText="Okay" cancelText="Dismiss" [(ngModel)]="supportTicket.reason" name="reason">
               <ion-select-option value="Transaction Failed">Transaction Failed</ion-select-option>
               <ion-select-option value="Wrong Value">Wrong Value</ion-select-option>
               <ion-select-option value="Wrong Receiver">Wrong Receiver</ion-select-option>
@@ -29,37 +29,30 @@
           </ion-item>
         </ion-col>
       </ion-row>
-      
 
       <ion-row>
         <ion-col >
-       
             <ion-item>
               <ion-label>Name :</ion-label>
-              <ion-label>{{ name }}</ion-label>
+              <ion-input name="name" [(ngModel)]="supportTicket.name" value="{{name}}"></ion-input>
             </ion-item>
-        
           </ion-col>
       </ion-row>
-     
 
       <ion-row>
         <ion-col >
           <ion-item>
-            <ion-label>NRIC :</ion-label>
-            <ion-label>{{ NRIC }}</ion-label>
+            <ion-label>Email :</ion-label>
+            <ion-input name="email" [(ngModel)]="supportTicket.email" value="{{email}}"></ion-input>
           </ion-item>
-          
         </ion-col>
       </ion-row>
-      
-
      
         <ion-row >
           <ion-col>
           <ion-list>
             <ion-item>
-              <ion-textarea placeholder="Enter more information here..." style="height: 200px;">Description
+              <ion-textarea name="description" [(ngModel)]="supportTicket.description" placeholder="Enter more information here..." style="height: 200px;">Description
               </ion-textarea>
             </ion-item>
           </ion-list>
@@ -69,8 +62,7 @@
 
         <ion-row>
           <ion-col >
-
-            <ion-button expand="block" type="submit" fill="outline" shape="round" style="color:blue;">Submit</ion-button>
+            <ion-button expand="block" type="submit" fill="outline" shape="round" style="color:blue;" (click)="sendTicket()">Submit</ion-button>
           </ion-col>
         </ion-row>
         

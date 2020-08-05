@@ -18,29 +18,14 @@ export class TabsPage implements OnInit {
   userId: string;
   isStudent: boolean;
 
-  constructor(private router: Router, private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-
-    this.afAuth.authState.subscribe(async data => {
-      if (data && data.uid) {
-
-        this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges();
-      }
-      else {
-        // (await this.toast.create({
-        //   message: `Could not find authentication details.`,
-        //   duration: 3000
-        // }))
-        // .present();
-      }
-    });
     var userId = firebase.auth().currentUser.uid;
     console.log(userId);
 
     firebase.database().ref('/users/' + userId).once('value').then(res => {
       var role = (res.val() && res.val().role).toString();
-
 
       console.log('userRole: ' + role)
       if (role == "student") {
@@ -54,24 +39,6 @@ export class TabsPage implements OnInit {
         console.log(this.isStudent)
       }
     })
-    console.log(this.isStudent);
-    // firebase.database().ref('/users/' + userId).once('value').then((snapshot) {
-    //   var role = (snapshot.val() && snapshot.val().role).toString();
-
-    //   // var role = "vendor";
-    //   console.log('userRole: ' + role)
-    //   if (role == "student") {
-    //     console.log('student')
-    //     type = true
-    //     // console.log(this.isStudent);
-    //   }
-    //   else if (role == "vendor") {
-    //     console.log('vendor')
-    //     type = false
-    //     // console.log(this.isStudent);
-    //   }
-
-    // })
   }
 
   gotoHome() {
