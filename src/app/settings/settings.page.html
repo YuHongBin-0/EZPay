@@ -15,10 +15,17 @@
       <ion-item-group>
 
         <!-- <ion-item detail [routerLink]="'/about'">About</ion-item> -->
+<<<<<<< HEAD
         <ion-item detail routerLink="/profile">
           <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile
         </ion-item>
         <ion-item detail routerLink="/report">
+=======
+        <ion-item detail button (click)="openProfile()">
+          <ion-icon name="person-circle-outline" style="margin-right: 10px;"></ion-icon> View Profile
+        </ion-item>
+        <ion-item detail button (click)="openReport()">
+>>>>>>> 50933fb4e55e933a3ba376e91abe7869fa76947a
           <ion-icon name="warning-outline" style="margin-right: 10px;"></ion-icon>Report Error
         </ion-item>
 

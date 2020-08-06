@@ -52,7 +52,7 @@ export class Page1Page implements OnInit {
     name: [
       { type: 'required', message: 'Name is required' },
       { type: 'maxlength', message: 'Name cant be longer than 100 characters' },
-      { type: 'pattern', message: 'Name should not contain numbers' }
+     
     ],
     email: [
       { type: 'required', message: 'Email is required' },
@@ -93,7 +93,7 @@ export class Page1Page implements OnInit {
       ]
     ],
     registu: this.formBuilder.group({
-      name: ['', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z]{0,100}$')]],
+      name: ['', [Validators.required, Validators.maxLength(100)]],
       class: ['', [Validators.required, Validators.maxLength(100)]],
       NRIC: ['', [Validators.required, Validators.maxLength(9)]],
       year:['',[]],
@@ -129,7 +129,8 @@ export class Page1Page implements OnInit {
         if(err.code === "auth/invalid-email") {
           window.alert('Invalid Email')}
           if(err.code === "auth/weak-password") {
-            window.alert('Weak Password')}
+            window.alert('Weak Password')
+          }
     }
 
     this.afAuth.authState.subscribe(auth => {
@@ -147,6 +148,8 @@ export class Page1Page implements OnInit {
     this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/role`).set("student")
     })
+
+    this.registrationForm.reset();
     
     
 	}

@@ -13,20 +13,54 @@ import { Observable } from 'rxjs';
 export class ProfilePage implements OnInit {
 
   users: Observable<any>;
+  balance: number;
+  name: string;
+  class: string;
+  role: string;
+  NRIC: string;
+  email: string;
+  department: string;
+  stallNo: string;
 
-  constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase, ) { }
+  constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) { }
 
   ngOnInit() {
+
+    var userId = firebase.auth().currentUser.uid;
+    console.log(userId);
+
+    firebase.database().ref('/users/' + userId).once('value').then(res => {
+      var bal = (res.val() && res.val().balance);
+      this.balance = bal;
+      var disName = (res.val() && res.val().name);
+      this.name = disName;
+      var disClass = (res.val() && res.val().class);
+      this.class = disClass;
+      var disRole = (res.val() && res.val().role);
+      this.role = disRole;
+      var disNRIC = (res.val() && res.val().NRIC);
+      this.NRIC = disNRIC;
+      var disEmail = (res.val() && res.val().email);
+      this.email = disEmail;
+      var disDepartment = (res.val() && res.val().department);
+      this.department = disDepartment;
+      var disStallNo = (res.val() && res.val().stallNo);
+      this.stallNo = disStallNo;
+
+      console.log(this.name + " has $" + this.balance);
+      
+    })
   }
 
   ionViewWillEnter() {
-    this.afAuth.authState.subscribe(async data => {
-      if (data && data.uid) {
+  //   this.afAuth.authState.subscribe(async data => {
+  //     if (data && data.uid) {
 
-        this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges();
-      }
+  //       this.users = this.afDatabase.object(`users/${data.uid}`).valueChanges();
+  //     }
 
-    });
+  //   });
+  // }
+
   }
-
 }

@@ -6,26 +6,26 @@
 
 <ion-content>
 
-  <video #video [hidden]="!scanActive" width="100%" height="100%"></video>
-  
-  <canvas #canvas hidden></canvas>
-
-
   <ion-card *ngIf="scanResult">
     <ion-card-header>
-      <ion-card-title>QR Code</ion-card-title>
+      <ion-card-title>Stall Name:</ion-card-title>
     </ion-card-header>
     <ion-card-content>
       {{ scanResult }}
     </ion-card-content>
   </ion-card>
-  
-<header style="margin-top: 50%; margin-left: 20%;">From: John Doe</header>
-<header style="margin-left: 20%;">Class: 4A</header>
-<header style="margin-left: 20%;">Currency: SGD$</header>
 
+  <video #video [hidden]="!scanActive" style="width: 100%;"></video>
+  
+  <canvas #canvas hidden></canvas>
+ 
+<ion-card>
+<header style="margin-top: 20%; margin-left: 20%;">From: John Doe</header>
 <br>
-<input type ="number" step="0.01" style="margin-left: 20%; width: 60%;">
+<header style="margin-left: 20%;">Currency: SGD$</header>
 <br>
-<ion-button style="margin-left: 30%;">Confirm</ion-button>
+<input type ="number" step="0.01" style="margin-left: 20%; width: 60%; border-radius: 10px;">
+<br>
+<ion-button style="margin-left: 30%; margin-bottom: 20%;">Confirm</ion-button>
+</ion-card>
 </ion-content>

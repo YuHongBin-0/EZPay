@@ -1,9 +1,20 @@
-ion-toolbar{
+ion-content {
+    --background: linear-gradient( #0079C1 0%, #00457C 100%);
+    color:white;
+  }
+  ion-toolbar{
     --background: #0079C1;
     color: white;
+<<<<<<< HEAD
 }
 
 ion-button {
     margin-top: 2em;
     width: 30%;
   }
+=======
+  }
+  // h2,h5,p{
+  //     color: white;
+  // }
+>>>>>>> 50933fb4e55e933a3ba376e91abe7869fa76947a

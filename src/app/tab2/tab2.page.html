@@ -23,11 +23,16 @@
     </ion-slide>
   </ion-slides>
   <ion-card id="card-wallet" style="background:lightgrey;">
+    <ion-button routerLink="/tabs/tab2" slot="end"><ion-icon style="color:black;" name="cog-outline"></ion-icon></ion-button>
+    
+    <ion-button type="button" routerLink="/tabs/tab3" slot="end"><ion-icon style="color:grey;" name="cog-outline"></ion-icon></ion-button>
     <ion-card-header style="margin:12px 0 0 8px">
-      <ion-card-title style="text-align: center;">
-        Good evening, {{ (users | async)?.name }}
+      <ion-card-title style="text-align: center; color:black;">
+        Good evening, {{ name }}
       </ion-card-title>
-      <ion-card-subtitle center style="font-size: 18px;text-align: center;"><b>Your balance: {{ (users | async)?.balance }}</b></ion-card-subtitle>
+      <ion-card-subtitle center style="font-size: 18px;text-align: center;">
+        Your balance: {{ balance | currency}}
+      </ion-card-subtitle>
       </ion-card-header>
     <ion-card-content>
       <ion-row style="text-align: center;">
