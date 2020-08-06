@@ -129,7 +129,8 @@ export class Page1Page implements OnInit {
         if(err.code === "auth/invalid-email") {
           window.alert('Invalid Email')}
           if(err.code === "auth/weak-password") {
-            window.alert('Weak Password')}
+            window.alert('Weak Password')
+          }
     }
 
     this.afAuth.authState.subscribe(auth => {
@@ -147,6 +148,8 @@ export class Page1Page implements OnInit {
     this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/role`).set("student")
     })
+
+    this.registrationForm.reset();
     
     
 	}
