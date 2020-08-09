@@ -100,9 +100,6 @@ export class Page1Page implements OnInit {
       email: ['',[ Validators.required,Validators.pattern('^[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$')]],
     })
   });
-  public submit() {
-    console.log(this.registrationForm.value);
-  }
 
   async presentAlert(title: string, content: string) {
 		const alert = await this.alertController.create({
