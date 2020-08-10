@@ -26,24 +26,24 @@
       </mat-expansion-panel-header>
       <p>{{ stallItem.stallDescription }}</p>
 
-      
-        <mat-accordion *ngFor="let stallItem of infos">
+
+        <mat-accordion *ngFor="let i of stallItem.goods.foods">
           <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header >
               <mat-panel-title>
-                {{ stallItem.goods.name }}
+                {{ i.name }}
               </mat-panel-title>
               <mat-panel-description>
-                {{ stallItem.price }}
+                {{ i.price }}
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p>descirption</p>
+            <p> {{ i.description }}</p>
 
           </mat-expansion-panel>
-        </mat-accordion>
+        </mat-accordion><br>
       
     </mat-expansion-panel>
-  </mat-accordion>
-
+    <br>
+  </mat-accordion><br>
 
 </ion-content>
