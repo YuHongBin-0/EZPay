@@ -14,30 +14,32 @@
 
 
 <ion-content [fullscreen]="true">
-  <mat-accordion  *ngFor="let stallItem of infos">
+  <mat-accordion  *ngFor="let stall of shopDeets">
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header >
         <mat-panel-title>
-          {{ stallItem.stallName }}
+          {{ stall.stallName }}
         </mat-panel-title>
         <mat-panel-description>
-          {{ stallItem.stallLocation }}
+          {{ stall.stallNumber }}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>{{ stallItem.stallDescription }}</p>
+      <p>{{ stall.stallDesc }}</p>
 
 
-        <mat-accordion *ngFor="let i of stallItem.goods.foods">
+        <mat-accordion *ngFor="let stallItem of shopItems">
           <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
             <mat-expansion-panel-header >
               <mat-panel-title>
-                {{ i.name }}
+                {{ stallItem.prodName }}
               </mat-panel-title>
               <mat-panel-description>
-                {{ i.price }}
+                {{ stallItem.price }}
               </mat-panel-description>
             </mat-expansion-panel-header>
-            <p> {{ i.description }}</p>
+
+            <img [src]="stallItem.image">
+            <p> {{ stallItem.prodDesc }}</p>
 
           </mat-expansion-panel>
         </mat-accordion><br>
