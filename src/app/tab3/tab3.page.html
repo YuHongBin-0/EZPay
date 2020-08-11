@@ -28,8 +28,8 @@
 
 
         <mat-accordion *ngFor="let stallItem of shopItems">
-          <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header >
+          <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header *ngIf="stall.key == stallItem.stall">
               <mat-panel-title>
                 {{ stallItem.prodName }}
               </mat-panel-title>
@@ -38,8 +38,9 @@
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <img [src]="stallItem.image">
+            <img [src]="stall.image">
             <p> {{ stallItem.prodDesc }}</p>
+            <p> {{ stallItem.key }}</p>
 
           </mat-expansion-panel>
         </mat-accordion><br>

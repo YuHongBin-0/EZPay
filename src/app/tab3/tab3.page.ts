@@ -25,14 +25,9 @@ export class Tab3Page {
     var stall;
     this.refShop.on('value', resp => {
       this.shopDeets = snapshotToArray(resp);
-      this.shopDeets.forEach(element => {
-        stall = element.key;
-        this.refItems .orderByChild("stall")
-        .equalTo(stall)
-        .on('value', resp1 => {
-          this.shopItems = snapshotToArray(resp1);
-        });
-      });
+    });
+    this.refItems.on('value', resp1 => {
+      this.shopItems = snapshotToArray(resp1);
     });
   }
 
