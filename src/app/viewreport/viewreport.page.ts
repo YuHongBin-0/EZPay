@@ -22,12 +22,10 @@ export class ViewreportPage implements OnInit {
 
   }
 
-  async deletePost(infos: string) {
-    console.log(this.infos);
-     var id = this.afDatabase.object(`reports/`)
-    await this.afDatabase.object(`reports/${infos}/`).remove();
-
-  }
+ 
+  async deletePost(key) {
+      await this.afDatabase.object(`reports/${key}/`).remove();
+    }
 
 }
 
