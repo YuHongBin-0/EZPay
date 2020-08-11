@@ -5,6 +5,7 @@ import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase/app';
+import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from "@angular/forms";
@@ -33,16 +34,16 @@ function genUniqueID(id:string) {
   styleUrls: ['payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
-  scanActive = false;
-  scanResult = null;
-  @ViewChild('video', { static: false }) video: ElementRef;
-  @ViewChild('canvas', { static: false }) canvas: ElementRef;
+  // scanActive = false;
+  // scanResult = null;
+  // @ViewChild('video', { static: false }) video: ElementRef;
+  // @ViewChild('canvas', { static: false }) canvas: ElementRef;
 
-  videoElement: any;
-  canvasElement: any;
-  canvasContext: any;
+  // videoElement: any;
+  // canvasElement: any;
+  // canvasContext: any;
 
-  loading: HTMLIonLoadingElement;
+  // loading: HTMLIonLoadingElement;
 
   transaction = {} as Transaction;
 
@@ -53,23 +54,31 @@ export class PaymentPage implements OnInit {
     private afDatabase: AngularFireDatabase,
     public alertController: AlertController,
     public router: Router,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
+
+    scannedCode = null;
 
   async ngOnInit() {
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment'}
-    });
-    this.videoElement.srcObject = stream;
-    this.videoElement.setAttribute('playsinline', true);
-    this.videoElement.play();
+    // const stream = await navigator.mediaDevices.getUserMedia({
+    //   video: { facingMode: 'environment'}
+    // });
+    // this.videoElement.srcObject = stream;
+    // this.videoElement.setAttribute('playsinline', true);
+    // this.videoElement.play();
 
-    this.loading = await this.loadingCtrl.create({});
-    await this.loading.present();
+    // this.loading = await this.loadingCtrl.create({});
+    // await this.loading.present();
 
-    requestAnimationFrame(this.scan.bind(this));
+    // requestAnimationFrame(this.scan.bind(this));
 
     // -------------------
+
+    this.barcodeScanner.scan().then(
+      barcodeData =>{
+        this.scannedCode = barcodeData.text;
+      }
+    )
 
     var userId = firebase.auth().currentUser.uid;
     console.log(userId);
@@ -85,9 +94,9 @@ export class PaymentPage implements OnInit {
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngAfterViewInit() {
-    this.videoElement = this.video.nativeElement;
-    this.canvasElement = this.canvas.nativeElement;
-    this.canvasContext = this.canvasElement.getContext('2d');
+    // this.videoElement = this.video.nativeElement;
+    // this.canvasElement = this.canvas.nativeElement;
+    // this.canvasContext = this.canvasElement.getContext('2d');
   }
 
   get notes() {
@@ -130,59 +139,59 @@ export class PaymentPage implements OnInit {
 		await alert.present()
   }
 
-  async scan(){
-    console.log('SCAN');
+  // async scan(){
+  //   console.log('SCAN');
 
-    if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
-      if (this.loading) {
-        await this.loading.dismiss();
-        this.loading = null;
-        this.scanActive = true;
-      }
+  //   if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
+  //     if (this.loading) {
+  //       await this.loading.dismiss();
+  //       this.loading = null;
+  //       this.scanActive = true;
+  //     }
 
-      this.canvasElement.height = this.videoElement.videoHeight;
-      this.canvasElement.width = this.videoElement.videoWidth;
+  //     this.canvasElement.height = this.videoElement.videoHeight;
+  //     this.canvasElement.width = this.videoElement.videoWidth;
 
-      this.canvasContext.drawImage(
-        this.videoElement,
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      );
+  //     this.canvasContext.drawImage(
+  //       this.videoElement,
+  //       0,
+  //       0,
+  //       this.canvasElement.width,
+  //       this.canvasElement.height
+  //     );
 
-      const imageData = this.canvasContext.getImageData(
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      );
+  //     const imageData = this.canvasContext.getImageData(
+  //       0,
+  //       0,
+  //       this.canvasElement.width,
+  //       this.canvasElement.height
+  //     );
 
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert'
-      });
-      console.log('code: ', code);
+  //     const code = jsQR(imageData.data, imageData.width, imageData.height, {
+  //       inversionAttempts: 'dontInvert'
+  //     });
+  //     console.log('code: ', code);
 
-      if (code) {
-        this.scanActive = false;
-        this.scanResult = code.data;
+  //     if (code) {
+  //       this.scanActive = false;
+  //       this.scanResult = code.data;
 
-      } else {
-        if (this.scanActive) {
-          requestAnimationFrame(this.scan.bind(this));
-        }
-      }
+  //     } else {
+  //       if (this.scanActive) {
+  //         requestAnimationFrame(this.scan.bind(this));
+  //       }
+  //     }
 
-    } else {
-      requestAnimationFrame(this.scan.bind(this));
-    }
-  }
+  //   } else {
+  //     requestAnimationFrame(this.scan.bind(this));
+  //   }
+  // }
 
 
 
-  reset() {
-    this.scanResult = null;
-  }
+  // reset() {
+  //   this.scanResult = null;
+  // }
 
   transactions() {
     var randomID;
@@ -192,8 +201,12 @@ export class PaymentPage implements OnInit {
     transactionID = genUniqueID(randomID);
     this.afDatabase.object(`transaction/${randomID}`).set(this.transaction)
 
+    // this.afAuth.authState.subscribe(auth => {
+    //   this.afDatabase.object(`transaction/${randomID}/to`).set(this.scanResult)
+    // })
+
     this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.object(`transaction/${randomID}/to`).set(this.scanResult)
+      this.afDatabase.object(`transaction/${randomID}/to`).set(this.scannedCode)
     })
 
     this.afAuth.authState.subscribe(auth => {

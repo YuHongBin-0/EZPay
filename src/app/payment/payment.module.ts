@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { PaymentPageRoutingModule } from './payment-routing.module';
 
 import { PaymentPage } from './payment.page';
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
     IonicModule,
-    PaymentPageRoutingModule
+    PaymentPageRoutingModule,
+    NgxQRCodeModule
   ],
   declarations: [PaymentPage]
 })
