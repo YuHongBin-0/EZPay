@@ -11,25 +11,25 @@ import { AngularFireDatabase } from 'angularfire2/database';
 export class ViewreportPage implements OnInit {
 
   infos = [];
-  id = this.afDatabase.object(`reports/`)
   ref = firebase.database().ref('reports/');
-  constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase,) { }
+
+  constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase,) {
+
+   }
 
   ngOnInit() { 
     this.ref.on('value', resp => {
     this.infos = snapshotToArray(resp);
   });
-
   }
-
- 
+  
   async deletePost(key) {
       await this.afDatabase.object(`reports/${key}/`).remove();
     }
 
 }
 
-export const snapshotToArray = snapshot => {  // for heroes
+export const snapshotToArray = snapshot => {  
   const returnArr = [];
 
   snapshot.forEach(childSnapshot => {

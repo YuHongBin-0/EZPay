@@ -31,7 +31,6 @@ export class Tab3Page {
         .equalTo(stall)
         .on('value', resp1 => {
           this.shopItems = snapshotToArray(resp1);
-          console.log(this.shopItems);  
         });
       });
     });
