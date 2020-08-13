@@ -93,14 +93,13 @@ export class PaymentPage implements OnInit {
       { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
     ],
     amount: [
-      { type: 'required', message: 'Amount is required' },
-      { type: 'pattern', message: 'Amount should not be over 100$' }
+      
     ]
   }
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
       notes: ['', [ Validators.maxLength(100)]],
-      amount: ['',[ Validators.required, Validators.pattern('^[0-9]{0,2}[.][0-9]{0,2}$')]],
+      amount: ['',[ ]],
     })
   });
 
@@ -192,6 +191,9 @@ export class PaymentPage implements OnInit {
         var changedBal:number = Number(bal + this.transaction.amount);
         console.log('vendor balance: ' + bal);
         this.afDatabase.object(`users/${this.scanResult}/balance`).set(changedBal);
+        console.log('bal: ' + bal);
+        console.log('this.transaction.amount: ' + this.transaction.amount);
+        console.log('changedBal: ' + changedBal);
        }
 });
 
