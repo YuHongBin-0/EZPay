@@ -1,6 +1,6 @@
 export interface Transaction {
     transactionID: string;
-    amount: Number;
+    amount: number;
     from: string;
     fromName: string;
     to: string;

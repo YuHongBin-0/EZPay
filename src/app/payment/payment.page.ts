@@ -10,24 +10,6 @@ import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from "@angular/forms";
 
-function genUniqueID(id:string) {
-  try{
-    firebase.database().ref(`/transaction/${id}`).once('value').then(res => {
-      var objFromDB = res.val();
-      if(objFromDB != null){
-        id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        this.genUniqueID(id);
-      }
-      else if(objFromDB == null){
-        console.log('The reportID "' + id + '" does not exist');
-        return id;
-      }
-    })
-  }catch (error){
-    console.log(error)
-  }
-}
-
 @Component({
   selector: 'app-payment',
   templateUrl: 'payment.page.html',
@@ -44,6 +26,8 @@ export class PaymentPage implements OnInit {
   canvasContext: any;
 
   loading: HTMLIonLoadingElement;
+
+  userID = firebase.auth().currentUser.uid;;
 
   transaction = {} as Transaction;
 
@@ -84,15 +68,12 @@ export class PaymentPage implements OnInit {
     console.log(userId);
 
     firebase.database().ref('/users/' + userId).once('value').then(res => {
-
+      
       var disName = (res.val() && res.val().name);
       this.name = disName;
+  })
+}
 
-    })
-
-  }
-
-  
   ngAfterViewInit() {
     this.videoElement = this.video.nativeElement;
     this.canvasElement = this.canvas.nativeElement;
@@ -107,25 +88,19 @@ export class PaymentPage implements OnInit {
     return this.transactionForm.get('tranasaction.amount');
   }
 
-
-
   public errorMessages = {
     notes: [
       { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
-     
     ],
-
     amount: [
       { type: 'required', message: 'Amount is required' },
       { type: 'pattern', message: 'Amount should not be over 100$' }
     ]
   }
-
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
       notes: ['', [ Validators.maxLength(100)]],
-      
-      amount: ['',[ Validators.required,Validators.pattern('^[0-9]{0,2}[.][0-9]{0,2}$')]],
+      amount: ['',[ Validators.required, Validators.pattern('^[0-9]{0,2}[.][0-9]{0,2}$')]],
     })
   });
 
@@ -135,7 +110,6 @@ export class PaymentPage implements OnInit {
 			message: content,
 			buttons: ['OK']
 		})
-
 		await alert.present()
   }
 
@@ -175,53 +149,78 @@ export class PaymentPage implements OnInit {
       if (code) {
         this.scanActive = false;
         this.scanResult = code.data;
-
       } else {
         if (this.scanActive) {
           requestAnimationFrame(this.scan.bind(this));
         }
       }
-
     } else {
       requestAnimationFrame(this.scan.bind(this));
     }
   }
 
-
-
   reset() {
     this.scanResult = null;
   }
 
-  transactions() {
-    var randomID;
-    var transactionID;
-    randomID = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    console.log(randomID, transactionID);
-    transactionID = genUniqueID(randomID);
-    this.afDatabase.object(`transaction/${randomID}`).set(this.transaction)
-
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.object(`transaction/${randomID}/to`).set(this.scanResult)
-    })
-
-    // this.afAuth.authState.subscribe(auth => {
-    //   this.afDatabase.object(`transaction/${randomID}/to`).set(this.scannedCode)
-    // })
-
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.object(`transaction/${randomID}/from`).set(auth.uid)
-    })
-
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.object(`transaction/${randomID}/fromName`).set(this.name)
-    })
-
-    this.afAuth.authState.subscribe(auth => {
-      this.afDatabase.object(`transaction/${randomID}/transactionType`).set("payment(goods)")
-    })
+  async genUniqueID() {
+    var id:string;
+    var finalID:string;
+    id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    console.log("initial id is: " + id)
+    await firebase.database().ref(`/reports/${id}`).once('value').then(res => {
+      var objFromDB = res.val();
+      if(objFromDB != null){
+        console.log('The reportID "' + id + '" exists and CANNOT be used');
+        this.genUniqueID();
+      }
+      else{
+        console.log('The reportID "' + id + '" does not exist and is usable');
+        finalID = id;
+      }
+    });
+    return finalID;
   }
 
-  
+  async transactions() {
+    var transactionID: string;
+    transactionID = await this.genUniqueID();
 
+    firebase.database().ref('/users/' + this.scanResult).once('value').then(res => {
+      if (res) {
+        var bal:number = (res.val() && res.val().balance);
+        var changedBal:number = Number(bal + this.transaction.amount);
+        console.log('vendor balance: ' + bal);
+        this.afDatabase.object(`users/${this.scanResult}/balance`).set(changedBal);
+       }
+});
+
+firebase.database().ref('/users/' + this.userID).once('value').then(res => {
+      if (res) {
+        var bal:number = (res.val() && res.val().balance);
+        console.log('student balance: ' + bal);
+        this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
+       }
+});
+    
+    this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
+    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scanResult)
+    this.afAuth.authState.subscribe(auth => {
+      this.afDatabase.object(`transaction/${transactionID}/from`).set(auth.uid)
+    })
+    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("payment(goods)")
+  }
 }
+
+export const snapshotToArray = snapshot => {
+  const returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
+  });
+
+  return returnArr.reverse();
+};
+
