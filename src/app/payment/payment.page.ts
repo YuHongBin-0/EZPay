@@ -90,16 +90,16 @@ export class PaymentPage implements OnInit {
 
   public errorMessages = {
     notes: [
-      { type: 'maxlength', message: 'Name cant be longer than 100 characters' }
+      { type: 'maxlength', message: 'Note should not be longer than 100 characters' }
     ],
-    amount: [
-      
-    ]
+    amount: [ 
+      { type: 'required', message: 'Amount is required' },
+      { type: 'max', message: 'Maximum amount per transaction should not exceed $20' }]
   }
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
       notes: ['', [ Validators.maxLength(100)]],
-      amount: ['',[ ]],
+      amount: ['', [Validators.required, Validators.max(20)]],
     })
   });
 
