@@ -24,6 +24,12 @@ export class AdminPage implements OnInit {
 
 }
 
+
+AdminHistory() {
+
+  this.router.navigate(['adm-history']);
+
+}
   AdminHistory2() {
 
   this.router.navigate(['viewreport']);

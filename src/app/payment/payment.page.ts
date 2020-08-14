@@ -116,7 +116,7 @@ export class PaymentPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Payment',
-      message: 'Payment of {{ this.transaction.amount }}, confirm??',
+      message: 'Payment of $' + this.transaction.amount + ' , confirm??',
       buttons: [
         {
           text: 'Cancel',
