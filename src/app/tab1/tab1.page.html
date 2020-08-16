@@ -14,19 +14,19 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <mat-accordion >
+  <mat-accordion *ngFor="let transac of reference">
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header >
+      <mat-expansion-panel-header *ngIf="transac.from == userId" >
         <mat-panel-title>
-          Received
+          {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description>
-          Received Amount : $ 200.00
+          Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Received Amount : $200.00</p>
-      <p>Date Received : 24/05/2020 20:00:00</p>
-      <p>Transaction ID : 84831207</p>
+      <p>Date:</p>
+      <p>To: ${{transac.to}}</p>
+      <p>Notes: ${{transac.notes}}</p>
       <mat-action-row>
         <ion-button class="reportBtn" (click)="sendToReportError()">
           Report
@@ -35,124 +35,5 @@
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion><br>
-
-  <mat-accordion>
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Payment
-        </mat-panel-title>
-        <mat-panel-description>
-          Transaction Amount : $2.50
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Payment Amount : $ 2.50</p>
-      <p>Merchants : Japanese Cuisine</p>
-      <p>Date : 25/05/2020 14:25:30</p>
-      <p>Transaction ID : 84831217</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="sendToReportError()">
-          Report
-          <ion-icon name="alert-circle-outline"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
-  <mat-accordion>
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Received
-        </mat-panel-title>
-        <mat-panel-description>
-          Transaction Amount : $2.50
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Received Amount : $ 2.50</p>
-      <p>Student : Yu HongBin</p>
-      <p>Date : 25/05/2020 14:25:30</p>
-      <p>Transaction ID : 84831217</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="sendToReportError()">
-          Report
-          <ion-icon name="alert-circle-outline"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
-  <mat-accordion>
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Payment
-        </mat-panel-title>
-        <mat-panel-description>
-          Transaction Amount : $900.00
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Payment Amount : $ 900.00</p>
-      <p>Admin ID : 1801187</p>
-      <p>Date : 25/05/2020 21:25:30</p>
-      <p>Transaction ID : 84831300</p>
-      <p>Description: Payment of Rent for July</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="sendToReportError()">
-          Report
-          <ion-icon name="alert-circle-outline"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
-
-  <mat-accordion>
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Received
-        </mat-panel-title>
-        <mat-panel-description>
-          Transaction Amount : $900.00
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Received Amount : $ 900.00</p>
-      <p>Merchant : Mr Khoo</p>
-      <p>Date : 25/05/2020 21:25:30</p>
-      <p>Transaction ID : 84831300</p>
-      <p>Description: Payment of Rent for July</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="reportError()">
-          Report
-          <ion-icon name="alert-circle-outline"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
-  <mat-accordion>
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Top-Up
-        </mat-panel-title>
-        <mat-panel-description>
-          Transaction Amount : $200.00
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Top-Up Amount : $ 200.00</p>
-      <p>Student : Yu HongBin</p>
-      <p>Date Received : 24/05/2020 20:00:00</p>
-      <p>Transaction ID : 84831207</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="sendToReportError()">
-          Report
-          <ion-icon name="alert-circle-outline"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
 
 </ion-content>

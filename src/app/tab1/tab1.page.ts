@@ -13,19 +13,35 @@ import { Router } from '@angular/router';
 })
 export class Tab1Page implements OnInit {
 
-  reportIdList: [];
-  reportId:string = "";
+  reference = [];
+  userId = firebase.auth().currentUser.uid;
+  refItems = firebase.database().ref('transaction');
 
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
-    public afdatabase: AngularFireDatabase, private router: Router) {
+              public afdatabase: AngularFireDatabase, private router: Router) {
   }
 
   panelOpenState = false;
 
   ngOnInit() {
+    this.refItems.on('value', resp => {
+      this.reference = snapshotToArray(resp);
+    });
   }
 
   sendToReportError(){
     this.router.navigateByUrl('/report');
-  }  
+  }
 }
+
+export const snapshotToArray = snapshot => {
+  const returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
+  });
+
+  return returnArr.reverse();
+};
