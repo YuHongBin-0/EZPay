@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -8,32 +8,43 @@ import { Router } from '@angular/router';
 })
 export class AdminPage implements OnInit {
 
+  adminName: string = "anonymous";
+  sendCheckRole: string;
+
   constructor(public router: Router) { }
+
+  openManageWithState() {
+    let navigationExtras: NavigationExtras = {
+      state: {
+        checkRole : this.sendCheckRole
+      }
+    };
+    this.router.navigate(['manage'], navigationExtras);
+  }
 
   ngOnInit() {
   }
 
-  ManageStudents() {
+  manageStudents() {
+    // this.router.navigate(['/manage']);
+    this.sendCheckRole = 'student';
+    this.openManageWithState();
+  }
 
-    this.router.navigate(['/level']);
-}
+  manageVendors() {
+    // this.router.navigate(['/manage']);
+    this.sendCheckRole = 'vendor';
+    this.openManageWithState();
+  }
 
-  MakeAcc() {
-
+  createAccount() {
     this.router.navigate(['/pages']);
+  }
 
-}
-
-
-AdminHistory() {
-
-  this.router.navigate(['adm-history']);
-
-}
-  AdminHistory2() {
-
-  this.router.navigate(['viewreport']);
-
-}
-
+  adminHistory() {
+    this.router.navigate(['adm-history']);
+  }
+  adminReports() {
+    this.router.navigate(['viewreport']);
+  }
 }

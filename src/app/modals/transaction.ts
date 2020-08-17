@@ -7,5 +7,4 @@ export interface Transaction {
     date: string;
     notes: string;
     transactionType: string;
-    
 }

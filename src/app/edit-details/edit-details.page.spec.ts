@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { LevelPage } from './level.page';
+import { EditDetailsPage } from './edit-details.page';
 
-describe('LevelPage', () => {
-  let component: LevelPage;
-  let fixture: ComponentFixture<LevelPage>;
+describe('EditDetailsPage', () => {
+  let component: EditDetailsPage;
+  let fixture: ComponentFixture<EditDetailsPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LevelPage ],
+      declarations: [ EditDetailsPage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(LevelPage);
+    fixture = TestBed.createComponent(EditDetailsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

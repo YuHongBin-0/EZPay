@@ -122,16 +122,13 @@ export class PaymentPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => {
-            
-            
+          handler: (blah) => { 
           }
         }, {
           text: 'Okay',
           handler: async () => {
             var transactionID: string;
             transactionID = await this.genUniqueID();
-        
             
             firebase.database().ref('/users/' + this.scanResult).once('value').then(res => {
               if (res) {
@@ -143,16 +140,14 @@ export class PaymentPage implements OnInit {
                 console.log('this.transaction.amount: ' + this.transaction.amount);
                 console.log('changedBal: ' + changedBal);
                }
-        });
-        
-        firebase.database().ref('/users/' + this.userID).once('value').then(res => {
+            });
+            firebase.database().ref('/users/' + this.userID).once('value').then(res => {
               if (res) {
                 var bal:number = (res.val() && res.val().balance);
                 console.log('student balance: ' + bal);
                 this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
-               }
-        });
-            
+                }
+            });
             this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
             this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scanResult)
             this.afAuth.authState.subscribe(auth => {

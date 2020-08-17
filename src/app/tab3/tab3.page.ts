@@ -21,8 +21,6 @@ export class Tab3Page {
 
   constructor(public matExpansionModule: MatExpansionModule  ) { }
   ngOnInit() { 
-
-    var stall;
     this.refShop.on('value', resp => {
       this.shopDeets = snapshotToArray(resp);
     });

@@ -24,12 +24,12 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.module').then( m => m.AdminPageModule)
   },
   {
-    path: 'level',
-    loadChildren: () => import('./level/level.module').then( m => m.LevelPageModule)
-  },
-  {
     path: 'manage',
     loadChildren: () => import('./manage/manage.module').then( m => m.ManagePageModule)
+  },
+  {
+    path: 'edit-details',
+    loadChildren: () => import('./edit-details/edit-details.module').then( m => m.EditDetailsPageModule)
   },
   {
     path: 'payment',
@@ -71,12 +71,6 @@ const routes: Routes = [
     path: 'viewreport',
     loadChildren: () => import('./viewreport/viewreport.module').then( m => m.ViewreportPageModule)
   }
-
-
-
-
-
-
 
 ];
 @NgModule({

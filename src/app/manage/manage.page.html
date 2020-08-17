@@ -8,63 +8,56 @@
 </ion-header>
 
 <ion-content>
-  <ion-card style="padding-top:10px;border-radius:18px;">
-    <ion-card-header>
-      <ion-card-title>
-        Secondary 4 students
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-row style="background: lightskyblue; color:white;">
-        <ion-col size="1">
-          studentID
-        </ion-col>
-        <ion-col size="2">
-          NRIC
-        </ion-col>
-        <ion-col size="3.5">
-          Name
-        </ion-col>
-        <ion-col size="1">
-          Level
-        </ion-col>
-        <ion-col size="1">
-          Class
-        </ion-col>
-        <ion-col size="1.5">
-          Balance
-        </ion-col>
-        <ion-col size="2">
-          Row Settings
-        </ion-col>
-      </ion-row>
+  <div style="margin: 0 12px 0 12px;">
+    <ion-row style="background: lightskyblue; color:white;">
+      <ion-col size="1">
+        studentID
+      </ion-col>
+      <ion-col size="2">
+        NRIC
+      </ion-col>
+      <ion-col size="3.5">
+        Name
+      </ion-col>
+      <ion-col size="1">
+        Level
+      </ion-col>
+      <ion-col size="1">
+        Class
+      </ion-col>
+      <ion-col size="1.5">
+        Balance
+      </ion-col>
+      <ion-col size="2">
+        Row Settings
+      </ion-col>
+    </ion-row>
 
-      <ion-row *ngFor="let user of users">
+    <div *ngFor="let user of users">
+      <ion-row *ngIf="user.role == role">
         <ion-col size="1">
           {{user.key}}
         </ion-col>
         <ion-col size="2">
-          {{user.nric}} (<a>edit</a>)
+          {{user.nric}} (<a (click)="editDetails('nric', user.key)">edit</a>)
         </ion-col>
         <ion-col size="3.5">
-          {{user.name}} (<a>edit</a>)
+          {{user.name}} (<a (click)="editDetails('name', user.key)">edit</a>)
         </ion-col>
         <ion-col size="1">
-          {{user.level}} (<a>edit</a>)
+          {{user.level}} (<a (click)="editDetails('level', user.key)">edit</a>)
         </ion-col>
         <ion-col size="1">
-          {{user.class}} (<a>edit</a>)
+          {{user.class}} (<a (click)="editDetails('class', user.key)">edit</a>)
         </ion-col>
         <ion-col size="1.5">
-          {{user.balance}} (<a>edit</a>)
+          {{user.balance}} (<a (click)="editDetails('balance', user.key)">edit</a>)
         </ion-col>
         <ion-col size="2">
           <ion-icon style="padding: 0 !important;margin: 0 !important;" size="small" name="create"></ion-icon> <ion-icon style="padding: 0 !important;margin: 0 !important;" size="small" name="trash"></ion-icon>
         </ion-col>
       </ion-row>
-      </ion-card-content>
-      </ion-card>
-  <ion-button>
-    Create new student info
-  </ion-button>
+    </div>
+  </div>
+  <ion-button expand="block" (click)="createAccount(role)">Create new {{role}} info</ion-button>
 </ion-content>

@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit User Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <br>
+  <br>
+  <h3>User ID: {{userKey}}</h3>
+  <ng-template [ngIf]="userComponent != 'balance'" [ngIfElse]="balanceComp">
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input maxlength="32" value="{{userName}}" placeholder="Name"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">NRIC</ion-label>
+        <ion-input maxlength="9" value="{{userNRIC}}" placeholder="NRIC"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Level</ion-label>
+        <ion-input maxlength="1" value="{{userLevel}}" placeholder="1"></ion-input>
+      </ion-col>
+      <ion-col>
+        <ion-label position="stacked">Class</ion-label>
+        <ion-input maxlength="2" value="{{userClass}}" placeholder="e.g E or E1"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngIf="userRole == 'vendor'">
+        <ion-label position="stacked">Stall Number</ion-label>
+        <ion-input value="{{userStall}}" placeholder='#01-01'>$</ion-input>
+      </ion-col>
+    </ion-row>
+  <ion-button expand="block" (click)="changeBalanceValue()">Update Details</ion-button>
+  </ng-template>
+  <ng-template #balanceComp>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input disabled maxlength="32" value="{{userName}}" placeholder="Name"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Current Balance</ion-label>
+        <ion-input disabled="changeByAddOrSub" maxlength="32" value="{{userBal}}" placeholder="e.g 2.30 or 2">$</ion-input>
+      </ion-col>
+    </ion-row>
+    <h2>Change Balance</h2>
+    <ion-row>
+      <ion-col size="1">
+        <h4>Add to Balance</h4>
+      </ion-col>
+      <ion-col size="1">
+        <ion-toggle [(ngModel)]="absoluteChange"></ion-toggle>
+      </ion-col>
+      <ion-col size="1">
+        <h4>Override Balance</h4>
+      </ion-col>
+    </ion-row>
+    <div *ngIf="!absoluteChange">
+      <ion-row>
+        <ion-col size="2">
+          <ion-button (click)="decrementValue()">-</ion-button>
+        </ion-col>
+        <ion-col size="3">
+          <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+        </ion-col>
+        <ion-col size="2">
+          <ion-button (click)="incrementValue()">+</ion-button>
+        </ion-col>
+      </ion-row>
+    </div>
+    <div *ngIf="absoluteChange">
+      <ion-row>
+        <ion-col size="3">
+          <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+        </ion-col>
+      </ion-row>
+    </div>
+    <ion-label position="stacked">Notes:</ion-label>
+    <ion-textarea placeholder="(Optional) Let your users know why their balance had been changed!" [(ngModel)]="changeNotes"></ion-textarea>
+  </ng-template>
+  <ion-button expand="block" (click)="changeBalanceValue()">Update Balance</ion-button>
+</ion-content>
