@@ -20,7 +20,7 @@
       <p>Description: {{reports.description}}</p>
       <p>Date : 25/05/2020 21:25:30</p>
       <mat-action-row>
-        <ion-button class="reportBtn" (click)="deletePost(reports.key)">
+        <ion-button class="reportBtn" (click)="presentAlertConfirm(reports.key)">
           Solved
           <ion-icon name="trash"></ion-icon>
         </ion-button>
