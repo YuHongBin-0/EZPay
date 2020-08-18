@@ -25,7 +25,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import 'chartjs-plugin-zoom';
 
+import { PayPal} from '@ionic-native/paypal/ngx';
+
 import * as firebase from 'firebase';
+
 
 firebase.initializeApp(environment.firebase);
 
@@ -39,7 +42,8 @@ firebase.initializeApp(environment.firebase);
     StatusBar,
     SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    BarcodeScanner, Base64ToGallery, AngularFireAuth
+    BarcodeScanner, Base64ToGallery, AngularFireAuth,
+    AngularFireAuth, PayPal
   ],
   bootstrap: [AppComponent]
 })

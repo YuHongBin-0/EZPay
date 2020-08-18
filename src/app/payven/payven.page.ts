@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from '@angular/forms';
+import { NavController } from '@ionic/angular';
+import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from '@ionic-native/paypal/ngx';
+
 
 @Component({
   selector: 'app-payven',
@@ -8,7 +11,7 @@ import { FormBuilder, Validators } from "@angular/forms";
 })
 export class PayvenPage implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private payPal: PayPal, public navCtrl: NavController) { }
 
   get amount() {
     return this.paymentForm.get('amount');
@@ -22,7 +25,7 @@ export class PayvenPage implements OnInit {
         message: 'Please enter a valid Amount'
       }
     ]
-  }
+  };
 
   paymentForm = this.formBuilder.group({
     amount: [
@@ -36,6 +39,28 @@ export class PayvenPage implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  comprar(){
+    this.payPal.init({
+        PayPalEnvironmentProduction: '',
+        PayPalEnvironmentSandbox: 'AaNXnIekCWi3e01oPBykVliGefhusOSg_FQlEqlJt19gu1s2MonMSPSzd--JY3n2xK5Nt8k869154RMQ'
+    }).then(() => {
+      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
+        acceptCreditCards: true,
+        merchantName: 'CanalDoAbranches',
+        merchantPrivacyPolicyURL: '',
+        merchantUserAgreementURL: ''
+      })).then(() => {
+        const detail = new PayPalPaymentDetails('19.99', '0.00', '0.00');
+        const payment = new PayPalPayment('19.99', 'BRL', 'CanalDoAbranches', 'Sale', detail);
+        this.payPal.renderSinglePaymentUI(payment).then((response) => {
+          console.log('pagamento efetuado');
+        }, () => {
+          console.log('erro ao renderizar o pagamento do paypal');
+        });
+      });
+    });
   }
 
 }

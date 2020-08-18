@@ -10,39 +10,12 @@
 <ion-content>
   <div class="ion-padding">
   <form [formGroup]="paymentForm" (ngSubmit)="submit()">
-  <ion-list>
-    <ion-list-header>
-      <ion-label>Payment</ion-label>
-    </ion-list-header>
-    <ion-item>
-      
-      <ion-label>Select Account</ion-label>
-      <ion-select value="Others" okText="Okay" cancelText="Dismiss">
-        <ion-select-option value="3722301731">Bank Account 1</ion-select-option>
-        <ion-select-option value="2825144788">Bank Account 2</ion-select-option>
-        <ion-select-option value="3326749323">Bank Account 3</ion-select-option>
-      </ion-select>
-    </ion-item><br>
 
-    <ion-item>
-      
-      <ion-label> Amount : </ion-label>
-      <ion-input inputmode="numeric" formControlName="amount"></ion-input>
-    </ion-item>
-    <div *ngFor="let error of errorMessages.amount">
-      <ng-container *ngIf="amount.hasError(error.type) && (amount.dirty || amount.touched)">
-        <small class="error-message">{{error.message}}</small>
-      </ng-container>
-    </div>
+    <img src="assets/paypal_logo.png" style="height: 80px; margin: 60px; margin-left: 70px;">
 
-    <br><ion-item>
-      
-      <ion-textarea style="height: 200px;"> Description</ion-textarea>
-    </ion-item>
-
-  </ion-list>
-  <br>
-  <ion-button [disabled]="!paymentForm.valid" type="submit" expand="block">Pay 
+    <br>
+  
+  <ion-button color="dark" ion-button (click)="comprar()" style="margin-left: 70px; width: 200px; margin-top: 50px;">Pay Rent
     <ion-icon slot="end"name="create"></ion-icon>
   </ion-button>
   </form>
