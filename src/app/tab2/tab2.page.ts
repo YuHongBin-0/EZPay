@@ -18,6 +18,9 @@ import { InAppBrowser, InAppBrowserOptions } from '@ionic-native/in-app-browser/
 export class Tab2Page implements OnInit {
 
   slideOpts = { loop: true };
+  users: Observable<any>
+  userId: string;
+  isStudent: boolean;
   infos = [];
   slide = [];
   balance: number;
@@ -73,6 +76,25 @@ export class Tab2Page implements OnInit {
       console.log(this.name + " has $" + this.balance);
       
     })
+
+    var userId = firebase.auth().currentUser.uid;
+    console.log(userId);
+
+    firebase.database().ref('/users/' + userId).once('value').then(res => {
+      var role = (res.val() && res.val().role).toString();
+
+      console.log('userRole: ' + role)
+      if (role == "student") {
+        console.log('student')
+        this.isStudent = true
+        console.log(this.isStudent);
+      }
+      else if (role == "vendor") {
+        console.log('vendor')
+        this.isStudent = false;
+        console.log(this.isStudent)
+      }
+    })
   }
 
   open(youtube) {
@@ -81,6 +103,13 @@ export class Tab2Page implements OnInit {
 
   openPay() {
     this.router.navigate(['/payment']);
+  }
+  openPayven() {
+    this.router.navigate(['/payven']);
+  }
+
+  openStats(){
+    this.router.navigate(['/statistic']);
   }
 
   ionViewWillEnter() {
@@ -97,6 +126,24 @@ export class Tab2Page implements OnInit {
     //   }
     // });
   }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    var userId = firebase.auth().currentUser.uid;
+    firebase.database().ref('/users/' + userId).once('value').then(res => {
+      var bal = (res.val() && res.val().balance);
+      this.balance = bal;
+      var disName = (res.val() && res.val().name);
+      this.name = disName;
+      console.log(this.name + " has $" + this.balance);
+      
+    })
+    console.log('Async operation has ended');
+    event.target.complete();
+
+  }
+
+  
 }
 
 export const snapshotToArray1 = snapshot => { // for slides

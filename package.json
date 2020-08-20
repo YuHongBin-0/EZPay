@@ -92,7 +92,8 @@
       "cordova-plugin-ionic-keyboard": {},
       "cordova-base64-to-gallery": {},
       "cordova-plugin-inappbrowser": {},
-      "com.paypal.cordova.mobilesdk": {}
+      "com.paypal.cordova.mobilesdk": {},
+      "phonegap-plugin-barcodescanner": {}
     },
     "platforms": [
       "android"

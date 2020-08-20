@@ -14,6 +14,9 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <mat-accordion *ngFor="let transac of reference">
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.from == userId" >
@@ -25,8 +28,8 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>Date:</p>
-      <p>To: ${{transac.to}}</p>
-      <p>Notes: ${{transac.notes}}</p>
+      <p>To: {{transac.to}}</p>
+      <p>Notes: {{transac.notes}}</p>
       <mat-action-row>
         <ion-button class="reportBtn" (click)="sendToReportError()">
           Report

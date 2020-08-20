@@ -7,35 +7,23 @@
 
 <ion-content>
 
-  <video #video [hidden]="!scanActive" style="width: 100%; "></video>
   
-  <canvas #canvas hidden></canvas>
 
   <form [formGroup]="transactionForm">
 
 
     <ion-list formGroupName="transaction">
   <ion-card style="border-radius: 30px;height: auto;">
-    <ion-card *ngIf="scanResult">
-      <ion-card-header>
-        <ion-card-title>Stall Name:</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <ion-item>
-        <ion-input> {{ scanResult }}
-      </ion-input>
-      </ion-item>
-      </ion-card-content>
-    </ion-card>
+    
 
-    <!-- <ion-card *ngIf="scannedCode">
+    <ion-card *ngIf="scannedCode">
       <ion-card-header>
         <ion-card-title>Stall Name:</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         {{scannedCode}}
       </ion-card-content>
-    </ion-card> -->
+    </ion-card>
     
     <ion-card-content style="margin-top: 0;">
       <ion-row>
@@ -54,6 +42,11 @@
             <ion-label>Amount :</ion-label>
             <ion-input inputmode="numeric" type="number" formControlName="amount" id="amount" [(ngModel)]="transaction.amount"></ion-input>
           </ion-item>
+          <div *ngFor="let error of errorMessages.amount">
+            <ng-container *ngIf="amount.hasError(error.type) && (amount.dirty || amount.touched)">
+              <small class="error-message">{{error.message}}</small>
+            </ng-container>
+          </div>
           
         </ion-list>
         </ion-col>

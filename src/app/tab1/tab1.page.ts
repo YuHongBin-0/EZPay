@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class Tab1Page implements OnInit {
 
   reference = [];
+  avail = true
   userId = firebase.auth().currentUser.uid;
   refItems = firebase.database().ref('transaction');
 
@@ -32,6 +33,30 @@ export class Tab1Page implements OnInit {
   sendToReportError(){
     this.router.navigateByUrl('/report');
   }
+
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+    this.refItems.on('value', resp => {
+      this.reference = snapshotToArray(resp);
+    });
+
+    this.checkAvail()
+        console.log('Async operation has ended');
+        event.target.complete();
+
+  }
+
+  checkAvail() {
+    if (this.reference.length == 0) {
+      console.log('true')
+      this.avail = true
+    } else {
+      console.log('false')
+      this.avail = false
+    }
+  }
+
 }
 
 export const snapshotToArray = snapshot => {

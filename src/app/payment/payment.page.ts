@@ -16,16 +16,11 @@ import { FormBuilder, Validators } from "@angular/forms";
   styleUrls: ['payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
-  scanActive = false;
-  scanResult = null;
-  @ViewChild('video', { static: false }) video: ElementRef;
-  @ViewChild('canvas', { static: false }) canvas: ElementRef;
+ 
 
-  videoElement: any;
-  canvasElement: any;
-  canvasContext: any;
 
-  loading: HTMLIonLoadingElement;
+
+
 
   userID = firebase.auth().currentUser.uid;;
 
@@ -40,29 +35,16 @@ export class PaymentPage implements OnInit {
     public router: Router,
     private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
 
-    // scannedCode = null;
+    scannedCode = null;
 
   async ngOnInit() {
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: 'environment'}
-    });
-    this.videoElement.srcObject = stream;
-    this.videoElement.setAttribute('playsinline', true);
-    this.videoElement.play();
 
-    this.loading = await this.loadingCtrl.create({});
-    await this.loading.present();
-
-    requestAnimationFrame(this.scan.bind(this));
-
-    // -------------------
-
-    // this.barcodeScanner.scan().then(
-    //   barcodeData =>{
-    //     this.scannedCode = barcodeData.text;
-    //   }
-    // )
+    this.barcodeScanner.scan().then(
+      barcodeData =>{
+        this.scannedCode = barcodeData.text;
+      }
+    )
 
     var userId = firebase.auth().currentUser.uid;
     console.log(userId);
@@ -74,18 +56,14 @@ export class PaymentPage implements OnInit {
   })
 }
 
-  ngAfterViewInit() {
-    this.videoElement = this.video.nativeElement;
-    this.canvasElement = this.canvas.nativeElement;
-    this.canvasContext = this.canvasElement.getContext('2d');
-  }
+
 
   get notes() {
     return this.transactionForm.get("transaction.notes");
   }
 
   get amount() {
-    return this.transactionForm.get('tranasaction.amount');
+    return this.transactionForm.get('transaction.amount');
   }
 
   public errorMessages = {
@@ -96,6 +74,7 @@ export class PaymentPage implements OnInit {
       { type: 'required', message: 'Amount is required' },
       { type: 'max', message: 'Maximum amount per transaction should not exceed $20' }]
   }
+
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
       notes: ['', [ Validators.maxLength(100)]],
@@ -128,28 +107,27 @@ export class PaymentPage implements OnInit {
           text: 'Okay',
           handler: async () => {
             var transactionID: string;
+            
             transactionID = await this.genUniqueID();
             
-            firebase.database().ref('/users/' + this.scanResult).once('value').then(res => {
+            firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
               if (res) {
                 var bal:number = (res.val() && res.val().balance);
                 var changedBal:number = Number(bal + this.transaction.amount);
-                console.log('vendor balance: ' + bal);
-                this.afDatabase.object(`users/${this.scanResult}/balance`).set(changedBal);
-                console.log('bal: ' + bal);
-                console.log('this.transaction.amount: ' + this.transaction.amount);
-                console.log('changedBal: ' + changedBal);
+               
+                this.afDatabase.object(`users/${this.scannedCode}/balance`).set(changedBal);
+                
                }
             });
             firebase.database().ref('/users/' + this.userID).once('value').then(res => {
               if (res) {
                 var bal:number = (res.val() && res.val().balance);
-                console.log('student balance: ' + bal);
+                
                 this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
                 }
             });
             this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
-            this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scanResult)
+            this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode)
             this.afAuth.authState.subscribe(auth => {
               this.afDatabase.object(`transaction/${transactionID}/from`).set(auth.uid)
             })
@@ -165,55 +143,9 @@ export class PaymentPage implements OnInit {
     await alert.present();
   }
 
-  async scan(){
-    console.log('SCAN');
+  
 
-    if (this.videoElement.readyState === this.videoElement.HAVE_ENOUGH_DATA) {
-      if (this.loading) {
-        await this.loading.dismiss();
-        this.loading = null;
-        this.scanActive = true;
-      }
 
-      this.canvasElement.height = this.videoElement.videoHeight;
-      this.canvasElement.width = this.videoElement.videoWidth;
-
-      this.canvasContext.drawImage(
-        this.videoElement,
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      );
-
-      const imageData = this.canvasContext.getImageData(
-        0,
-        0,
-        this.canvasElement.width,
-        this.canvasElement.height
-      );
-
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert'
-      });
-      console.log('code: ', code);
-
-      if (code) {
-        this.scanActive = false;
-        this.scanResult = code.data;
-      } else {
-        if (this.scanActive) {
-          requestAnimationFrame(this.scan.bind(this));
-        }
-      }
-    } else {
-      requestAnimationFrame(this.scan.bind(this));
-    }
-  }
-
-  reset() {
-    this.scanResult = null;
-  }
 
   async genUniqueID() {
     var id:string;

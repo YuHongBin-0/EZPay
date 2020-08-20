@@ -64,7 +64,7 @@ export class ReportPage implements OnInit {
     var date = new Date();
     var status = 'pending';
     this.afDatabase.object(`reports/${reportID}`).set(this.supportTicket)
-    this.afDatabase.object(`reports/${reportID}/date`).set(date)
+    this.afDatabase.object(`reports/${reportID}/date`).set(date.toString());
     this.afDatabase.object(`reports/${reportID}/status`).set(status)
   }
 
