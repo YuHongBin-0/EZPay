@@ -31,7 +31,7 @@ export class ManagePage implements OnInit {
     });
   }
 
-  createAccount(role:string){
+  createAccount(){
     this.router.navigate(['/pages']);
   }
 

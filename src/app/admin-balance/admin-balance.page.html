@@ -61,6 +61,6 @@
   </div>
 </ion-content>
 <ion-footer>
-  <ion-button *ngIf="!absoluteChange" color="success" expand="block" (click)="changeBalanceValue('override')">Update Balance (Additive)</ion-button>
-  <ion-button *ngIf="absoluteChange" color="danger" expand="block" (click)="changeBalanceValue('addTo')">Update Balance (Override)</ion-button>
+  <ion-button *ngIf="!absoluteChange" color="success" expand="block" (click)="changeBalanceValue('addTo')">Update Balance (Additive)</ion-button>
+  <ion-button *ngIf="absoluteChange" color="danger" expand="block" (click)="changeBalanceValue('override')">Update Balance (Override)</ion-button>
 </ion-footer>
