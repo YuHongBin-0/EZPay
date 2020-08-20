@@ -10,93 +10,55 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class EditDetailsPage implements OnInit {
 
-  absoluteChange:boolean = false;
-  userComponent: string;
-  changeValue:number;
-  changeNotes: string;
+  userK;
   userKey: string;
-  userName; userNRIC; userLevel; userClass; userBal; userStall; userRole;
+  userName; userNRIC; userLevel; userClass; userBal; userStall; userRole; userDept; userEmail;
+  // newName; newNRIC; newLevel; newClass; newStall; newDept; newEmail;
 
-  constructor(private route: ActivatedRoute, private router: Router, private afDatabase: AngularFireDatabase) {
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.userComponent = this.router.getCurrentNavigation().extras.state.userComp;
-        this.userKey = this.router.getCurrentNavigation().extras.state.userK;
-        console.log(this.userKey)
-      }
-    });
-  }
+  constructor(private router: Router, private afDatabase: AngularFireDatabase) {}
+
   ngOnInit() {
-    firebase.database().ref('/users/' + this.userKey).on('value', res => {
+    firebase.database().ref(`users/${this.userK}`).on('value', res => {
       console.log(res)
-      var bal = (res.val() && res.val().balance);
-      this.userBal = bal;
-      var disName = (res.val() && res.val().name);
-      this.userName = disName;
-      var disClass = (res.val() && res.val().class);
-      this.userClass = disClass;
-      var disNRIC = (res.val() && res.val().NRIC);
-      this.userNRIC = disNRIC;
-      var disStallNo = (res.val() && res.val().stallNo);
-      this.userStall = disStallNo;
-      var role = (res.val() && res.val().stallNo);
+      var email = (res.val() && res.val().email);
+      this.userEmail = email;
+      var name = (res.val() && res.val().name);
+      this.userName = name;
+      var uClass = (res.val() && res.val().class);
+      this.userClass = uClass;
+      var NRIC = (res.val() && res.val().NRIC);
+      this.userNRIC = NRIC;
+      var stall_no = (res.val() && res.val().stallNo);
+      this.userStall = stall_no;
+      var role = (res.val() && res.val().role);
       this.userRole = role;
+      var dept = (res.val() && res.val().department);
+      this.userDept = dept;
+      console.log('name: ' + name, 'nric: ' + this.userNRIC, 'email: ' + this.userEmail, 'level: ' + this.userLevel, 'class: ' + this.userClass, 'role: ' + this.userRole, 'stall number: ' + this.userStall, 'dept: ' + this.userDept);
     })
   }
-  incrementValue(){
-    if(this.changeValue == null ){
-      this.changeValue = 1;
-    }else {
-      this.changeValue++;
-      this.changeValue = +this.changeValue.toFixed(2);
+
+  updateUserDetails(field:string){
+    if (field == 'nric'){
+      this.afDatabase.object(`users/${this.userK}/NRIC`).set(this.userNRIC);
+    }if (field == 'name'){
+      this.afDatabase.object(`users/${this.userK}/name`).set(this.userName);
+    }if (field == 'class'){
+      this.afDatabase.object(`users/${this.userK}/class`).set(this.userClass);
+    }if (field == 'level'){
+      this.afDatabase.object(`users/${this.userK}/level`).set(this.userLevel);
+    }if (field == 'email'){
+      this.afDatabase.object(`users/${this.userK}/email`).set(this.userEmail);
+    }if (field == 'number'){
+      
+    }if (field == 'stall-no'){
+      this.afDatabase.object(`users/${this.userK}/stallNo`).set(this.userStall);
+    }if (field == 'department'){
+      this.afDatabase.object(`users/${this.userK}/department`).set(this.userDept);
     }
   }
-  decrementValue(){
-    if(this.changeValue == null){
-      this.changeValue = -1;
-    }else {
-      this.changeValue--;
-      this.changeValue = +this.changeValue.toFixed(2);
-    }
-  }
 
-  async genUniqueID() {
-    var id:string;
-    var finalID:string;
-    id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    console.log("initial id is: " + id)
-    await firebase.database().ref(`/reports/${id}`).once('value').then(res => {
-      var objFromDB = res.val();
-      if(objFromDB != null){
-        console.log('The reportID "' + id + '" exists and CANNOT be used');
-        this.genUniqueID();
-      }
-      else{
-        console.log('The reportID "' + id + '" does not exist and is usable');
-        finalID = id;
-      }
-    });
-    return finalID;
-  }
-
-  async changeBalanceValue(){
-    var transactionID = await this.genUniqueID();
-    firebase.database().ref('/users/' + this.userKey).once('value', res => {
-      if (res) {
-        var bal:number = Number(res.val() && res.val().balance);
-        console.log('student balance: ' + bal);
-        console.log('change balance: ' + this.changeValue)
-        var changedBal:number = Number(bal + this.changeValue)
-        console.log('final balance: ' + changedBal)
-        this.afDatabase.object(`users/${this.userKey}/balance`).set(changedBal);
-        
-        }
-    });
-
-    this.afDatabase.object(`transaction/${transactionID}/amount`).set(this.changeValue)
-    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.userKey)
-    this.afDatabase.object(`transaction/${transactionID}/from`).set("Admin Team")
-    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Balance Changes")
-    this.afDatabase.object(`transaction/${transactionID}/notes`).set(this.changeNotes)
+  deleteUser(){
+    this.afDatabase.object(`users/${this.userK}`).remove();
   }
 }

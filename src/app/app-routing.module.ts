@@ -74,6 +74,14 @@ const routes: Routes = [
   {
     path: 'statistic',
     loadChildren: () => import('./statistic/statistic.module').then( m => m.StatisticPageModule)
+  },
+  {
+    path: 'manage-vendor',
+    loadChildren: () => import('./manage-vendor/manage-vendor.module').then( m => m.ManageVendorPageModule)
+  },
+  {
+    path: 'admin-balance',
+    loadChildren: () => import('./admin-balance/admin-balance.module').then( m => m.AdminBalancePageModule)
   }
 
 

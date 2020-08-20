@@ -1,0 +1,66 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Update User Balance</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="margin-left: 8px;">
+    <br>
+  <h3>User ID: {{userK}}</h3>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Name</ion-label>
+        <ion-input disabled maxlength="32" value="{{userName}}" placeholder="Name"></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-label position="stacked">Current Balance</ion-label>
+        <ion-input disabled="changeByAddOrSub" maxlength="32" value="{{userBal}}" placeholder="e.g 2.30 or 2">$</ion-input>
+      </ion-col>
+    </ion-row>
+    <h2>Change Balance</h2>
+    <ion-card style="margin-left: -1px;">
+      <br>
+      <ion-row>
+        <ion-col offset="2" size="3">
+          <ion-text [color]="absoluteChange == true ? 'default' : 'success'">Add to Balance</ion-text>
+        </ion-col>
+        <ion-col size="2">
+          <ion-toggle style="margin-top: -10px !important;" [(ngModel)]="absoluteChange"></ion-toggle>
+        </ion-col>
+        <ion-col size="3">
+          <ion-text [color]="absoluteChange == true ? 'danger' : 'default'">Override Balance</ion-text>
+        </ion-col>
+      </ion-row>
+      <div *ngIf="!absoluteChange">
+        <ion-row>
+          <ion-col offset="3" size="2">
+            <ion-button (click)="decrementValue()">-</ion-button>
+          </ion-col>
+          <ion-col size="2">
+            <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button (click)="incrementValue()">+</ion-button>
+          </ion-col>
+        </ion-row>
+      </div>
+      <div *ngIf="absoluteChange">
+        <ion-row>
+          <ion-col offset="4.5" size="3">
+            <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+          </ion-col>
+        </ion-row>
+      </div>
+      <br>
+    </ion-card>
+    <ion-label position="stacked">Notes:</ion-label>
+    <ion-textarea placeholder="(Optional) Let your users know why their balance had been changed!" [(ngModel)]="changeNotes"></ion-textarea>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-button *ngIf="!absoluteChange" color="success" expand="block" (click)="changeBalanceValue('override')">Update Balance (Additive)</ion-button>
+  <ion-button *ngIf="absoluteChange" color="danger" expand="block" (click)="changeBalanceValue('addTo')">Update Balance (Override)</ion-button>
+</ion-footer>

@@ -9,32 +9,21 @@ import { Router, NavigationExtras } from '@angular/router';
 export class AdminPage implements OnInit {
 
   adminName: string = "anonymous";
-  sendCheckRole: string;
 
   constructor(public router: Router) { }
 
   openManageWithState() {
-    let navigationExtras: NavigationExtras = {
-      state: {
-        checkRole : this.sendCheckRole
-      }
-    };
-    this.router.navigate(['manage'], navigationExtras);
   }
 
   ngOnInit() {
   }
 
   manageStudents() {
-    // this.router.navigate(['/manage']);
-    this.sendCheckRole = 'student';
-    this.openManageWithState();
+    this.router.navigate(['/manage']);
   }
 
   manageVendors() {
-    // this.router.navigate(['/manage']);
-    this.sendCheckRole = 'vendor';
-    this.openManageWithState();
+    this.router.navigate(['/manage-vendor']);
   }
 
   createAccount() {

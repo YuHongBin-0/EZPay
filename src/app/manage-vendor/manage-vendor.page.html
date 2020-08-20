@@ -1,9 +1,6 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button style="color: white;"></ion-back-button>
-    </ion-buttons>
-    <ion-title>manage</ion-title>
+    <ion-title>manage-vendor</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,7 +11,7 @@
         <ion-checkbox></ion-checkbox>
       </ion-col>
       <ion-col size="2" style="background: lightskyblue; color:white;">
-        studentID
+        vendorID
       </ion-col>
       <ion-col size="1" style="background: lightskyblue; color:white;">
         NRIC
@@ -29,10 +26,10 @@
         Phone Number
       </ion-col>
       <ion-col size="1" style="background: lightskyblue; color:white;">
-        Level
+        Stall Number
       </ion-col>
       <ion-col size="1" style="background: lightskyblue; color:white;">
-        Class
+        Ownership
       </ion-col>
       <ion-col size="0.75" style="background: lightskyblue; color:white;">
         Balance
@@ -43,7 +40,7 @@
     </ion-row>
 
     <div *ngFor="let user of users">
-      <ion-row *ngIf='user.role == "student"' style="border: 1px rgb(230, 230, 230) solid;">
+      <ion-row *ngIf='user.role == "vendor"' style="border: 1px rgb(230, 230, 230) solid;">
         <ion-col size="0.25">
           <ion-checkbox></ion-checkbox>
         </ion-col>
@@ -63,10 +60,12 @@
           6870 8888 (<a (click)="editDetails('details', user.key)">edit</a>)
         </ion-col>
         <ion-col size="1">
-          {{user.year}} (<a (click)="editDetails('details', user.key)">edit</a>)
+          {{user.stallNo}} (<a (click)="editDetails('details', user.key)">edit</a>)
         </ion-col>
         <ion-col size="1">
-          {{user.class|uppercase}} (<a (click)="editDetails('details', user.key)">edit</a>)
+          <div>
+            {{user.class|uppercase}} (<a (click)="editDetails('details', user.key)">edit</a>)
+          </div>
         </ion-col>
         <ion-col size="1">
           {{user.balance | currency}} (<a (click)="editDetails('balance', user.key)">edit</a>)
@@ -74,5 +73,7 @@
       </ion-row>
     </div>
   </div>
-    <ion-button expand="block" (click)="createAccount()">Create new student info</ion-button>
 </ion-content>
+<ion-footer>
+  <ion-button expand="block" (click)="updateDetails()">Update Details</ion-button>
+</ion-footer>

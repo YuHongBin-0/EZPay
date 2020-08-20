@@ -6,51 +6,43 @@ import { EditDetailsPage } from '../edit-details/edit-details.page';
 import { AdminBalancePage } from '../admin-balance/admin-balance.page';
 
 @Component({
-  selector: 'app-manage',
-  templateUrl: './manage.page.html',
-  styleUrls: ['./manage.page.scss'],
+  selector: 'app-manage-vendor',
+  templateUrl: './manage-vendor.page.html',
+  styleUrls: ['./manage-vendor.page.scss'],
 })
-export class ManagePage implements OnInit {
+export class ManageVendorPage implements OnInit {
 
   users = [];
-  role = "";
   userToEdit = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private modalCtrl: ModalController) { 
-    this.route.queryParams.subscribe(params => {
-      if (this.router.getCurrentNavigation().extras.state) {
-        this.role = this.router.getCurrentNavigation().extras.state.checkRole;
-      }
-    });
-  }
+  constructor(private router: Router, private modalCtrl: ModalController) { }
 
   ngOnInit() {
-    console.log(this.role);
     firebase.database().ref('users').on('value', resp => {
       this.users = snapshotToArray(resp);
     });
   }
 
-  createAccount(role:string){
-    this.router.navigate(['/pages']);
+  createAccount(){
+    this.router.navigate(['/pages/page2']);
   }
 
-  async editDetails(field: string, editedUser: string){
-    if (field == 'details'){
+  async editDetails(fieldToEdit:string, editedUser: string){
+    if(fieldToEdit == 'details'){
       const modal = await this.modalCtrl.create({
         component: EditDetailsPage,
         componentProps: {
-          userK : editedUser
-        },
-      })
+          userK: editedUser
+        }
+      });
       return await modal.present();
-    }else if (field == 'balance'){
+    } else if (fieldToEdit == 'balance'){
       const modal = await this.modalCtrl.create({
         component: AdminBalancePage,
         componentProps: {
-          userK : editedUser
-        },
-      })
+          userK: editedUser
+        }
+      });
       return await modal.present();
     }
   }
@@ -64,6 +56,5 @@ export const snapshotToArray = snapshot => {
     item.key = childSnapshot.key;
     returnArr.push(item);
   });
-
   return returnArr.reverse();
 };
