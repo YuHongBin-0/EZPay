@@ -70,13 +70,10 @@ const routes: Routes = [
   {
     path: 'viewreport',
     loadChildren: () => import('./viewreport/viewreport.module').then( m => m.ViewreportPageModule)
-  },  {
-    path: 'statistic',
-    loadChildren: () => import('./statistic/statistic.module').then( m => m.StatisticPageModule)
   },
   {
-    path: 'lock',
-    loadChildren: () => import('./lock/lock.module').then( m => m.LockPageModule)
+    path: 'statistic',
+    loadChildren: () => import('./statistic/statistic.module').then( m => m.StatisticPageModule)
   }
 
 

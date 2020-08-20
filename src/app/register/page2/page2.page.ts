@@ -144,21 +144,13 @@ export class Page2Page implements OnInit {
     }
 
     this.afAuth.authState.subscribe(auth => {
-      this.afdatabase.object(`users/${auth.uid}`).set(this.regisven)
-    })
-    this.afAuth.authState.subscribe(auth => {
-      this.afdatabase.object(`users/${auth.uid}/balance`).set("0.00")
-    })
-    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}`).set(this.regisven).then(() =>{this.registrationForm.reset()})
+      this.afdatabase.object(`users/${auth.uid}/balance`).set(0.00)
       this.afdatabase.object(`users/${auth.uid}/class`).set("")
-    })
-    this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/level`).set("")
-    })
-    this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/role`).set("vendor")
     })
-    
+   
     
 	}
 

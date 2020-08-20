@@ -16,12 +16,12 @@
   <ion-card style="border-radius: 30px;height: auto;">
     
 
-    <ion-card *ngIf="scannedCode">
+    <ion-card *ngFor=reference">
       <ion-card-header>
-        <ion-card-title>Stall Name:</ion-card-title>
+        <ion-card-title>Stall Name : </ion-card-title>
       </ion-card-header>
-      <ion-card-content>
-        {{scannedCode}}
+      <ion-card-content *ngIf="scannedCode == reference.stallOwner">
+        {{ reference.stallName }}
       </ion-card-content>
     </ion-card>
     

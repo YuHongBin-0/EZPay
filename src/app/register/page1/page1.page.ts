@@ -129,26 +129,15 @@ export class Page1Page implements OnInit {
             window.alert('Weak Password')
           }
     }
-
+     
     this.afAuth.authState.subscribe(auth => {
-      this.afdatabase.object(`users/${auth.uid}`).set(this.registu)
-    })
-    this.afAuth.authState.subscribe(auth => {
-      this.afdatabase.object(`users/${auth.uid}/balance`).set("0.00")
-    })
-    this.afAuth.authState.subscribe(auth => {
+      this.afdatabase.object(`users/${auth.uid}`).set(this.registu).then(() =>{this.registrationForm.reset()})
+      this.afdatabase.object(`users/${auth.uid}/balance`).set(0.00)
       this.afdatabase.object(`users/${auth.uid}/stallNo`).set("")
-    })
-    this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/department`).set("")
-    })
-    this.afAuth.authState.subscribe(auth => {
       this.afdatabase.object(`users/${auth.uid}/role`).set("student")
     })
 
-    this.registrationForm.reset();
-    
-    
 	}
 
 }
