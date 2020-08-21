@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { IonSearchbar } from '@ionic/angular';
 
 @Component({
   selector: 'app-adm-history',
@@ -12,35 +13,55 @@ import { Router } from '@angular/router';
   styleUrls: ['./adm-history.page.scss'],
 })
 export class AdmHistoryPage implements OnInit {
-
-  reference = [];
-  reference2 = [];
-  refItems = firebase.database().ref('transaction');
-
-  avail = true
+  @ViewChild('autofocus', { static: false }) myInput: IonSearchbar;
+  public reference: Array<any>;
+  public loadedReference: Array<any>;
+  public listRef: firebase.database.Reference;
   emptysearch: string;
+  avail = true
+  
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
-    public afdatabase: AngularFireDatabase, private router: Router) { }
+    public afdatabase: AngularFireDatabase, private router: Router) { 
+      this.listRef = firebase.database().ref('transaction');
+    this.listRef.on('value', resp => {
+      let transaction = [];
 
-  panelOpenState = false;
+
+      resp.forEach(course => {
+        // console.log(course.val())
+        let item = course.val();
+        item.key = course.key;
+        transaction.push(item);
+
+
+      });
+      this.reference = transaction;
+      this.loadedReference = transaction.reverse();
+
+    });
+    }
+
+   
 
   ngOnInit() {
-    this.refItems.on('value', resp => {
-      this.reference = snapshotToArray(resp);
-    });
+    setTimeout(() => {
+      this.myInput.setFocus();
+    }, 500);
+  }
 
-    this.reference2 = this.reference.reverse();
+  initializeItems() {
+    this.reference = this.loadedReference;
   }
 
   doRefresh(event) {
     console.log('Begin async operation');
-    this.refItems.on('value', resp => {
+    this.listRef.on('value', resp => {
       this.reference = snapshotToArray(resp);
     });
 
     this.checkAvail()
-    console.log('Async operation has ended');
-    event.target.complete();
+        console.log('Async operation has ended');
+        event.target.complete();
 
   }
 
@@ -54,9 +75,6 @@ export class AdmHistoryPage implements OnInit {
     }
   }
 
-  initializeItems() {
-    this.reference = this.reference2;
-  }
 
   getItems(searchbar) {
     // Reset items back to all of the items
@@ -73,7 +91,7 @@ export class AdmHistoryPage implements OnInit {
 
     this.reference = this.reference.filter((v) => {
       if (v.notes && q) {
-        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 ) {
           return true;
         }
         return false;
@@ -92,8 +110,9 @@ export class AdmHistoryPage implements OnInit {
   }
 
 
-}
+  
 
+}
 export const snapshotToArray = snapshot => {
   const returnArr = [];
 
