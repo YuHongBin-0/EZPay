@@ -4,25 +4,20 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content>
-
-  
-
   <form [formGroup]="transactionForm">
-
-
     <ion-list formGroupName="transaction">
   <ion-card style="border-radius: 30px;height: auto;">
     
-
-    <ion-card *ngFor=reference">
+    <ion-card *ngFor="let ref of reference" style="margin-top: -20px;">
+    <div *ngIf="ref.stallOwner == scannedCode">
       <ion-card-header>
         <ion-card-title>Stall Name : </ion-card-title>
       </ion-card-header>
-      <ion-card-content *ngIf="scannedCode == reference.stallOwner">
-        {{ reference.stallName }}
+      <ion-card-content>
+        {{ ref.stallName }}
       </ion-card-content>
+      </div>
     </ion-card>
     
     <ion-card-content style="margin-top: 0;">
@@ -30,7 +25,7 @@
         <ion-col >
             <ion-item>
               <ion-label>Name : {{name}}</ion-label>
-              <ion-label></ion-label>
+              
             </ion-item>
           </ion-col>
       </ion-row>

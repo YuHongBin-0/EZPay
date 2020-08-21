@@ -1,30 +1,78 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>View Report</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title style="text-align: center;">
+      All Reports
+    </ion-title>
+    <ion-buttons routerLink="/login" slot="end">
+      <ion-icon  name="exit-outline"></ion-icon>
+    </ion-buttons>
+
   </ion-toolbar>
 </ion-header>
-
+<br><br>
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div style="margin: 0 12px 0 12px;">
+    <ion-row>
+      
+      <ion-col size="1.75" style="background: lightskyblue; color:white;">
+        Reason
+      </ion-col>
+      <ion-col size="1.5" style="background: lightskyblue; color:white;">
+        Email
+      </ion-col>
+      <ion-col size="1.75" style="background: lightskyblue; color:white;">
+        Name
+      </ion-col>
+      <ion-col size="2.9" style="background: lightskyblue; color:white;">
+        Description
+      </ion-col>
+      <ion-col size="2.35" style="background: lightskyblue; color:white;">
+        Date
+      </ion-col>
+      <ion-col size="1" style="background: lightskyblue; color:white;">
+        Status
+      </ion-col>
+      <ion-col size="0.75" style="background: lightskyblue; color:white;">
+        Setting
+      </ion-col>
+      
+    </ion-row>
+    <br>
 
-  <mat-accordion *ngFor="let reports of infos">
-    <mat-expansion-panel  (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{reports.reason}}
-        </mat-panel-title>
-        <mat-panel-description>
-          {{reports.email}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>From: {{reports.name}}</p>
-      <p>Description: {{reports.description}}</p>
-      <p>Date : 25/05/2020 21:25:30</p>
-      <mat-action-row>
-        <ion-button class="reportBtn" (click)="presentAlertConfirm(reports.key)">
-          Solved
-          <ion-icon name="trash"></ion-icon>
-        </ion-button>
-      </mat-action-row>
-    </mat-expansion-panel>
-  </mat-accordion>
+    <div *ngFor="let report of reference">
+      <ion-row  style="border: 1px rgb(230, 230, 230) solid;">
+        <ion-col size="1.75">
+          {{report.reason}}
+        </ion-col>
+        <ion-col size="1.5">
+          {{report.email}} 
+        </ion-col>
+        <ion-col size="1.75">
+          {{report.name}} 
+        </ion-col>
+        <ion-col size="2.9">
+          {{report.description}} 
+        </ion-col>
+        <ion-col size="2.35">
+          {{report.date}}  
+        </ion-col>
+        <ion-col size="1">
+          {{report.status}} 
+        </ion-col>
+        <ion-col size="0.75" style="background: lightskyblue; color:white;">
+          <ion-button class="reportBtn" (click)="presentAlertConfirm(report.key)">
+            Solved
+          </ion-button>
+        </ion-col>
+        
+        
+      </ion-row>
+    </div>
+  </div>
 </ion-content>

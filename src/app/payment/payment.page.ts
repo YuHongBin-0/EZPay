@@ -21,8 +21,8 @@ export class PaymentPage implements OnInit {
 
 
   reference = [];
-  refItems = firebase.database().ref('users');
-//where you get
+  refStalls = firebase.database().ref('stalls');
+
   userID = firebase.auth().currentUser.uid;;
 
   transaction = {} as Transaction;
@@ -37,13 +37,12 @@ export class PaymentPage implements OnInit {
     private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
 
     scannedCode = null;
-//reference[] where?
-  async ngOnInit() {
 
+  async ngOnInit() {
 
     this.barcodeScanner.scan().then(
       barcodeData =>{
-        this.scannedCode = barcodeData.text;
+        this.scannedCode = barcodeData.text.toString();
       }
     )
 
@@ -56,9 +55,9 @@ export class PaymentPage implements OnInit {
       this.name = disName;
   })
 
-  this.refItems.on('value', resp => {
+  this.refStalls.on('value', resp => {
     this.reference = snapshotToArray1(resp);
-  });//why not call it something easier to understand okok
+  });
 }
 
 

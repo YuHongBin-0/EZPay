@@ -16,6 +16,8 @@ export class AdmHistoryPage implements OnInit {
   reference = [];
   refItems = firebase.database().ref('transaction');
 
+  avail = true
+
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
     public afdatabase: AngularFireDatabase, private router: Router) { }
 
@@ -26,6 +28,29 @@ export class AdmHistoryPage implements OnInit {
         this.reference = snapshotToArray(resp);
       });
     }
+
+    doRefresh(event) {
+      console.log('Begin async operation');
+      this.refItems.on('value', resp => {
+        this.reference = snapshotToArray(resp);
+      });
+  
+      this.checkAvail()
+          console.log('Async operation has ended');
+          event.target.complete();
+  
+    }
+  
+    checkAvail() {
+      if (this.reference.length == 0) {
+        console.log('true')
+        this.avail = true
+      } else {
+        console.log('false')
+        this.avail = false
+      }
+    }
+  
 
 }
 

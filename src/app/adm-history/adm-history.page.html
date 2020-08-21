@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
     <ion-title style="text-align: center;">
       Overall Transactions
     </ion-title>
@@ -9,22 +12,60 @@
 
   </ion-toolbar>
 </ion-header>
+<br><br>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div style="margin: 0 12px 0 12px;">
+    <ion-row>
+     
+      <ion-col size="2" style="background: lightskyblue; color:white;">
+        TransactionType
+      </ion-col>
+      <ion-col size="1" style="background: lightskyblue; color:white;">
+        Amount
+      </ion-col>
+      <ion-col size="2.45" style="background: lightskyblue; color:white;">
+        From
+      </ion-col>
+      <ion-col size="2.45" style="background: lightskyblue; color:white;">
+        To
+      </ion-col>
+      <ion-col size="2.35" style="background: lightskyblue; color:white;">
+        Notes
+      </ion-col>
+      <ion-col size="1.75" style="background: lightskyblue; color:white;">
+        Date
+      </ion-col>
+      
+    </ion-row>
+    <br>
 
-<ion-content [fullscreen]="true">
-  <mat-accordion *ngFor="let transac of reference">
-    <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header >
-        <mat-panel-title>
-          {{transac.transactionType}}
-        </mat-panel-title>
-        <mat-panel-description>
-          Amount: ${{transac.amount}}
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <p>Date:</p>
-      <p>To: ${{transac.to}}</p>
-      <p>Notes: ${{transac.notes}}</p>
-    </mat-expansion-panel>
-  </mat-accordion><br>
-
+    <div *ngFor="let trans of reference">
+      <ion-row  style="border: 1px rgb(230, 230, 230) solid;">
+        
+        <ion-col size="2">
+          {{trans.transactionType}}
+        </ion-col>
+        <ion-col size="1">
+          {{trans.amount}} 
+        </ion-col>
+        <ion-col size="2.45">
+          {{trans.from}} 
+        </ion-col>
+        <ion-col size="2.45">
+          {{trans.to}} 
+        </ion-col>
+        <ion-col size="2.35">
+          {{trans.notes}}  
+        </ion-col>
+        <ion-col size="1.5">
+          {{trans.date}} 
+        </ion-col>
+        
+        
+      </ion-row>
+    </div>
+  </div>
 </ion-content>

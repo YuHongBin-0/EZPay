@@ -3,6 +3,7 @@ import * as firebase from 'firebase';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AlertController } from '@ionic/angular';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-viewreport',
@@ -11,18 +12,19 @@ import { AlertController } from '@ionic/angular';
 })
 export class ViewreportPage implements OnInit {
 
-  infos = [];
-  ref = firebase.database().ref('reports/');
-
+  reference = [];
+  refItems = firebase.database().ref('reports/');
+  avail =  true;
   // tslint:disable-next-line: max-line-length
   constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase,
-              public alertController: AlertController) {
+              public alertController: AlertController, public afAuth: AngularFireAuth) {
+
 
    }
 
   ngOnInit() {
-    this.ref.on('value', resp => {
-    this.infos = snapshotToArray(resp);
+    this.refItems.orderByChild('status').on('value', resp => {
+    this.reference = snapshotToArray(resp);
   });
   }
 
@@ -41,7 +43,11 @@ export class ViewreportPage implements OnInit {
         }, {
           text: 'Okay',
           handler: async () => {
-            await this.afDatabase.object(`reports/${key}/`).remove();
+            
+            
+              
+              await this.afDatabase.object(`reports/${key}/status`).set("solved")
+            
           }
         }
       ]
@@ -53,6 +59,29 @@ export class ViewreportPage implements OnInit {
   async deletePost(key) {
       await this.afDatabase.object(`reports/${key}/`).remove();
     }
+
+    doRefresh(event) {
+      console.log('Begin async operation');
+      this.refItems.on('value', resp => {
+        this.reference = snapshotToArray(resp);
+      });
+  
+      this.checkAvail()
+          console.log('Async operation has ended');
+          event.target.complete();
+  
+    }
+  
+    checkAvail() {
+      if (this.reference.length == 0) {
+        console.log('true')
+        this.avail = true
+      } else {
+        console.log('false')
+        this.avail = false
+      }
+    }
+  
 
 }
 
