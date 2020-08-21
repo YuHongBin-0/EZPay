@@ -82,7 +82,11 @@ const routes: Routes = [
   {
     path: 'admin-balance',
     loadChildren: () => import('./admin-balance/admin-balance.module').then( m => m.AdminBalancePageModule)
+  },  {
+    path: 'add-items',
+    loadChildren: () => import('./add-items/add-items.module').then( m => m.AddItemsPageModule)
   }
+
 
 
 ];

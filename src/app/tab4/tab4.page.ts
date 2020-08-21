@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 
 import { ChartDataSets } from 'chart.js';
 import { Color, Label } from 'ng2-charts';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab4',
@@ -44,7 +45,7 @@ export class Tab4Page implements OnInit {
    // For search
    stock = '';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public router: Router) { }
 
   ngOnInit() {
   }
@@ -70,6 +71,10 @@ export class Tab4Page implements OnInit {
 typeChanged(e) {
   const on = e.detail.checked;
   this.chartType = on ? 'line' : 'bar';
+}
+
+addFoodItems() {
+  this.router.navigate(['/add-items']);
 }
 
 
