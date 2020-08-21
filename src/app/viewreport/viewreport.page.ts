@@ -13,7 +13,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 export class ViewreportPage implements OnInit {
 
   reference = [];
-  refItems = firebase.database().ref('reports/');
+  refItems = firebase.database().ref('reports/').orderByChild('status');
   avail =  true;
   // tslint:disable-next-line: max-line-length
   constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase,
@@ -23,7 +23,7 @@ export class ViewreportPage implements OnInit {
    }
 
   ngOnInit() {
-    this.refItems.orderByChild('status').on('value', resp => {
+    this.refItems.on('value', resp => {
     this.reference = snapshotToArray(resp);
   });
   }
@@ -46,7 +46,7 @@ export class ViewreportPage implements OnInit {
             
             
               
-              await this.afDatabase.object(`reports/${key}/status`).set("solved")
+              await this.afDatabase.object(`reports/${key}/status`).set("- solved")
             
           }
         }
