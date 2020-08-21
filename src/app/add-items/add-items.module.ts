@@ -5,13 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { AddItemsPageRoutingModule } from './add-items-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AddItemsPage } from './add-items.page';
 
 @NgModule({
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     IonicModule,
     AddItemsPageRoutingModule
   ],

@@ -1,9 +1,61 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>addItems</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Add Items</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
+  <div class="ion-padding">
+    <form [formGroup]="registrationForm" >
+      
+      <br>
+      <ion-list formGroupName="food">
+        <ion-list-header>
+          <ion-label>Food Items</ion-label>
+        </ion-list-header>
+
+        <ion-item>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input autocapitalize inputmode="name" formControlName=name id="name" [(ngModel)]="food.name"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.name">
+          <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        
+
+        <ion-item>
+          <ion-label position="floating">Price</ion-label>
+          <ion-input formControlName="price"[(ngModel)]="food.price" id="price"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.price">
+          <ng-container *ngIf="price.hasError(error.type) && (price.dirty || price.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        <br>
+
+        <ion-item>
+          <ion-textarea formControlName="description" [(ngModel)]="food.description" id="description" style="height: 200px;">Description
+          </ion-textarea>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.description">
+          <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        
+      </ion-list>
+      <ion-button [disabled]="!registrationForm.valid" (click)="presentAlertConfirm()" expand="block">Submit <ion-icon slot="end"
+          name="create">
+        </ion-icon>
+      </ion-button>
+    </form>
+  </div>
 </ion-content>
+
