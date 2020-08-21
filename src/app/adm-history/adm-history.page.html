@@ -12,13 +12,16 @@
 
   </ion-toolbar>
 </ion-header>
-<br><br>
+<br>
 <ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <ion-searchbar #autofocus debounce="500" (ionInput)="getItems($event)"
+    placeholder="Enter Module Name"></ion-searchbar> 
   <div style="margin: 0 12px 0 12px;">
-    <ion-row>
+    <ion-row><br>
      
       <ion-col size="2" style="background: lightskyblue; color:white;">
         TransactionType
