@@ -7,6 +7,7 @@ import { Color, Label } from 'ng2-charts';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-tab4',
@@ -20,8 +21,9 @@ export class Tab4Page implements OnInit {
   refShop = firebase.database().ref('stalls');
   refItems = firebase.database().ref('products');
   userId = firebase.auth().currentUser.uid;
+  
 
-  constructor(public router: Router, public matExpansionModule: MatExpansionModule ) { }
+  constructor(public router: Router, public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase ) { }
 
   ngOnInit() {
 
@@ -36,6 +38,10 @@ export class Tab4Page implements OnInit {
 
   addFoodItems() {
     this.router.navigate(['/add-items']);
+  }
+
+  async deleteFood(key){
+    await this.afDatabase.object(`products/${key}/`).remove()
   }
 
 
