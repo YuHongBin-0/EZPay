@@ -11,7 +11,6 @@ import { AngularFireDatabase } from 'angularfire2/database'
 })
 export class Tab3Page {
   
-
   shopDeets = [];
   shopItems = [];
   refShop = firebase.database().ref('stalls');

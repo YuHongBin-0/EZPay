@@ -6,42 +6,33 @@
 
 <ion-content>
 
-  <ion-item>
-    <ion-input type="text" [(ngModel)]="stock" placeholder="AAPL, MSFT..."></ion-input>
-    <ion-button slot="end" expand="full" (click)="getData()" [disabled]="stock == ''">
-      <ion-icon slot="start" name="search"></ion-icon>
-      Search
-    </ion-button>
-  </ion-item>
- 
-  <canvas baseChart 
-  [datasets]="chartData" 
-  [labels]="chartLabels" 
-  [options]="chartOptions" 
-  [colors]="chartColors"
-  [legend]="showLegend" 
-  [chartType]="chartType">
-  </canvas>
- 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Settings</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Line chart?</ion-label>
-        <ion-toggle (ionChange)="typeChanged($event)" checked></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>Show legend?</ion-label>
-        <ion-toggle [(ngModel)]="showLegend"></ion-toggle>
-      </ion-item>
-      <ion-item>
-        <ion-label>Background color</ion-label>
-        <ion-input type="text" [(ngModel)]="chartColors[0].backgroundColor"></ion-input>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <mat-accordion *ngFor="let prodItem of shopItems">
+    <div *ngFor="let stall of shopDeets">
+      <div *ngIf="userId == stall.stallOwner">
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header  *ngIf="stall.key == prodItem.stall">
+        
+        <mat-panel-title>
+          {{ prodItem.prodName }}
+        </mat-panel-title>
+        <mat-panel-description>
+         $ {{ prodItem.price }}
+        </mat-panel-description>
+        
+      </mat-expansion-panel-header>
+
+      <img [src]="prodItem.image"><br>
+      <p> {{ prodItem.prodDesc }}</p>
+      <mat-action-row>
+        <button color="warn" (click)="deleteFood()"> Delete </button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+    </div>
+    </div>
+    
+  </mat-accordion><br>
 
   <ion-fab vertical="bottom" horizontal="end" slot="fixed" style="padding: 20px;">
     <ion-fab-button (click)="addFoodItems()">

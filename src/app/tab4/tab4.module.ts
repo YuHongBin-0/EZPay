@@ -10,6 +10,7 @@ import { Tab4Page } from './tab4.page';
 
 
 import { ChartsModule } from 'ng2-charts';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   imports: [
@@ -17,7 +18,7 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     IonicModule,
     Tab4PageRoutingModule,
-    ChartsModule
+    ChartsModule, MatExpansionModule
   ],
   declarations: [Tab4Page]
 })
