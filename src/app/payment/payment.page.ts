@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
-import { ToastController, LoadingController, AlertController } from '@ionic/angular';
+import { ToastController, LoadingController, AlertController, ModalController } from '@ionic/angular';
 import jsQR from 'jsqr';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
@@ -9,6 +9,7 @@ import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner
 import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from "@angular/forms";
+import { PaylockPage } from '../paylock/paylock.page';
 
 @Component({
   selector: 'app-payment',
@@ -31,6 +32,7 @@ export class PaymentPage implements OnInit {
 
   constructor(private loadingCtrl: LoadingController, 
     private afAuth: AngularFireAuth, 
+    private modalCtrl: ModalController,
     private afDatabase: AngularFireDatabase,
     public alertController: AlertController,
     public router: Router,
@@ -168,6 +170,18 @@ export class PaymentPage implements OnInit {
     this.presentAlert('Success', 'Payment Made!').then( res =>{
       this.router.navigate(['tabs/tab2'])
     });
+  }
+
+  async lockApp(){
+    const modal = await this.modalCtrl.create({
+      component: PaylockPage,
+      backdropDismiss: true,
+      cssClass: 'lock-modal',
+      componentProps: {
+        isModal: true
+      }
+    });
+    modal.present();
   }
 }
 

@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform } from '@ionic/angular';
+import { Platform, ModalController } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { LockPage } from './lock/lock.page';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,9 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private modalCtrl: ModalController,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -22,6 +26,25 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.platform.pause.subscribe(() => {
+        if (this.router.url != '/login') {
+          this.lockApp();
+        }
+      });
     });
+  }
+
+  async lockApp(){
+
+    const modal = await this.modalCtrl.create({
+      component: LockPage,
+      backdropDismiss: false,
+      cssClass: 'lock-modal',
+      componentProps: {
+        isModal: true
+      }
+    });
+    modal.present();
   }
 }

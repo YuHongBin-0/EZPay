@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-
+import { FingerprintAIO } from '@ionic-native/fingerprint-aio/ngx';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -28,6 +28,7 @@ import 'chartjs-plugin-zoom';
 import { PayPal} from '@ionic-native/paypal/ngx';
 
 import * as firebase from 'firebase';
+import { LockPageModule } from './lock/lock.module';
 
 
 firebase.initializeApp(environment.firebase);
@@ -37,13 +38,14 @@ firebase.initializeApp(environment.firebase);
   declarations: [AppComponent],
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, 
-    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule, AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule],
+    AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule,
+     AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule, LockPageModule],
   providers: [
     StatusBar,
     SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner, Base64ToGallery, AngularFireAuth,
-    AngularFireAuth, PayPal
+    AngularFireAuth, PayPal, FingerprintAIO
   ],
   bootstrap: [AppComponent]
 })
