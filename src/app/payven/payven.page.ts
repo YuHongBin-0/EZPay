@@ -73,7 +73,7 @@ export class PayvenPage implements OnInit {
   async lockApp(){
     const modal = await this.modalCtrl.create({
       component: PaylockPage,
-      backdropDismiss: true,
+      backdropDismiss: false,
       cssClass: 'lock-modal',
       componentProps: {
         isModal: true
