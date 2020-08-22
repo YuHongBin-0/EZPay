@@ -110,35 +110,7 @@ export class PaymentPage implements OnInit {
         }, {
           text: 'Okay',
           handler: async () => {
-            var transactionID: string;
-            
-            transactionID = await this.genUniqueID();
-            
-            firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
-              if (res) {
-                var bal:number = (res.val() && res.val().balance);
-                var changedBal:number = Number(bal + this.transaction.amount);
-               
-                this.afDatabase.object(`users/${this.scannedCode}/balance`).set(changedBal);
-                
-               }
-            });
-            firebase.database().ref('/users/' + this.userID).once('value').then(res => {
-              if (res) {
-                var bal:number = (res.val() && res.val().balance);
-                
-                this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
-                }
-            });
-            this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
-            this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode)
-            this.afAuth.authState.subscribe(auth => {
-              this.afDatabase.object(`transaction/${transactionID}/from`).set(auth.uid)
-            })
-            this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("payment(goods)")
-            
-            this.router.navigate(['tabs/tab2'])
-            this.presentAlert('Success', 'Payment Made!')
+            this.transactions();
           }
         }
       ]
@@ -146,11 +118,7 @@ export class PaymentPage implements OnInit {
 
     await alert.present();
   }
-
   
-
-
-
   async genUniqueID() {
     var id:string;
     var finalID:string;
@@ -170,38 +138,37 @@ export class PaymentPage implements OnInit {
     return finalID;
   }
 
-//   async transactions() {
-//     var transactionID: string;
-//     transactionID = await this.genUniqueID();
-
+  async transactions(){
+    var transactionID: string;
+              
+    transactionID = await this.genUniqueID();
     
-//     firebase.database().ref('/users/' + this.scanResult).once('value').then(res => {
-//       if (res) {
-//         var bal:number = (res.val() && res.val().balance);
-//         var changedBal:number = Number(bal + this.transaction.amount);
-//         console.log('vendor balance: ' + bal);
-//         this.afDatabase.object(`users/${this.scanResult}/balance`).set(changedBal);
-//         console.log('bal: ' + bal);
-//         console.log('this.transaction.amount: ' + this.transaction.amount);
-//         console.log('changedBal: ' + changedBal);
-//        }
-// });
-
-// firebase.database().ref('/users/' + this.userID).once('value').then(res => {
-//       if (res) {
-//         var bal:number = (res.val() && res.val().balance);
-//         console.log('student balance: ' + bal);
-//         this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
-//        }
-// });
+    firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
+      if (res) {
+        var bal:number = (res.val() && res.val().balance);
+        var changedBal:number = Number(bal + this.transaction.amount);
+      
+        this.afDatabase.object(`users/${this.scannedCode}/balance`).set(changedBal);
+        
+      }
+    });
+    firebase.database().ref('/users/' + this.userID).once('value').then(res => {
+      if (res) {
+        var bal:number = (res.val() && res.val().balance);
+        
+        this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
+        }
+    });
+    this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
+    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode)
+    this.afDatabase.object(`transaction/${transactionID}/from`).set(this.userID)
+    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
+    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Payment (Goods)")
     
-//     this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
-//     this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scanResult)
-//     this.afAuth.authState.subscribe(auth => {
-//       this.afDatabase.object(`transaction/${transactionID}/from`).set(auth.uid)
-//     })
-//     this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("payment(goods)")
-//   }
+    this.presentAlert('Success', 'Payment Made!').then( res =>{
+      this.router.navigate(['tabs/tab2'])
+    });
+  }
 }
 
 export const snapshotToArray = snapshot => {

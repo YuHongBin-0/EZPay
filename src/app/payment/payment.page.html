@@ -9,7 +9,7 @@
     <ion-list formGroupName="transaction">
   <ion-card style="border-radius: 30px;height: auto;">
     
-    <ion-card *ngFor="let ref of reference" style="margin-top: -20px;">
+    <ion-card *ngFor="let ref of reference" >
     <div *ngIf="ref.stallOwner == scannedCode">
       <ion-card-header>
         <ion-card-title>Stall Name : </ion-card-title>
