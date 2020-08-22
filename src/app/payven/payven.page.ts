@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NavController } from '@ionic/angular';
+import { NavController, ModalController } from '@ionic/angular';
 import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from '@ionic-native/paypal/ngx';
+import { PaylockPage } from '../paylock/paylock.page';
 
 
 @Component({
@@ -11,7 +12,9 @@ import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from
 })
 export class PayvenPage implements OnInit {
 
-  constructor(private formBuilder: FormBuilder, private payPal: PayPal, public navCtrl: NavController) { }
+  constructor(private formBuilder: FormBuilder, 
+    private payPal: PayPal, public navCtrl: NavController,
+    private modalCtrl: ModalController) { }
 
   get amount() {
     return this.paymentForm.get('amount');
@@ -39,9 +42,11 @@ export class PayvenPage implements OnInit {
   }
 
   ngOnInit() {
+    this.lockApp();
   }
 
   comprar(){
+   
     this.payPal.init({
         PayPalEnvironmentProduction: '',
         PayPalEnvironmentSandbox: 'AaNXnIekCWi3e01oPBykVliGefhusOSg_FQlEqlJt19gu1s2MonMSPSzd--JY3n2xK5Nt8k869154RMQ'
@@ -61,6 +66,20 @@ export class PayvenPage implements OnInit {
         });
       });
     });
+
+  }
+
+
+  async lockApp(){
+    const modal = await this.modalCtrl.create({
+      component: PaylockPage,
+      backdropDismiss: true,
+      cssClass: 'lock-modal',
+      componentProps: {
+        isModal: true
+      }
+    });
+    modal.present();
   }
 
 }
