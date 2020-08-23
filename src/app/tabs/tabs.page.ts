@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs';
 
 import * as firebase from 'firebase/app';
+import { Platform } from '@ionic/angular';
 // import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -17,8 +18,20 @@ export class TabsPage implements OnInit {
   users: Observable<any>
   userId: string;
   isStudent: boolean;
+  subscribe:any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, public platform:Platform) { 
+    this.subscribe = this.platform.backButton.subscribeWithPriority(666666,()=> {
+      if(this.constructor.name == "TabsPage")
+      {
+        if(window.confirm("Do you want to exit EzPay?"))
+        {
+          navigator["app"].exitApp();
+        }
+      }
+  
+  })
+  }
 
   ngOnInit() {
     var userId = firebase.auth().currentUser.uid;
