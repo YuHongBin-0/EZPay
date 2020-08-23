@@ -18,6 +18,9 @@ export class Tab1Page implements OnInit {
   userId = firebase.auth().currentUser.uid;
   refItems = firebase.database().ref('transaction');
 
+  refstall = [];
+  refStalls = firebase.database().ref('stalls');
+
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase, private router: Router) {
   }
@@ -27,6 +30,10 @@ export class Tab1Page implements OnInit {
   ngOnInit() {
     this.refItems.on('value', resp => {
       this.reference = snapshotToArray(resp);
+    });
+
+    this.refStalls.on('value', resp => {
+      this.refstall = snapshotToArray1(resp);
     });
   }
 
@@ -60,6 +67,18 @@ export class Tab1Page implements OnInit {
 }
 
 export const snapshotToArray = snapshot => {
+  const returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
+  });
+
+  return returnArr.reverse();
+};
+
+export const snapshotToArray1 = snapshot => {
   const returnArr = [];
 
   snapshot.forEach(childSnapshot => {
