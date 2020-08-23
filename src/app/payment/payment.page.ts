@@ -92,7 +92,8 @@ export class PaymentPage implements OnInit {
 		const alert = await this.alertController.create({
 			header: title,
 			message: content,
-      buttons: ['Ok']
+      buttons: ['Ok'],
+      cssClass: 'payment-alert',
 		})
 		await alert.present()
   }
