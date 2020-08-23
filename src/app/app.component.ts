@@ -28,7 +28,7 @@ export class AppComponent {
       this.splashScreen.hide();
 
       this.platform.pause.subscribe(() => {
-        if (this.router.url != '/login' && this.router.url != '/payven') {
+        if (this.router.url != '/login' && this.router.url != '/payven' && this.router.url != '/payment') {
           this.lockApp();
         }
       });

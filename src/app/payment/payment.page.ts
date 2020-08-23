@@ -11,6 +11,7 @@ import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from "@angular/forms";
 import { PaylockPage } from '../paylock/paylock.page';
 
+
 @Component({
   selector: 'app-payment',
   templateUrl: 'payment.page.html',
@@ -98,6 +99,12 @@ export class PaymentPage implements OnInit {
 		await alert.present()
   }
 
+  tryTransactNow () {
+    this.presentAlertConfirm().then(() => {
+      this.lockApp();
+    })
+  }
+
   async presentAlertConfirm() {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
@@ -176,7 +183,7 @@ export class PaymentPage implements OnInit {
   async lockApp(){
     const modal = await this.modalCtrl.create({
       component: PaylockPage,
-      backdropDismiss: true,
+      backdropDismiss: false,
       cssClass: 'lock-modal',
       componentProps: {
         isModal: true

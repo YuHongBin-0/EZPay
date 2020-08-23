@@ -25,11 +25,12 @@ export class PaylockPage implements OnInit {
       disableBackup: true,  // optional | default: false
     })
       .then(() => {
+        
         if (this.isModal) {
           this.modalCtrl.dismiss().then(() => {
             this.modalCtrl.dismiss();
           })
-          
+         
         } else {
           this.router.navigateByUrl('/home');
         }
