@@ -91,7 +91,7 @@ export class AdmHistoryPage implements OnInit {
 
     this.reference = this.reference.filter((v) => {
       if (v.notes && q) {
-        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 ) {
+        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.from.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.to.toLowerCase().indexOf(q.toLowerCase()) > -1) {
           return true;
         }
         return false;
