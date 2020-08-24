@@ -12,11 +12,14 @@
 
   </ion-toolbar>
 </ion-header>
+<ion-content>
 
-<ion-content [fullscreen]="true">
+<div [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
+  <div *ngIf='isStudent'>
   <div *ngFor="let transac of reference">
     <div *ngFor="let stall of refstall">
       <div *ngIf="transac.to == stall.stallOwner">
@@ -66,6 +69,65 @@
       </mat-action-row>
     </mat-expansion-panel>
   </mat-accordion>
+</div>
+</div>
+
+<!-- ----------------------------------------------------------- -->
+
+<div *ngIf='!isStudent'>
+  <div *ngFor="let transac of reference">
+    <div *ngFor="let stall of refstall">
+      <div *ngIf="transac.to == stall.stallOwner">
+  <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
+    <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header *ngIf="transac.from == userId" >
+        <mat-panel-title>
+          {{transac.transactionType}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Amount: ${{transac.amount}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Date:</p>
+      <p>To: {{stall.stallName}}</p>
+      <p>Notes: {{transac.notes}}</p>
+      <mat-action-row>
+        <ion-button class="reportBtn" (click)="sendToReportError()">
+          Report
+          <ion-icon name="alert-circle-outline"></ion-icon>
+        </ion-button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+  </div></div>
+
+<div *ngFor="let transac of reference">
+  <mat-accordion *ngIf="transac.transactionType == 'Balance Changes'" >
+    <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header *ngIf="transac.to == userId" >
+        <mat-panel-title>
+          {{transac.transactionType}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Amount: ${{transac.amount}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <p>Date:</p>
+      <p>From: {{transac.from}}</p>
+      <p>Notes: {{transac.notes}}</p>
+      <mat-action-row>
+        <ion-button class="reportBtn" (click)="sendToReportError()">
+          Report
+          <ion-icon name="alert-circle-outline"></ion-icon>
+        </ion-button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+</div>
+
+
 </div>
 
 </ion-content>

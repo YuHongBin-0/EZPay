@@ -17,9 +17,11 @@ export class Tab1Page implements OnInit {
   avail = true
   userId = firebase.auth().currentUser.uid;
   refItems = firebase.database().ref('transaction');
-
+  isStudent: boolean;
   refstall = [];
   refStalls = firebase.database().ref('stalls');
+  refuser = [];
+  refUsers = firebase.database().ref('user');
 
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase, private router: Router) {
@@ -28,6 +30,20 @@ export class Tab1Page implements OnInit {
   panelOpenState = false;
 
   ngOnInit() {
+
+    var userId = firebase.auth().currentUser.uid
+   
+
+      firebase.database().ref(`/users/` + userId).once('value').then(res => {
+        var role = (res.val() && res.val().role).toString();
+        if (role == "student") {
+          this.isStudent = true
+        }
+        else if (role == "vendor") {
+          this.isStudent = false;
+        }
+      })
+
     this.refItems.on('value', resp => {
       this.reference = snapshotToArray(resp);
     });
