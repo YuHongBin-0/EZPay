@@ -29,6 +29,7 @@ import { PayPal} from '@ionic-native/paypal/ngx';
 
 import * as firebase from 'firebase';
 import { LockPageModule } from './lock/lock.module';
+import { IonicStorageModule } from '@ionic/storage'
 
 
 firebase.initializeApp(environment.firebase);
@@ -37,7 +38,7 @@ firebase.initializeApp(environment.firebase);
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, FormsModule, 
+  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule, 
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule,
      AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule, LockPageModule],
   providers: [

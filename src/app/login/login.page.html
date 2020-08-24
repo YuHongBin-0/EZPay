@@ -31,47 +31,25 @@
         <h2 style="text-align: center; color: rgb(250, 246, 246);">Student</h2>
   
         <!-- username -->
-        <ion-item lines="none">
+        <ion-item lines="none" >
             <ion-icon slot="start" name="person-outline"></ion-icon>      
-          <ion-input type="text" [(ngModel)]="username" ></ion-input>
+          <ion-input  [(ngModel)]="value.email" value="{{emaaa}}"> </ion-input>
         </ion-item>
   
         <!-- password -->
         <ion-item lines="none">
             <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-          <ion-input type="password" [(ngModel)]="password"></ion-input>
+          <ion-input type="password" [(ngModel)]="value.password" value="{{pass}}"> </ion-input>
         </ion-item>
   
         <!-- ion button -->
-        <ion-button (click)="loginStu()">Login</ion-button>
+        <ion-button (click)="loginStud(value)">Login</ion-button>
         
       </div>
     
       <div *ngSwitchCase="'card1'" style="text-align: center;">
         <!-- header and user type -->
         <h2 style="text-align: center; color: rgb(250, 246, 246);">Admin</h2>
-  
-        <!-- username -->
-        <ion-item lines="none">
-            <ion-icon slot="start" name="person-outline"></ion-icon>      
-          <ion-input type="text"></ion-input>
-        </ion-item>
-  
-        <!-- password -->
-        <ion-item lines="none">
-            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
-          <ion-input type="password"></ion-input>
-        </ion-item>
-  
-        <!-- ion button -->
-        <ion-button routerLink="/admin">
-          Login
-        </ion-button>
-      </div>
-  
-      <div *ngSwitchCase="'card'" style="text-align: center; color: rgb(250, 246, 246);">
-        <!-- header and user type -->
-        <h2 style="text-align: center;">Vendor</h2>
   
         <!-- username -->
         <ion-item lines="none">
@@ -86,7 +64,29 @@
         </ion-item>
   
         <!-- ion button -->
-        <ion-button  (click)="loginVen()">Login</ion-button>
+        <ion-button (click)="loginAdmi()">
+          Login
+        </ion-button>
+      </div>
+  
+      <div *ngSwitchCase="'card'" style="text-align: center; color: rgb(250, 246, 246);">
+        <!-- header and user type -->
+        <h2 style="text-align: center;">Vendor</h2>
+  
+        <!-- username -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="person-outline"></ion-icon>      
+          <ion-input [(ngModel)]="value.email" value="{{emaaa}}"></ion-input>
+        </ion-item>
+  
+        <!-- password -->
+        <ion-item lines="none">
+            <ion-icon slot="start" name="lock-closed-outline"></ion-icon>
+          <ion-input type="password" [(ngModel)]="value.password" value="{{pass}}"></ion-input>
+        </ion-item>
+  
+        <!-- ion button -->
+        <ion-button  (click)="loginVend(value)">Login</ion-button>
       </div>
   
   

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-admin',
@@ -10,12 +11,15 @@ export class AdminPage implements OnInit {
 
   adminName: string = "anonymous";
 
-  constructor(public router: Router) { }
+  constructor(public router: Router,  public storage: Storage) { }
 
   openManageWithState() {
   }
 
   ngOnInit() {
+    this.storage.get('UID') .then((val) => {
+      console.log('UID is :', val);
+    });
   }
 
   manageStudents() {

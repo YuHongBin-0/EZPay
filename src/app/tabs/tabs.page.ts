@@ -6,6 +6,11 @@ import { Observable } from 'rxjs';
 
 import * as firebase from 'firebase/app';
 import { Platform } from '@ionic/angular';
+import { User } from '../modals/user';
+import { Storage } from '@ionic/storage';
+import { stringify } from 'querystring';
+import { promise } from 'protractor';
+
 // import { ToastController } from '@ionic/angular';
 
 @Component({
@@ -16,42 +21,35 @@ import { Platform } from '@ionic/angular';
 export class TabsPage implements OnInit {
 
   users: Observable<any>
-  userId: string;
-  isStudent: boolean;
-  subscribe:any;
-
-  constructor(private router: Router, public platform:Platform) { 
-    this.subscribe = this.platform.backButton.subscribeWithPriority(666666,()=> {
-      if(this.constructor.name == "TabsPage")
-      {
-        if(window.confirm("Do you want to exit EzPay?"))
-        {
-          navigator["app"].exitApp();
-        }
-      }
   
-  })
+  isStudent: boolean;
+
+
+  UID:string = '';
+
+  constructor(private router: Router, public platform:Platform,  public storage: Storage) { 
+    
   }
 
   ngOnInit() {
-    var userId = firebase.auth().currentUser.uid;
-    console.log(userId);
+   
 
-    firebase.database().ref('/users/' + userId).once('value').then(res => {
-      var role = (res.val() && res.val().role).toString();
+    var userId = firebase.auth().currentUser.uid
+   
 
-      console.log('userRole: ' + role)
-      if (role == "student") {
-        console.log('student')
-        this.isStudent = true
-        console.log(this.isStudent);
-      }
-      else if (role == "vendor") {
-        console.log('vendor')
-        this.isStudent = false;
-        console.log(this.isStudent)
-      }
-    })
+      firebase.database().ref(`/users/` + userId).once('value').then(res => {
+        var role = (res.val() && res.val().role).toString();
+        if (role == "student") {
+          this.isStudent = true
+        }
+        else if (role == "vendor") {
+          this.isStudent = false;
+        }
+      })
+  
+    
+
+    
   }
 
   gotoHome() {
