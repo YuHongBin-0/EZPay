@@ -33,7 +33,7 @@
           Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Date:</p>
+      <p>Date: {{ transac.transactionDate}}</p>
       <p>To: {{stall.stallName}}</p>
       <p>Notes: {{transac.notes}}</p>
       <mat-action-row>
@@ -58,7 +58,7 @@
           Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Date:</p>
+      <p>Date: {{ transac.transactionDate}}</p>
       <p>From: {{transac.from}}</p>
       <p>Notes: {{transac.notes}}</p>
       <mat-action-row>
@@ -75,12 +75,14 @@
 <!-- ----------------------------------------------------------- -->
 
 <div *ngIf='!isStudent'>
+
+
   <div *ngFor="let transac of reference">
-    <div *ngFor="let stall of refstall">
-      <div *ngIf="transac.to == stall.stallOwner">
+    <div *ngFor="let user of refuser">
+      <div *ngIf="transac.from == user.key">
   <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-      <mat-expansion-panel-header *ngIf="transac.from == userId" >
+      <mat-expansion-panel-header *ngIf="transac.to == userID" >
         <mat-panel-title>
           {{transac.transactionType}}
         </mat-panel-title>
@@ -88,8 +90,8 @@
           Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Date:</p>
-      <p>To: {{stall.stallName}}</p>
+      <p>Date: {{ transac.transactionDate}}</p>
+      <p>From: {{ user.name}}</p>
       <p>Notes: {{transac.notes}}</p>
       <mat-action-row>
         <ion-button class="reportBtn" (click)="sendToReportError()">
@@ -113,7 +115,7 @@
           Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
-      <p>Date:</p>
+      <p>Date: {{ transac.transactionDate}}</p>
       <p>From: {{transac.from}}</p>
       <p>Notes: {{transac.notes}}</p>
       <mat-action-row>

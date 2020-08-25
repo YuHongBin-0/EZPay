@@ -21,7 +21,9 @@ export class Tab1Page implements OnInit {
   refstall = [];
   refStalls = firebase.database().ref('stalls');
   refuser = [];
-  refUsers = firebase.database().ref('user');
+  refUsers = firebase.database().ref('users');
+  userID = firebase.auth().currentUser.uid;
+   
 
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase, private router: Router) {
@@ -50,6 +52,10 @@ export class Tab1Page implements OnInit {
 
     this.refStalls.on('value', resp => {
       this.refstall = snapshotToArray1(resp);
+    });
+
+    this.refUsers.on('value', resp => {
+      this.refuser = snapshotToArray2(resp);
     });
   }
 
@@ -95,6 +101,18 @@ export const snapshotToArray = snapshot => {
 };
 
 export const snapshotToArray1 = snapshot => {
+  const returnArr = [];
+
+  snapshot.forEach(childSnapshot => {
+    const item = childSnapshot.val();
+    item.key = childSnapshot.key;
+    returnArr.push(item);
+  });
+
+  return returnArr.reverse();
+};
+
+export const snapshotToArray2 = snapshot => {
   const returnArr = [];
 
   snapshot.forEach(childSnapshot => {
