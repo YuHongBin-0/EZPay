@@ -1,10 +1,8 @@
-ion-button {
-    margin-top: 2em;
-    width: 40%;
-  }
-
-  ion-content {
-    --background: linear-gradient( #0079C1 0%, #00457C 100%);
+ion-content {
+  --color: black;
+  --background: white;
 }
-
-
+ion-toolbar{
+  --background: #0079C1;
+  color: white;
+}

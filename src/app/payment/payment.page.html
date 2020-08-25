@@ -1,5 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
     <ion-title>Payment</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -7,12 +10,12 @@
 <ion-content>
   <form [formGroup]="transactionForm">
     <ion-list formGroupName="transaction">
-  <ion-card style="border-radius: 30px;height: auto;">
+  <ion-card class="totalcard" style="border-radius: 30px;height: auto;">
     
     <ion-card *ngFor="let ref of reference" >
     <div *ngIf="ref.stallOwner == scannedCode">
       <ion-card-header>
-        <ion-card-title>Stall Name : </ion-card-title>
+        <ion-card-title>Pay to : </ion-card-title>
       </ion-card-header>
       <ion-card-content>
         {{ ref.stallName }}
