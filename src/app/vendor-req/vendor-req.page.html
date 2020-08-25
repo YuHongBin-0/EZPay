@@ -1,0 +1,65 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button style="color: white;"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div class="ion-padding">
+    <form [formGroup]="registrationForm" >
+      
+      <br>
+      <ion-list formGroupName="form">
+        <ion-list-header>
+          <ion-label>Request Amount</ion-label>
+        </ion-list-header>
+
+        <ion-row style="color: black;">
+          <ion-col>
+            <ion-item>
+            <p>Role: {{ role }}</p>
+            </ion-item>
+          </ion-col>
+          
+        </ion-row>
+        <ion-row style="color: black;">
+          <ion-col>
+            <ion-item>
+            <p>NRIC: {{ NRIC }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      
+        <ion-item>
+          <ion-label position="floating">Amount Requesting</ion-label>
+          <ion-input formControlName="amount"[(ngModel)]="form.amount" id="amount"></ion-input>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.amount">
+          <ng-container *ngIf="amount.hasError(error.type) && (amount.dirty || amount.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        <br>
+
+        <ion-item>
+          <ion-textarea formControlName="notes" [(ngModel)]="form.notes" id="notes" style="height: 200px;">Notes
+          </ion-textarea>
+        </ion-item>
+        <div *ngFor="let error of errorMessages.notes">
+          <ng-container *ngIf="notes.hasError(error.type) && (notes.dirty || notes.touched)">
+            <small class="error-message">{{error.message}}</small>
+          </ng-container>
+        </div>
+        
+      </ion-list>
+      <ion-button [disabled]="!registrationForm.valid" (click)="presentAlertConfirm()" expand="block">Submit <ion-icon slot="end"
+          name="create">
+        </ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>

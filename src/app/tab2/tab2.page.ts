@@ -112,6 +112,10 @@ export class Tab2Page implements OnInit {
     this.router.navigate(['/statistic']);
   }
 
+  reqForm() {
+    this.router.navigate(['/vendor-req']);
+  }
+
   ionViewWillEnter() {
     // this.afAuth.authState.subscribe(async data => {
     //   if (data && data.uid) {
