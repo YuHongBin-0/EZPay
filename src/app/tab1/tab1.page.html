@@ -26,7 +26,7 @@
   <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
       <mat-expansion-panel-header *ngIf="transac.from == userId" >
-        <mat-panel-title style="color: lightpink;">
+        <mat-panel-title style="color: #B22222;">
           {{transac.transactionType }}
         </mat-panel-title>
         <mat-panel-description>
@@ -51,7 +51,7 @@
   <mat-accordion *ngIf="transac.transactionType == 'Balance Changes'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userId" >
-        <mat-panel-title style="color: lightgreen;">
+        <mat-panel-title style="color: #228B22;">
           {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description>
@@ -83,7 +83,7 @@
   <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userID" >
-        <mat-panel-title style="color: lightgreen;">
+        <mat-panel-title style="color: #228B22;">
           {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description>
@@ -108,7 +108,7 @@
   <mat-accordion *ngIf="transac.transactionType == 'Balance Changes'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userId" >
-        <mat-panel-title style="color: lightpink;">
+        <mat-panel-title style="color: #B22222">
           {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description >
