@@ -24,11 +24,13 @@ export class VendorReqPage implements OnInit {
   email: string;
   department: string;
   stallNo: string;
+  
 
   constructor(public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase,
               public alertController: AlertController,
-              public router: Router,
+              public router: Router, 
+              public alertCtrl : AlertController,
               private formBuilder: FormBuilder) { }
 
               get amount() {
@@ -43,7 +45,7 @@ export class VendorReqPage implements OnInit {
               public errorMessages = {
                 amount: [
                   { type: 'required', message: 'Requesting Amount is required' },
-                  { type: 'maxlength', message: 'Please enter a valid amount' },
+                  { type: 'max', message: 'Amount cannot be more then your current balance' },
 
                 ],
                 notes: [
@@ -58,7 +60,7 @@ export class VendorReqPage implements OnInit {
               registrationForm = this.formBuilder.group({
 
                 form: this.formBuilder.group({
-                  amount: ['', [Validators.required]],
+                  amount: ['', [Validators.required, Validators.max(Number(this.balance))]],
                   notes: ['', [Validators.required, Validators.maxLength(250)]],
                 })
               });
@@ -70,6 +72,7 @@ export class VendorReqPage implements OnInit {
     firebase.database().ref('/users/' + userId).once('value').then(res => {
       const bal = (res.val() && res.val().balance);
       this.balance = bal;
+      
       const disName = (res.val() && res.val().name);
       this.name = disName;
       const disClass = (res.val() && res.val().class);
@@ -114,7 +117,7 @@ export class VendorReqPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Confirmation',
-      message: 'Confirm Request?',
+      message: 'Confirm Request of : $ ' + this.form.amount + ' ?' ,
       buttons: [
         {
           text: 'Cancel',
@@ -126,11 +129,18 @@ export class VendorReqPage implements OnInit {
           text: 'Okay',
           handler: async () => {
 
+            var requestVenID: string;
+              
+            requestVenID = await this.genUniqueID();
 
 
             this.afAuth.authState.subscribe(auth => {
-              this.afdatabase.object(`submitform`).set(this.form).then(() => {this.router.navigate(['/tabs/tab2']); });
-
+              this.afdatabase.object(`requestVen/${requestVenID}`).set(this.form).then(() => {this.router.navigate(['/tabs/tab2']); });
+              this.afdatabase.object(`requestVen/${requestVenID}/balanceATM`).set(this.balance);
+              this.afdatabase.object(`requestVen/${requestVenID}/name`).set(this.name);
+              this.afdatabase.object(`requestVen/${requestVenID}/NRIC`).set(this.NRIC);
+              this.afdatabase.object(`requestVen/${requestVenID}/email`).set(this.email);
+              this.afdatabase.object(`requestVen/${requestVenID}/transactionDate`).set(new Date().toISOString())
             });
 
           }
@@ -139,6 +149,25 @@ export class VendorReqPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async genUniqueID() {
+    var id:string;
+    var finalID:string;
+    id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    console.log("initial id is: " + id)
+    await firebase.database().ref(`/requestVen/${id}`).once('value').then(res => {
+      var objFromDB = res.val();
+      if(objFromDB != null){
+        console.log('The reportID "' + id + '" exists and CANNOT be used');
+        this.genUniqueID();
+      }
+      else{
+        console.log('The reportID "' + id + '" does not exist and is usable');
+        finalID = id;
+      }
+    });
+    return finalID;
   }
 
 }

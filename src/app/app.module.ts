@@ -31,6 +31,8 @@ import * as firebase from 'firebase';
 import { LockPageModule } from './lock/lock.module';
 import { IonicStorageModule } from '@ionic/storage'
 
+import { EmailComposer} from '@ionic-native/email-composer/ngx'
+
 
 firebase.initializeApp(environment.firebase);
 
@@ -46,7 +48,7 @@ firebase.initializeApp(environment.firebase);
     SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner, Base64ToGallery, AngularFireAuth,
-    AngularFireAuth, PayPal, FingerprintAIO
+    AngularFireAuth, PayPal, FingerprintAIO, EmailComposer
   ],
   bootstrap: [AppComponent]
 })

@@ -15,13 +15,13 @@
       <br>
       <ion-list formGroupName="form">
         <ion-list-header>
-          <ion-label>Request Amount</ion-label>
+          <ion-label>Request Amount : </ion-label>
         </ion-list-header>
 
         <ion-row style="color: black;">
           <ion-col>
             <ion-item>
-            <p>Role: {{ role }}</p>
+            <p>Name: {{ name}}</p>
             </ion-item>
           </ion-col>
           
@@ -33,10 +33,17 @@
             </ion-item>
           </ion-col>
         </ion-row>
+        <ion-row style="color: black;">
+          <ion-col>
+            <ion-item>
+            <p>Balance: {{ balance|currency }}</p>
+            </ion-item>
+          </ion-col>
+        </ion-row>
       
         <ion-item>
           <ion-label position="floating">Amount Requesting</ion-label>
-          <ion-input formControlName="amount"[(ngModel)]="form.amount" id="amount"></ion-input>
+          <ion-input inputmode="numeric" type="number"formControlName="amount"[(ngModel)]="form.amount" id="amount"></ion-input>
         </ion-item>
         <div *ngFor="let error of errorMessages.amount">
           <ng-container *ngIf="amount.hasError(error.type) && (amount.dirty || amount.touched)">

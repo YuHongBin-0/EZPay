@@ -61,10 +61,10 @@ export class ReportPage implements OnInit {
     var reportID = await this.genUniqueID();
     console.log('reportID: ' + reportID);
     this.showAlert('ReportID','','Report ID is: ' + reportID, ['OK'])
-    var date = new Date();
+    
     var status = 'pending';
     this.afDatabase.object(`reports/${reportID}`).set(this.supportTicket)
-    this.afDatabase.object(`reports/${reportID}/date`).set(date.toString());
+    this.afDatabase.object(`reports/${reportID}/date`).set(new Date().toISOString())
     this.afDatabase.object(`reports/${reportID}/status`).set(status)
   }
 

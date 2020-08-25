@@ -134,7 +134,7 @@ export class PaymentPage implements OnInit {
     var finalID:string;
     id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     console.log("initial id is: " + id)
-    await firebase.database().ref(`/reports/${id}`).once('value').then(res => {
+    await firebase.database().ref(`/transaction/${id}`).once('value').then(res => {
       var objFromDB = res.val();
       if(objFromDB != null){
         console.log('The reportID "' + id + '" exists and CANNOT be used');

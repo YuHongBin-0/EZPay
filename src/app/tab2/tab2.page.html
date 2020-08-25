@@ -60,7 +60,7 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
-  <ion-button style="margin-left: 33%; margin-top: 10%;" (click)="reqForm()"> 
+  <ion-button style="margin-left: 33%; margin-top: 10%;" (click)="reqForm()" *ngIf='!isStudent'> 
     Request Form
   </ion-button>
 

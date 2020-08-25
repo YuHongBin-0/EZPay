@@ -24,6 +24,10 @@
           <ion-icon name="warning-outline" style="margin-right: 10px;"></ion-icon>Report Error
         </ion-item>
 
+        <ion-item detail button (click)="openEmailCom()">
+          <ion-icon name="mail-outline" style="margin-right: 10px;"></ion-icon> Emergency Report
+        </ion-item>
+
         <ion-item detail [routerLink]="'/settings'">
           <ion-icon name="text-outline" style="margin-right: 10px;"></ion-icon>Change Font Size
           <ion-select value="Small" okText="Okay" cancelText="Dismiss">
