@@ -86,7 +86,12 @@ const routes: Routes = [
   {
     path: 'add-items',
     loadChildren: () => import('./add-items/add-items.module').then(m => m.AddItemsPageModule)
+  },
+  {
+    path: 'vendor-req',
+    loadChildren: () => import('./vendor-req/vendor-req.module').then( m => m.VendorReqPageModule)
   }
+
 
 ];
 @NgModule({
