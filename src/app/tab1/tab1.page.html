@@ -24,10 +24,10 @@
     <div *ngFor="let stall of refstall">
       <div *ngIf="transac.to == stall.stallOwner">
   <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
-    <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false" >
       <mat-expansion-panel-header *ngIf="transac.from == userId" >
-        <mat-panel-title>
-          {{transac.transactionType}}
+        <mat-panel-title style="color: lightpink;">
+          {{transac.transactionType }}
         </mat-panel-title>
         <mat-panel-description>
           Amount: ${{transac.amount}}
@@ -51,7 +51,7 @@
   <mat-accordion *ngIf="transac.transactionType == 'Balance Changes'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userId" >
-        <mat-panel-title>
+        <mat-panel-title style="color: lightgreen;">
           {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description>
@@ -83,7 +83,7 @@
   <mat-accordion  *ngIf="transac.transactionType == 'Payment (Goods)'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userID" >
-        <mat-panel-title>
+        <mat-panel-title style="color: lightgreen;">
           {{transac.transactionType}}
         </mat-panel-title>
         <mat-panel-description>
@@ -108,10 +108,10 @@
   <mat-accordion *ngIf="transac.transactionType == 'Balance Changes'" >
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
       <mat-expansion-panel-header *ngIf="transac.to == userId" >
-        <mat-panel-title>
+        <mat-panel-title style="color: lightpink;">
           {{transac.transactionType}}
         </mat-panel-title>
-        <mat-panel-description>
+        <mat-panel-description >
           Amount: ${{transac.amount}}
         </mat-panel-description>
       </mat-expansion-panel-header>
