@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Optional } from '@angular/core';
 import { MatExpansionModule } from '@angular/material/expansion';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -12,61 +12,47 @@ import { IonSearchbar } from '@ionic/angular';
   templateUrl: './adm-history.page.html',
   styleUrls: ['./adm-history.page.scss'],
 })
+
 export class AdmHistoryPage implements OnInit {
   @ViewChild('autofocus', { static: false }) myInput: IonSearchbar;
   public reference: Array<any>;
   public loadedReference: Array<any>;
   public listRef: firebase.database.Reference;
   emptysearch: string;
-  avail = true
+  avail = true;
+  sortDirection = 0;
+  sortKey = null;
+  initialSortKey = null;
   
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
-    public afdatabase: AngularFireDatabase, private router: Router) { 
-      this.listRef = firebase.database().ref('transaction');
-    this.listRef.on('value', resp => {
-      let transaction = [];
-
-
-      resp.forEach(course => {
-        // console.log(course.val())
-        let item = course.val();
-        item.key = course.key;
-        transaction.push(item);
-
-
-      });
-      this.reference = transaction;
-      this.loadedReference = transaction.reverse();
-
-    });
+    public afdatabase: AngularFireDatabase, private router: Router) {
     }
 
-   
-
-  ngOnInit() {
-    setTimeout(() => {
-      this.myInput.setFocus();
-    }, 500);
+  ngOnInit() { 
+    this.listRef = firebase.database().ref('transaction');
+    this.listRef.on('value', resp => {
+      this.reference = snapshotToArray(resp)
+    });
   }
 
   initializeItems() {
-    this.reference = this.loadedReference;
+    this.loadedReference = this.reference;
   }
 
   doRefresh(event) {
     console.log('Begin async operation');
     this.listRef.on('value', resp => {
       this.reference = snapshotToArray(resp);
+      this.loadedReference = this.reference;
     });
 
-    this.checkAvail()
-        console.log('Async operation has ended');
-        event.target.complete();
-
+    this.checkAvail();
+    console.log('Async operation has ended');
+    event.target.complete();
   }
 
   checkAvail() {
-    if (this.reference.length == 0) {
+    if (this.loadedReference.length == 0) {
       console.log('true')
       this.avail = true
     } else {
@@ -75,7 +61,6 @@ export class AdmHistoryPage implements OnInit {
     }
   }
 
-
   getItems(searchbar) {
     // Reset items back to all of the items
     this.initializeItems();
@@ -83,13 +68,12 @@ export class AdmHistoryPage implements OnInit {
     // set q to the value of the searchbar
     var q = searchbar.srcElement.value;
 
-
     // if the value is an empty string don't filter the items
     if (!q) {
       return;
     }
 
-    this.reference = this.reference.filter((v) => {
+    this.loadedReference = this.loadedReference.filter((v) => {
       if (v.notes && q) {
         if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.from.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.to.toLowerCase().indexOf(q.toLowerCase()) > -1) {
           return true;
@@ -98,9 +82,9 @@ export class AdmHistoryPage implements OnInit {
       }
     });
 
-    console.log(q, this.reference.length);
+    console.log(q, this.loadedReference.length);
 
-    if (this.reference.length == 0) {
+    if (this.loadedReference.length == 0) {
       this.emptysearch = "empty liao"  // equivalent to true or present
       console.log("true")
     } else {
@@ -109,8 +93,41 @@ export class AdmHistoryPage implements OnInit {
     }
   }
 
+  sortBy(key:string){
+    this.sortKey = key;
+    if (this.initialSortKey == null){
+      console.log(this.sortKey,this.initialSortKey);
+      this.initialSortKey = key;
+    } else if (this.sortKey != this.initialSortKey){
+      console.log(this.sortKey,this.initialSortKey);
+      this.sortDirection = 0;
+      this.initialSortKey = key;
+    }
+    this.sortDirection++;
+    this.sort();
+  }
 
-  
+  sort() {
+    if (this.sortDirection == 1){
+      this.loadedReference = this.loadedReference.sort((a,b) => {
+        const valA = a[this.sortKey];
+        const valB = b[this.sortKey];
+        return valA.localeCompare(valB);
+      });
+    } else if (this.sortDirection == 2){
+      this.loadedReference = this.loadedReference.sort((a,b) => {
+        const valA = a[this.sortKey];
+        const valB = b[this.sortKey];
+        return valB.localeCompare(valA);
+      });
+    } else {
+      this.sortDirection = 0;
+      this.doRefresh(event);
+      this.loadedReference = this.reference;
+      this.loadedReference.sort();
+      this.sortKey = null;
+    }
+  }
 
 }
 export const snapshotToArray = snapshot => {

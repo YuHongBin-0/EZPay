@@ -50,12 +50,12 @@ export class Tab1Page implements OnInit {
       this.reference = snapshotToArray(resp);
     });
 
-    this.refStalls.on('value', resp => {
-      this.refstall = snapshotToArray1(resp);
+    this.refStalls.on('value', resp1 => {
+      this.refstall = snapshotToArray(resp1);
     });
 
-    this.refUsers.on('value', resp => {
-      this.refuser = snapshotToArray2(resp);
+    this.refUsers.on('value', resp2 => {
+      this.refuser = snapshotToArray(resp2);
     });
   }
 
@@ -99,28 +99,3 @@ export const snapshotToArray = snapshot => {
 
   return returnArr.reverse();
 };
-
-export const snapshotToArray1 = snapshot => {
-  const returnArr = [];
-
-  snapshot.forEach(childSnapshot => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
-
-  return returnArr.reverse();
-};
-
-export const snapshotToArray2 = snapshot => {
-  const returnArr = [];
-
-  snapshot.forEach(childSnapshot => {
-    const item = childSnapshot.val();
-    item.key = childSnapshot.key;
-    returnArr.push(item);
-  });
-
-  return returnArr.reverse();
-};
-

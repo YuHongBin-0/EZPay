@@ -24,7 +24,6 @@ export class TabsPage implements OnInit {
   
   isStudent: boolean;
 
-
   UID:string = '';
 
   constructor(private router: Router, public platform:Platform,  public storage: Storage) { 
@@ -32,10 +31,7 @@ export class TabsPage implements OnInit {
   }
 
   ngOnInit() {
-   
-
     var userId = firebase.auth().currentUser.uid
-   
 
       firebase.database().ref(`/users/` + userId).once('value').then(res => {
         var role = (res.val() && res.val().role).toString();
@@ -46,15 +42,10 @@ export class TabsPage implements OnInit {
           this.isStudent = false;
         }
       })
-  
-    
-
-    
   }
 
   gotoHome() {
     this.router.navigateByUrl('/tabs/tab2');
-
   }
 
   test() {

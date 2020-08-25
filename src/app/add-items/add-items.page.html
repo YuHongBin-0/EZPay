@@ -18,16 +18,24 @@
           <ion-label>Food Items</ion-label>
         </ion-list-header>
 
+        <ion-row>
+          <ion-col>
+            <ion-label position="floating">Choose Image</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-button>Upload</ion-button>
+          </ion-col>
+        </ion-row>
+
         <ion-item>
           <ion-label position="floating">Name</ion-label>
-          <ion-input autocapitalize inputmode="name" formControlName=name id="name" [(ngModel)]="food.name"></ion-input>
+          <ion-input autocapitalize inputmode="name" formControlName=prodName id="prodName" [(ngModel)]="food.prodName"></ion-input>
         </ion-item>
-        <div *ngFor="let error of errorMessages.name">
+        <div *ngFor="let error of errorMessages.prodName">
           <ng-container *ngIf="name.hasError(error.type) && (name.dirty || name.touched)">
             <small class="error-message">{{error.message}}</small>
           </ng-container>
         </div>
-        
 
         <ion-item>
           <ion-label position="floating">Price</ion-label>
@@ -41,10 +49,10 @@
         <br>
 
         <ion-item>
-          <ion-textarea formControlName="description" [(ngModel)]="food.description" id="description" style="height: 200px;">Description
+          <ion-textarea formControlName="prodDesc" [(ngModel)]="food.prodDesc" id="prodDesc" style="height: 200px;">Description
           </ion-textarea>
         </ion-item>
-        <div *ngFor="let error of errorMessages.description">
+        <div *ngFor="let error of errorMessages.prodDesc">
           <ng-container *ngIf="description.hasError(error.type) && (description.dirty || description.touched)">
             <small class="error-message">{{error.message}}</small>
           </ng-container>

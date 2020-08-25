@@ -16,9 +16,7 @@ export class Tab3Page {
   refShop = firebase.database().ref('stalls');
   refItems = firebase.database().ref('products');
 
-
-
-  constructor(public matExpansionModule: MatExpansionModule  ) { }
+  constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase) { }
   ngOnInit() { 
     this.refShop.on('value', resp => {
       this.shopDeets = snapshotToArray(resp);
@@ -27,7 +25,7 @@ export class Tab3Page {
       this.shopItems = snapshotToArray(resp1);
     });
   }
-
+  
 }
 
 export const snapshotToArray = snapshot => {
@@ -41,6 +39,3 @@ export const snapshotToArray = snapshot => {
 
   return returnArr.reverse();
 };
-
-
-

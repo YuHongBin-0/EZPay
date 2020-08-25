@@ -1,6 +1,6 @@
 export interface FoodItems {
-    name: string;
+    prodName: string;
     price: string;
-    description: string;
-
+    prodDesc: string;
+    image:any;
 }

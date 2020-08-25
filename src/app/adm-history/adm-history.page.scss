@@ -12,10 +12,18 @@ ion-content {
     
     margin-left: 10px;
   }
-  
+  ion-icon.testSortBt{
+    display: inline-block;
+    font-size: 18px;
+    vertical-align: middle;
+  }
+  .headerTxt {
+    display: inline-block;
+    vertical-align: middle;
+  }
   .mat-form-field + .mat-form-field {
-      margin-left: 8px;
-    }
+    margin-left: 8px;
+  }
   
   ion-button {
     flood-color: red;

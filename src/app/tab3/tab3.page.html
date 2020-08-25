@@ -12,7 +12,6 @@
   </ion-toolbar>
 </ion-header>
 
-
 <ion-content [fullscreen]="true">
   <mat-accordion  *ngFor="let stall of shopDeets">
     <mat-expansion-panel   (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -25,7 +24,6 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
       <p>{{ stall.stallDesc }}</p>
-
 
         <mat-accordion *ngFor="let stallItem of shopItems">
           <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
@@ -40,7 +38,6 @@
 
             <img [src]="stallItem.image"><br>
             <p> {{ stallItem.prodDesc }}</p>
-            
 
           </mat-expansion-panel>
         </mat-accordion><br>
