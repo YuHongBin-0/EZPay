@@ -109,7 +109,7 @@ export class PaymentPage implements OnInit {
     const alert = await this.alertController.create({
       cssClass: 'my-custom-class',
       header: 'Payment',
-      message: 'Payment of $' + this.transaction.amount + '0 , confirm??',
+      message: 'Payment of $' + this.transaction.amount + ' , confirm??',
       buttons: [
         {
           text: 'Cancel',
@@ -175,7 +175,7 @@ export class PaymentPage implements OnInit {
     this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
     this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Payment (Goods)")
     
-    this.presentAlert('Success', 'Payment of : $' + this.transaction.amount + '0 Made!').then( res =>{
+    this.presentAlert('Success', 'Payment of : $' + this.transaction.amount + ' Made!').then( res =>{
       this.router.navigate(['tabs/tab2'])
     });
   }

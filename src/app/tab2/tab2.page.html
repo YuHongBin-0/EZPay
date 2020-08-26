@@ -45,7 +45,7 @@
               <ion-icon slot="end" style="text-align: center;margin:0 !important;" name="paper-plane-outline"></ion-icon>
           </ion-item>
         </ion-col>
-        <ion-col size="6" (click)="openPayven()" style="cursor: pointer;" *ngIf='!isStudent'>
+        <ion-col size="6" (click)="openPayment()" style="cursor: pointer;" *ngIf='!isStudent'>
           <ion-item lines="none" style="border-radius:10px;">
               <p style="text-align: center; margin: 0 auto 0 auto;">Pay</p>
               <ion-icon slot="end" style="text-align: center;margin:0 !important;" name="paper-plane-outline"></ion-icon>
@@ -60,6 +60,9 @@
       </ion-row>
     </ion-card-content>
   </ion-card>
+  <ion-button style="margin-left: 33%; margin-top: 10%;" (click)="payRent()" *ngIf='!isStudent'> 
+    Rent Payment
+  </ion-button>
   <ion-button style="margin-left: 33%; margin-top: 10%;" (click)="reqForm()" *ngIf='!isStudent'> 
     Request Form
   </ion-button>

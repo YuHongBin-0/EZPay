@@ -104,8 +104,8 @@ export class Tab2Page implements OnInit {
   openPay() {
     this.router.navigate(['/payment']);
   }
-  openPayven() {
-    this.router.navigate(['/payven']);
+  openPayment() {
+    this.router.navigate(['/payment']);
   }
 
   openStats(){
@@ -114,6 +114,10 @@ export class Tab2Page implements OnInit {
 
   reqForm() {
     this.router.navigate(['/vendor-req']);
+  }
+
+  payRent(){
+    this.router.navigate(['/payven']);
   }
 
   ionViewWillEnter() {
