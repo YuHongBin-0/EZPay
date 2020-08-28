@@ -90,7 +90,11 @@ const routes: Routes = [
   {
     path: 'vendor-req',
     loadChildren: () => import('./vendor-req/vendor-req.module').then( m => m.VendorReqPageModule)
+  },  {
+    path: 'view-request',
+    loadChildren: () => import('./view-request/view-request.module').then( m => m.ViewRequestPageModule)
   }
+
 
 
 ];

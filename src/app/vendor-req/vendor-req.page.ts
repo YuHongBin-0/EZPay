@@ -24,13 +24,13 @@ export class VendorReqPage implements OnInit {
   email: string;
   department: string;
   stallNo: string;
-  
+
 
   constructor(public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase,
               public alertController: AlertController,
-              public router: Router, 
-              public alertCtrl : AlertController,
+              public router: Router,
+              public alertCtrl: AlertController,
               private formBuilder: FormBuilder) { }
 
               get amount() {
@@ -72,7 +72,7 @@ export class VendorReqPage implements OnInit {
     firebase.database().ref('/users/' + userId).once('value').then(res => {
       const bal = (res.val() && res.val().balance);
       this.balance = bal;
-      
+
       const disName = (res.val() && res.val().name);
       this.name = disName;
       const disClass = (res.val() && res.val().class);
@@ -129,8 +129,8 @@ export class VendorReqPage implements OnInit {
           text: 'Okay',
           handler: async () => {
 
-            var requestVenID: string;
-              
+            let requestVenID: string;
+
             requestVenID = await this.genUniqueID();
 
 
@@ -140,7 +140,8 @@ export class VendorReqPage implements OnInit {
               this.afdatabase.object(`requestVen/${requestVenID}/name`).set(this.name);
               this.afdatabase.object(`requestVen/${requestVenID}/NRIC`).set(this.NRIC);
               this.afdatabase.object(`requestVen/${requestVenID}/email`).set(this.email);
-              this.afdatabase.object(`requestVen/${requestVenID}/transactionDate`).set(new Date().toISOString())
+              this.afdatabase.object(`requestVen/${requestVenID}/status`).set('pending');
+              this.afdatabase.object(`requestVen/${requestVenID}/transactionDate`).set(new Date().toISOString());
             });
 
           }
@@ -152,13 +153,13 @@ export class VendorReqPage implements OnInit {
   }
 
   async genUniqueID() {
-    var id:string;
-    var finalID:string;
+    let id: string;
+    let finalID: string;
     id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    console.log("initial id is: " + id)
+    console.log('initial id is: ' + id);
     await firebase.database().ref(`/requestVen/${id}`).once('value').then(res => {
-      var objFromDB = res.val();
-      if(objFromDB != null){
+      let objFromDB = res.val();
+      if (objFromDB != null){
         console.log('The reportID "' + id + '" exists and CANNOT be used');
         this.genUniqueID();
       }

@@ -40,4 +40,7 @@ export class AdminPage implements OnInit {
   adminReports() {
     this.router.navigate(['viewreport']);
   }
+  seeReports() {
+    this.router.navigate(['view-request']);
+  }
 }
