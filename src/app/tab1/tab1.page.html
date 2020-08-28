@@ -14,6 +14,19 @@
 </ion-header>
 <ion-content>
 
+  <ion-toolbar *ngIf='!isStudent'>
+    <ion-segment [(ngModel)]="segment" mode="md">
+      <ion-segment-button value="ezpay">
+        EzPay
+      </ion-segment-button>
+      <ion-segment-button value="paypal">
+        PayPal
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+
+  <ion-content>
+
 <div [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
@@ -74,7 +87,13 @@
 
 <!-- ----------------------------------------------------------- -->
 
+
+
 <div *ngIf='!isStudent'>
+
+  <div [ngSwitch]="segment">
+    <div *ngSwitchCase="'ezpay'" style="text-align: center;">
+    
 
 
   <div *ngFor="let transac of reference">
@@ -154,9 +173,16 @@
     </mat-expansion-panel>
   </mat-accordion>
 </div>
+
+    </div>
+
+<div *ngSwitchCase="'paypal'" style="text-align: center;"></div>
+</div>
 </div>
 
 
 </div>
+
+</ion-content>
 
 </ion-content>
