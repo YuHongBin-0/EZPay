@@ -29,26 +29,33 @@ import { PayPal} from '@ionic-native/paypal/ngx';
 
 import * as firebase from 'firebase';
 import { LockPageModule } from './lock/lock.module';
-import { IonicStorageModule } from '@ionic/storage'
+import { IonicStorageModule } from '@ionic/storage';
 
-import { EmailComposer} from '@ionic-native/email-composer/ngx'
+import { EmailComposer} from '@ionic-native/email-composer/ngx';
+
+import { Camera } from '@ionic-native/camera/ngx';
+import { Base64 } from '@ionic-native/base64/ngx';
+import { Crop } from '@ionic-native/crop/ngx';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 
 
 firebase.initializeApp(environment.firebase);
+import { from } from 'rxjs';
 
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule, 
+  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, FormsModule,
     AngularFireModule.initializeApp(environment.firebase), AngularFirestoreModule,
-     AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule, LockPageModule],
+     AngularFireDatabaseModule, BrowserAnimationsModule, HttpClientModule, LockPageModule, AngularFireStorageModule],
   providers: [
     StatusBar,
     SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner, Base64ToGallery, AngularFireAuth,
-    AngularFireAuth, PayPal, FingerprintAIO, EmailComposer
+    AngularFireAuth, PayPal, FingerprintAIO, EmailComposer, Camera, Base64, Crop
   ],
   bootstrap: [AppComponent]
 })

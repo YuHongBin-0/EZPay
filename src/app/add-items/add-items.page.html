@@ -23,7 +23,21 @@
             <ion-label position="floating">Choose Image</ion-label>
           </ion-col>
           <ion-col>
-            <ion-button>Upload</ion-button>
+            <img id="image" *ngIf="croppedImage" class="croppedImage" alt=""> <br>
+              <ion-button (click) = "chooseImage()">
+                Choose Image
+              </ion-button>
+              <ion-button (click)="uploadImage()" *ngIf="croppedImage">
+                Upload Photo
+              </ion-button>
+
+              <ion-item lines="none" *ngIf="isUploadStart" style="margin-top: 30px;">
+              <ion-spinner slot="start"></ion-spinner>
+              <ion-label>
+                <h2>Image Uploading...</h2>
+                <p>{{percent}}%</p>
+              </ion-label>
+              </ion-item>
           </ion-col>
         </ion-row>
 
