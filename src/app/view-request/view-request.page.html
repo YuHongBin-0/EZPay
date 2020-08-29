@@ -20,22 +20,22 @@
   <div style="margin: 0 12px 0 12px;">
     <ion-row>
       
-      <ion-col size="1.5" style="background: lightskyblue; color:white;">
+      <ion-col size="2" style="background: lightskyblue; color:white;">
         Name
       </ion-col>
       <ion-col size="1.75" style="background: lightskyblue; color:white;">
         NRIC
       </ion-col>
-      <ion-col size="2.9" style="background: lightskyblue; color:white;">
+      <ion-col size="2" style="background: lightskyblue; color:white;">
         Email
       </ion-col>
-      <ion-col size="2.35" style="background: lightskyblue; color:white;">
+      <ion-col size="1.25" style="background: lightskyblue; color:white;">
         Amount Requested
       </ion-col>
-      <ion-col size="1" style="background: lightskyblue; color:white;">
+      <ion-col size="1.25" style="background: lightskyblue; color:white;">
         ATM Balance
       </ion-col>
-      <ion-col size="0.75" style="background: lightskyblue; color:white;">
+      <ion-col size="2.75" style="background: lightskyblue; color:white;">
         Notes
       </ion-col>
       <ion-col size="1" style="background: lightskyblue; color:white;">
@@ -47,31 +47,31 @@
 
     <div *ngFor="let requestVen of reference">
       <ion-row  style="border: 1px rgb(230, 230, 230) solid;">
-        <ion-col size="1.75">
+        <ion-col size="2">
           {{requestVen.name}}
         </ion-col>
-        <ion-col size="1.5">
+        <ion-col size="1.75">
           {{requestVen.NRIC}} 
         </ion-col>
-        <ion-col size="1.75">
+        <ion-col size="2">
           {{requestVen.email}} 
         </ion-col>
-        <ion-col size="2.9">
-          {{requestVen.amount}} 
+        <ion-col size="1.25">
+          ${{requestVen.amount}} 
         </ion-col>
-        <ion-col size="2.35">
-          {{requestVen.balanceATM}}  
+        <ion-col size="1.25">
+          ${{requestVen.balanceATM}}  
         </ion-col>
-        <ion-col size="2.35">
+        <ion-col size="2.75">
           {{requestVen.notes}}  
         </ion-col>
-        <ion-col size="0.85" expand="block" style="background-color: pink; color:white;" *ngIf="requestVen.status == 'pending'">
-          <ion-button class="reportBtn" (click)="presentAlertConfirm(requestVen.key)" >
+        <ion-col size="1" expand="block" style="background-color: pink; color:white;" *ngIf="requestVen.status == 'pending'">
+          <ion-button class="reportBtn" (click)="presentAlertConfirm(requestVen.key)" style="margin-left: 30px;" >
             {{ requestVen.status }}
           </ion-button>
         </ion-col>
 
-        <ion-col size="0.85" expand="block" style="background: lightskyblue; color:white;" *ngIf="requestVen.status == '- Paid'">
+        <ion-col size="1" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="requestVen.status == '- Paid'">
           <ion-label >
             {{ requestVen.status }}
           </ion-label>

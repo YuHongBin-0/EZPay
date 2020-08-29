@@ -63,12 +63,12 @@
           {{report.date}}  
         </ion-col>
         <ion-col size="0.85" expand="block" style="background-color: pink; color:white;" *ngIf="report.status == 'pending'">
-          <ion-button class="reportBtn" (click)="presentAlertConfirm(report.key)" >
+          <ion-button class="reportBtn" (click)="presentAlertConfirm(report.key)" style="margin-left: 30px;" >
             {{ report.status }}
           </ion-button>
         </ion-col>
 
-        <ion-col size="0.85" expand="block" style="background: lightskyblue; color:white;" *ngIf="report.status == '- solved'">
+        <ion-col size="0.85" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="report.status == '- solved'">
           <ion-label >
             {{ report.status }}
           </ion-label>
