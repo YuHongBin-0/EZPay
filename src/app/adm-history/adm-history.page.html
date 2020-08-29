@@ -50,8 +50,12 @@
           <ion-icon slot="end" class="testSortBt" name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
         </div>
       </ion-col>
-      <ion-col size="2.35" style="background: lightskyblue; color:white;">
+      <ion-col size="2.35" style="background: lightskyblue; color:white;" (click)="sortBy('notes')">
         Notes
+        <div style="display: inline;" *ngIf="sortKey == 'notes'">
+          <ion-icon slot="end" class="testSortBt" name="arrow-down" *ngIf="sortDirection == 1"></ion-icon>
+          <ion-icon slot="end" class="testSortBt" name="arrow-up" *ngIf="sortDirection == 2"></ion-icon>
+        </div>
       </ion-col>
       <ion-col class="headerTxt" size="1.75" style="background: lightskyblue; color:white;" (click)="sortBy('transactionDate')">
         Date

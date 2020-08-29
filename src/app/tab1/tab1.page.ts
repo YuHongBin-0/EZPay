@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from '@ionic-native/paypal/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -23,10 +24,14 @@ export class Tab1Page implements OnInit {
   refuser = [];
   refUsers = firebase.database().ref('users');
   userID = firebase.auth().currentUser.uid;
+
+  
    
 
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
               public afdatabase: AngularFireDatabase, private router: Router) {
+
+            
   }
 
   panelOpenState = false;
@@ -57,6 +62,9 @@ export class Tab1Page implements OnInit {
     this.refUsers.on('value', resp2 => {
       this.refuser = snapshotToArray(resp2);
     });
+
+
+    
   }
 
   sendToReportError(){
