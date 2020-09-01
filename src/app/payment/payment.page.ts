@@ -20,7 +20,7 @@ import { PaylockPage } from '../paylock/paylock.page';
 export class PaymentPage implements OnInit {
  
 
-
+  targetUserNameFrom; targetUserNameTo;
 
   reference = [];
   refStalls = firebase.database().ref('stalls');
@@ -152,7 +152,7 @@ export class PaymentPage implements OnInit {
     var transactionID: string;
               
     transactionID = await this.genUniqueID();
-    
+    transactionID = 'TRNSC-' + transactionID;
     firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
       if (res) {
         var bal:number = (res.val() && res.val().balance);
@@ -165,13 +165,18 @@ export class PaymentPage implements OnInit {
     firebase.database().ref('/users/' + this.userID).once('value').then(res => {
       if (res) {
         var bal:number = (res.val() && res.val().balance);
-        
+        this.targetUserNameFrom = (res.val() && res.val().name);
         this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
         }
     });
+    firebase.database().ref('users/'+ this.scannedCode).once('value', resp => {
+      this.targetUserNameTo = (resp.val() && resp.val().name);
+    })
     this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
     this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode)
     this.afDatabase.object(`transaction/${transactionID}/from`).set(this.userID)
+    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set(this.targetUserNameFrom)
+    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUserNameTo)
     this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
     this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Payment (Goods)")
     
