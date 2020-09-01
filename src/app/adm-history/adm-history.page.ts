@@ -23,6 +23,8 @@ export class AdmHistoryPage implements OnInit {
   sortDirection = 0;
   sortKey = null;
   initialSortKey = null;
+  totalAmountInView : number;
+  referenceLoaded = false;
   
   constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
     public afdatabase: AngularFireDatabase, private router: Router) {
@@ -33,6 +35,13 @@ export class AdmHistoryPage implements OnInit {
     this.listRef.on('value', resp => {
       this.reference = snapshotToArray(resp)
     });
+    // if(this.loadedReference.length != 0){
+    //   this.referenceLoaded = true;
+    //   this.loadedReference.forEach(element => {
+    //     var elementAmt = element.val().amount;
+    //     this.totalAmountInView = this.totalAmountInView + elementAmt
+    //   })
+    // }
   }
 
   initializeItems() {
@@ -109,17 +118,33 @@ export class AdmHistoryPage implements OnInit {
 
   sort() {
     if (this.sortDirection == 1){
-      this.loadedReference = this.loadedReference.sort((a,b) => {
-        const valA = a[this.sortKey];
-        const valB = b[this.sortKey];
-        return valA.localeCompare(valB);
-      });
+      if(this.sortKey == "amount"){
+        this.loadedReference.sort((a, b) => {
+          if (a.amount < b.amount) return -1;
+          if (a.amount > b.amount) return 1;
+          return 0;
+        });
+      } else {
+        this.loadedReference = this.loadedReference.sort((a,b) => {
+          const valA = a[this.sortKey];
+          const valB = b[this.sortKey];
+          return valA.localeCompare(valB);
+        });
+      }
     } else if (this.sortDirection == 2){
-      this.loadedReference = this.loadedReference.sort((a,b) => {
-        const valA = a[this.sortKey];
-        const valB = b[this.sortKey];
-        return valB.localeCompare(valA);
-      });
+      if (this.sortKey == "amount"){
+        this.loadedReference.sort((a, b) => {
+          if (a.amount < b.amount) return 1;
+          if (a.amount > b.amount) return -1;
+          return 0;
+        });
+      }else{
+        this.loadedReference = this.loadedReference.sort((a,b) => {
+          const valA = a[this.sortKey];
+          const valB = b[this.sortKey];
+          return valB.localeCompare(valA);
+        });
+      }
     } else {
       this.sortDirection = 0;
       this.doRefresh(event);

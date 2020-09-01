@@ -10,9 +10,9 @@
 <ion-content>
   <div style="margin: 0 12px 0 12px;">
     <ion-row>
-      <ion-col size="0.25" style="background: lightskyblue; color:white;">
+      <!-- <ion-col size="0.25" style="background: lightskyblue; color:white;">
         <ion-checkbox></ion-checkbox>
-      </ion-col>
+      </ion-col> -->
       <ion-col size="2" style="background: lightskyblue; color:white;">
         studentID
       </ion-col>
@@ -37,16 +37,16 @@
       <ion-col size="0.75" style="background: lightskyblue; color:white;">
         Balance
       </ion-col>
-      <ion-col size="0.75" style="background: lightskyblue; color:white;">
+      <!-- <ion-col size="0.75" style="background: lightskyblue; color:white;">
         Settings
-      </ion-col>
+      </ion-col> -->
     </ion-row>
 
     <div *ngFor="let user of users">
       <ion-row *ngIf='user.role == "student"' style="border: 1px rgb(230, 230, 230) solid;">
-        <ion-col size="0.25">
+        <!-- <ion-col size="0.25">
           <ion-checkbox></ion-checkbox>
-        </ion-col>
+        </ion-col> -->
         <ion-col size="2">
           {{user.key}}
         </ion-col>

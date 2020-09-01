@@ -17,6 +17,7 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+  <!-- <p *ngIf="loadedReference">Total amount currently in view: {{this.totalAmountInView | currency}}</p> -->
 
   <ion-searchbar #autofocus debounce="500" (ionInput)="getItems($event)"
     placeholder="Enter Module Name"></ion-searchbar> 
@@ -74,13 +75,13 @@
           {{trans.transactionType}}
         </ion-col>
         <ion-col size="1">
-          {{trans.amount|currency}} 
+          {{trans.amount | currency}} 
         </ion-col>
         <ion-col size="2.45">
-          {{trans.from}} 
+          {{trans.transactorName}} 
         </ion-col>
         <ion-col size="2.45">
-          {{trans.to}} 
+          {{trans.recipientName}} 
         </ion-col>
         <ion-col size="2.35">
           {{trans.notes}}  

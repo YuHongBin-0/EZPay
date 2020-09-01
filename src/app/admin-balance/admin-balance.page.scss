@@ -1,6 +1,7 @@
 ion-content {
     --color: black;
     --background: white;
+    height: 600px;
 }
 ion-toolbar{
     --background: #0079C1;
@@ -20,6 +21,6 @@ ion-toggle {
     --handle-background-checked: rgb(98, 144, 173);
 }
 ion-card{
-    --background: lightblue;
+    --background: rgb(228, 228, 228);
     color: white;
 }

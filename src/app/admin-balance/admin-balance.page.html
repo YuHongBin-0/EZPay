@@ -40,7 +40,7 @@
             <ion-button (click)="decrementValue()">-</ion-button>
           </ion-col>
           <ion-col size="2">
-            <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+            <ion-input style="text-align: center" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
           </ion-col>
           <ion-col size="2">
             <ion-button (click)="incrementValue()">+</ion-button>
@@ -50,14 +50,17 @@
       <div *ngIf="absoluteChange">
         <ion-row>
           <ion-col offset="4.5" size="3">
-            <ion-input id="balanceToChangeBy" placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
+            <ion-input placeholder="e.g 2.30 or 2" value="{{changeValue}}" [(ngModel)]="changeValue" type="number">$</ion-input>
           </ion-col>
         </ion-row>
       </div>
       <br>
     </ion-card>
+    <ion-label position="stacked">Reason</ion-label>
+    <ion-input [(ngModel)]="changeReason" placeholder="Top-Up, Deduction, Financial Schemes"></ion-input>
+    <p style="color:pink;font-size: 12px;">dev note: change to dropdown list in the near future</p>
     <ion-label position="stacked">Notes:</ion-label>
-    <ion-textarea placeholder="(Optional) Let your users know why their balance had been changed!" [(ngModel)]="changeNotes"></ion-textarea>
+    <ion-textarea autoGrow placeholder="(Optional) Let your users know why their balance had been changed!" [(ngModel)]="changeNotes"></ion-textarea>
   </div>
 </ion-content>
 <ion-footer>

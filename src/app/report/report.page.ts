@@ -53,28 +53,16 @@ export class ReportPage implements OnInit {
         finalID = id;
       }
     });
-    this.showAlert('finalID','','final ID is: ' + finalID, ['OK'])
     return finalID
   }
   
   async sendTicket() {
     var reportID = await this.genUniqueID();
     console.log('reportID: ' + reportID);
-    this.showAlert('ReportID','','Report ID is: ' + reportID, ['OK'])
     
     var status = 'pending';
     this.afDatabase.object(`reports/${reportID}`).set(this.supportTicket)
     this.afDatabase.object(`reports/${reportID}/date`).set(new Date().toISOString())
     this.afDatabase.object(`reports/${reportID}/status`).set(status)
-  }
-
-  async showAlert(aHeader:string, aSubHeader: string, aMessage: string, aButtons: Array<string>) {
-    const alert =  await this.alertCtrl.create({
-      header: aHeader,
-      subHeader: aSubHeader,
-      message: aMessage,
-      buttons: aButtons
-    });
-    await alert.present();
   }
 }

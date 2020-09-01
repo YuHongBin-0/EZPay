@@ -10,6 +10,8 @@ import { AngularFireDatabase } from 'angularfire2/database';
 })
 export class AdminBalancePage implements OnInit {
 
+  targetUsrName = "";
+  changeReason = "";
   userK;
   absoluteChange:boolean = false;
   changeValue:number=0; changeNotes:string = "";
@@ -82,11 +84,18 @@ export class AdminBalancePage implements OnInit {
   async changeBalanceValue(action:string){
     var transactionID = await this.genUniqueID();
 
-    this.afDatabase.object(`transaction/${transactionID}/amount`).set(this.changeValue)
+    firebase.database().ref(`users/${this.userK}`).once('value', resp => {
+      var targetUserName = (resp.val() && resp.val().name)
+      this.targetUsrName = targetUserName
+    })
+
     this.afDatabase.object(`transaction/${transactionID}/to`).set(this.userK)
     this.afDatabase.object(`transaction/${transactionID}/from`).set("Admin Team")
-    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Balance Changes")
+    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set("Admin Team")
+    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUsrName)
+    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set(this.changeReason)
     this.afDatabase.object(`transaction/${transactionID}/notes`).set(this.changeNotes)
+    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
 
     if (action == 'addTo'){
       firebase.database().ref('/users/' + this.userK).once('value', res => {
@@ -96,15 +105,21 @@ export class AdminBalancePage implements OnInit {
           console.log('current balance: ' + bal, 'balance increment/decrement: ' + changedBal, 'final balance: ' + changedBal)
           this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
           
+          //update by amount increments
+          this.afDatabase.object(`transaction/${transactionID}/amount`).set(this.changeValue)
           }
       });
     } else if (action == 'override'){
       firebase.database().ref('/users/' + this.userK).once('value', res => {
         if (res) {
+          var bal:number = Number(res.val() && res.val().balance);
           var changedBal:number = this.changeValue;
-          console.log('new balance: ' + changedBal)
+          console.log('new balance: ' + changedBal, "transacted amount: " + trnsc_amount);
           this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
           
+          //calculate amount increment and add to transacted amount
+          var trnsc_amount = changedBal - bal;
+          this.afDatabase.object(`transaction/${transactionID}/amount`).set(trnsc_amount);
           }
       });
     }
