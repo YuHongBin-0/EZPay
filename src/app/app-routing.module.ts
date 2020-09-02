@@ -93,6 +93,10 @@ const routes: Routes = [
   },  {
     path: 'view-request',
     loadChildren: () => import('./view-request/view-request.module').then( m => m.ViewRequestPageModule)
+  },
+  {
+    path: 'voice',
+    loadChildren: () => import('./voice/voice.module').then( m => m.VoicePageModule)
   }
 
 
