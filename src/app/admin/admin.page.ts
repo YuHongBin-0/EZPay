@@ -43,4 +43,8 @@ export class AdminPage implements OnInit {
   seeReports() {
     this.router.navigate(['view-request']);
   }
+
+  voice(){
+    this.router.navigate(['voice']);
+  }
 }

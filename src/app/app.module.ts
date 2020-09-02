@@ -38,6 +38,13 @@ import { Base64 } from '@ionic-native/base64/ngx';
 import { Crop } from '@ionic-native/crop/ngx';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { File } from '@ionic-native/File/ngx';
+import { MediaCapture } from '@ionic-native/media-capture/ngx';
+import { Media } from '@ionic-native/media/ngx';
+import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
+import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
+
 
 
 firebase.initializeApp(environment.firebase);
@@ -55,7 +62,13 @@ import { from } from 'rxjs';
     SplashScreen, InAppBrowser,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     BarcodeScanner, Base64ToGallery, AngularFireAuth,
-    AngularFireAuth, PayPal, FingerprintAIO, EmailComposer, Camera, Base64, Crop
+    AngularFireAuth, PayPal, FingerprintAIO, EmailComposer, Camera, Base64, Crop,
+    ImagePicker,
+    MediaCapture,
+    File,
+    Media,
+    StreamingMedia,
+    PhotoViewer
   ],
   bootstrap: [AppComponent]
 })
