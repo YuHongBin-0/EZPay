@@ -40,10 +40,6 @@ const routes: Routes = [
     loadChildren: () => import('./report/report.module').then(m => m.ReportPageModule)
   },
   {
-    path: 'dashboard',
-    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardPageModule)
-  },
-  {
     path: 'pages',
     loadChildren: () => import('./register/pages/pages.module').then(m => m.PagesPageModule)
   },
@@ -72,10 +68,6 @@ const routes: Routes = [
     loadChildren: () => import('./viewreport/viewreport.module').then(m => m.ViewreportPageModule)
   },
   {
-    path: 'statistic',
-    loadChildren: () => import('./statistic/statistic.module').then(m => m.StatisticPageModule)
-  },
-  {
     path: 'manage-vendor',
     loadChildren: () => import('./manage-vendor/manage-vendor.module').then(m => m.ManageVendorPageModule)
   },
@@ -90,7 +82,8 @@ const routes: Routes = [
   {
     path: 'vendor-req',
     loadChildren: () => import('./vendor-req/vendor-req.module').then( m => m.VendorReqPageModule)
-  },  {
+  },
+  {
     path: 'view-request',
     loadChildren: () => import('./view-request/view-request.module').then( m => m.ViewRequestPageModule)
   },

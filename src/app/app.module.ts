@@ -45,6 +45,8 @@ import { Media } from '@ionic-native/media/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
+import { NativeAudio } from '@ionic-native/native-audio/ngx'
+
 
 
 firebase.initializeApp(environment.firebase);
@@ -68,7 +70,7 @@ import { from } from 'rxjs';
     File,
     Media,
     StreamingMedia,
-    PhotoViewer
+    PhotoViewer,NativeAudio
   ],
   bootstrap: [AppComponent]
 })

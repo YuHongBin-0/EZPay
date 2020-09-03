@@ -4,6 +4,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AlertController } from '@ionic/angular';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { EmailComposer} from '@ionic-native/email-composer/ngx'
 
 @Component({
   selector: 'app-viewreport',
@@ -17,7 +18,8 @@ export class ViewreportPage implements OnInit {
   avail =  true;
   // tslint:disable-next-line: max-line-length
   constructor(public matExpansionModule: MatExpansionModule, private afDatabase: AngularFireDatabase,
-              public alertController: AlertController, public afAuth: AngularFireAuth) {
+              public alertController: AlertController, public afAuth: AngularFireAuth,
+              public emailCom: EmailComposer) {
 
 
    }
@@ -80,6 +82,18 @@ export class ViewreportPage implements OnInit {
         console.log('false')
         this.avail = false
       }
+    }
+
+    SentEmail(key){
+      let email = {
+        to: key.email,
+        subject: 'TP Admin Teams',
+        body: 'Text',
+        isHtml: true
+      };
+      
+      // Send a text message using default options
+      this.emailCom.open(email);
     }
   
 

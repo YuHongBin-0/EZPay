@@ -9,7 +9,7 @@ import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner
 import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from "@angular/forms";
-import { PaylockPage } from '../paylock/paylock.page';
+import { LockPage } from '../lock/lock.page';
 
 
 @Component({
@@ -187,7 +187,7 @@ export class PaymentPage implements OnInit {
 
   async lockApp(){
     const modal = await this.modalCtrl.create({
-      component: PaylockPage,
+      component: LockPage,
       backdropDismiss: false,
       cssClass: 'lock-modal',
       componentProps: {

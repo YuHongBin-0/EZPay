@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { NavController, ModalController } from '@ionic/angular';
 import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from '@ionic-native/paypal/ngx';
-import { PaylockPage } from '../paylock/paylock.page';
+import { LockPage } from '../lock/lock.page';
 
 
 @Component({
@@ -71,7 +71,7 @@ export class PayvenPage implements OnInit {
 
   async lockApp(){
     const modal = await this.modalCtrl.create({
-      component: PaylockPage,
+      component: LockPage,
       backdropDismiss: false,
       cssClass: 'lock-modal',
       componentProps: {

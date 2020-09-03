@@ -21,6 +21,7 @@ export class ProfilePage implements OnInit {
   email: string;
   department: string;
   stallNo: string;
+  level: string;
 
   constructor(private afAuth: AngularFireAuth, private afDatabase: AngularFireDatabase) { }
 
@@ -46,6 +47,8 @@ export class ProfilePage implements OnInit {
       this.department = disDepartment;
       var disStallNo = (res.val() && res.val().stallNo);
       this.stallNo = disStallNo;
+      var disLevel = (res.val() && res.val().level);
+      this.level = disLevel
 
       console.log(this.name + " has $" + this.balance);
       
