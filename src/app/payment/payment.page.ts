@@ -25,14 +25,16 @@ export class PaymentPage implements OnInit {
   reference = [];
   refStalls = firebase.database().ref('stalls');
 
-  userID = firebase.auth().currentUser.uid;;
+  userID = firebase.auth().currentUser.uid;
 
   transaction = {} as Transaction;
 
+  pAmount = this.transaction.amount;
+  
   name: string;
 
-  constructor(private loadingCtrl: LoadingController, 
-    private afAuth: AngularFireAuth, 
+  constructor(private loadingCtrl: LoadingController,
+    private afAuth: AngularFireAuth,
     private modalCtrl: ModalController,
     private afDatabase: AngularFireDatabase,
     public alertController: AlertController,

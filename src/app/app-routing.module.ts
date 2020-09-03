@@ -90,7 +90,11 @@ const routes: Routes = [
   {
     path: 'voice',
     loadChildren: () => import('./voice/voice.module').then( m => m.VoicePageModule)
+  },  {
+    path: 'success',
+    loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule)
   }
+
 
 
 
