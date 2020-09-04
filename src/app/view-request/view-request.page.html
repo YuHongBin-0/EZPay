@@ -17,9 +17,10 @@
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
+
   <div style="margin: 0 12px 0 12px;">
+
     <ion-row>
-      
       <ion-col size="2" style="background: lightskyblue; color:white;">
         Name
       </ion-col>
@@ -30,10 +31,10 @@
         Email
       </ion-col>
       <ion-col size="1.25" style="background: lightskyblue; color:white;">
-        Amount Requested
+        Requested Amount
       </ion-col>
       <ion-col size="1.25" style="background: lightskyblue; color:white;">
-        ATM Balance
+        Current Balance
       </ion-col>
       <ion-col size="2.75" style="background: lightskyblue; color:white;">
         Notes
@@ -41,44 +42,39 @@
       <ion-col size="1" style="background: lightskyblue; color:white;">
         Status
       </ion-col>
-      
     </ion-row>
-    <br>
-
     <div *ngFor="let requestVen of reference">
       <ion-row  style="border: 1px rgb(230, 230, 230) solid;">
         <ion-col size="2">
           {{requestVen.name}}
         </ion-col>
-        <ion-col size="1.75">
+        <ion-col size="1.5">
           {{requestVen.NRIC}} 
         </ion-col>
         <ion-col size="2">
           {{requestVen.email}} 
         </ion-col>
         <ion-col size="1.25">
-          ${{requestVen.amount}} 
+          {{requestVen.amount|currency}} 
         </ion-col>
         <ion-col size="1.25">
-          ${{requestVen.balanceATM}}  
+          {{requestVen.currentBal|currency}}  
         </ion-col>
         <ion-col size="2.75">
           {{requestVen.notes}}  
         </ion-col>
-        <ion-col size="1" expand="block" style="background-color: pink; color:white;" *ngIf="requestVen.status == 'pending'">
-          <ion-button class="reportBtn" (click)="presentAlertConfirm(requestVen.key)" style="margin-left: 30px;" >
+        <ion-col size="1" expand="block" style="color:white;" *ngIf="requestVen.status == 'Pending'">
+          <ion-button class="reportBtn" (click)="openModalToWithdraw(requestVen.key)" style="margin-left: 30px;" >
             {{ requestVen.status }}
           </ion-button>
         </ion-col>
-
-        <ion-col size="1" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="requestVen.status == '- Paid'">
-          <ion-label >
-            {{ requestVen.status }}
-          </ion-label>
+        <ion-col size="1" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="requestVen.status == 'Paid'">
+          <ion-text >
+            {{ requestVen.status }}. Set email composer
+          </ion-text>
         </ion-col>
-
-        
       </ion-row>
     </div>
+
   </div>
 </ion-content>

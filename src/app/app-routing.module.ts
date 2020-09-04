@@ -93,6 +93,10 @@ const routes: Routes = [
   },  {
     path: 'success',
     loadChildren: () => import('./success/success.module').then( m => m.SuccessPageModule)
+  },
+  {
+    path: 'commit-vendor-req',
+    loadChildren: () => import('./commit-vendor-req/commit-vendor-req.module').then( m => m.CommitVendorReqPageModule)
   }
 
 

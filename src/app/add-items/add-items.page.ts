@@ -21,17 +21,15 @@ import { Crop } from '@ionic-native/crop/ngx';
 export class AddItemsPage implements OnInit {
 
   constructor(public afAuth: AngularFireAuth,
-              public afdatabase: AngularFireDatabase,
-              public alertController: AlertController,
-              public router: Router,
-              private formBuilder: FormBuilder,
-              public base64: Base64,
-              public camera: Camera,
-              public storage: AngularFireStorage,
-              public crop: Crop,
-              ) {}
-
-
+    public afdatabase: AngularFireDatabase,
+    public alertController: AlertController,
+    public router: Router,
+    private formBuilder: FormBuilder,
+    public base64: Base64,
+    public camera: Camera,
+    public storage: AngularFireStorage,
+    public crop: Crop,
+  ) { }
 
   // async getItemFromArray (array, getItem:string, compare:any) {
   //   var itemKey:string;
@@ -63,6 +61,7 @@ export class AddItemsPage implements OnInit {
   percent;
   isUploadStart = false;
   croppedImage: string;
+  firebaseImageLink;
 
   food = {} as FoodItems;
 
@@ -101,7 +100,7 @@ export class AddItemsPage implements OnInit {
       resp1.forEach(element => {
         const stall = element.val();
         // tslint:disable-next-line: triple-equals
-        if (stall.stallOwner == this.userId){
+        if (stall.stallOwner == this.userId) {
           stall.key = element.key;
           this.targetStall = stall.key;
           console.log(stall, stall.stallOwner + ' ' + this.userId);
@@ -111,14 +110,33 @@ export class AddItemsPage implements OnInit {
     });
     this.refItems.on('value', resp2 => {
       this.shopItems = snapshotToArray(resp2);
-      for (let i = 0; i < this.shopItems.length; i++){
-        if (i == 0){
+      for (let i = 0; i < this.shopItems.length; i++) {
+        if (i == 0) {
           let key = this.shopItems[i].key;
           this.lastProductKey = key;
           console.log('previousProductKey' + this.lastProductKey);
         }
       }
     });
+    if (this.lastProductKey){
+      var appendedProdNumKey = '';
+      var keyNumberVal = Number(this.lastProductKey.substr(this.lastProductKey.length - 4));
+      keyNumberVal++;
+      if (this.getDigitsInNumber(keyNumberVal) == 1) {
+        appendedProdNumKey = '000' + keyNumberVal;
+      }
+      if (this.getDigitsInNumber(keyNumberVal) == 2) {
+        appendedProdNumKey = '00' + keyNumberVal;
+      }
+      if (this.getDigitsInNumber(keyNumberVal) == 3) {
+        appendedProdNumKey = '0' + keyNumberVal;
+      }
+      if (this.getDigitsInNumber(keyNumberVal) == 4) {
+        appendedProdNumKey = keyNumberVal.toString();
+      }
+      this.newProductKey = 'prod_' + appendedProdNumKey;
+      console.log('newProductKey: ' + this.newProductKey);
+    }
   }
 
   async chooseImage() {
@@ -136,17 +154,7 @@ export class AddItemsPage implements OnInit {
             };
 
             this.camera.getPicture(options).then(filePath => {
-              this.crop.crop(filePath).then((croppedPath) => {
-                this.base64.encodeFile(croppedPath).then(base64Data => {
-
-                  const temp = base64Data.substring(34);
-                  this.croppedImage = 'data:image/jpeg;base64,' + temp;
-
-                  setTimeout(() => {
-                    document.getElementById('image').setAttribute('src', this.croppedImage);
-                  }, 250);
-                });
-              });
+                  this.croppedImage = 'data:image/jpeg;base64,' + filePath;
             });
           }
         },
@@ -161,18 +169,8 @@ export class AddItemsPage implements OnInit {
             };
 
             this.camera.getPicture(options).then(filePath => {
-              this.crop.crop(filePath).then((croppedPath) => {
-                this.base64.encodeFile(croppedPath).then(base64Data => {
-
-                  const temp = base64Data.substring(34);
-                  this.croppedImage = 'data:image/jpeg;base64,' + temp;
-
-                  setTimeout(() => {
-                    document.getElementById('image').setAttribute('src', this.croppedImage);
-                  }, 250);
-                });
+                  this.croppedImage = 'data:image/jpeg;base64,' + filePath;
               });
-            });
           }
         }
       ]
@@ -181,68 +179,66 @@ export class AddItemsPage implements OnInit {
   }
 
   uploadImage() {
+    var metadata = {
+      contentType: 'image/jpeg',
+    };
+
     this.isUploadStart = true;
-    const task = this.storage.ref('image/').putString(this.croppedImage, 'data_url');
+    console.log('uploaded photo child_name' + this.newProductKey)
+    var ref = this.storage.ref(`foodItem/${this.newProductKey}.${metadata.contentType.split('/').pop()}`);
+    const task = ref.putString(this.croppedImage, 'data_url', metadata)
 
     task.snapshotChanges().subscribe(snap => {
-
       this.percent = ((snap.bytesTransferred / snap.totalBytes) * 100).toString().split('.')[0];
 
       task.then(() => {
         this.isUploadStart = false;
         alert('Image Uploaded');
+
+        ref.getDownloadURL().toPromise().then(res => {
+          this.firebaseImageLink = res;
+          console.log('Image URL is: ' + this.firebaseImageLink);
+        });
       });
     });
   }
 
   async presentAlert(title: string, content: string) {
-		const alert = await this.alertController.create({
-			header: title,
-			message: content,
-			buttons: ['OK']
-		});
-		await alert.present();
+    const alert = await this.alertController.create({
+      header: title,
+      message: content,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   getDigitsInNumber(number: number) {
     let digits;
-    if (number >= 0 && number <= 9){
+    if (number >= 0 && number <= 9) {
       digits = 1;
     }
-    if (number >= 10 && number <= 99){
+    if (number >= 10 && number <= 99) {
       digits = 2;
     }
-    if (number >= 100 && number <= 999){
+    if (number >= 100 && number <= 999) {
       digits = 3;
     }
-    if (number >= 1000 && number <= 9999){
+    if (number >= 1000 && number <= 9999) {
       digits = 4;
     } return digits;
   }
 
   async addFood() {
-    let appendedProdNumKey = '';
-    let keyNumberVal = Number(this.lastProductKey.substr(this.lastProductKey.length - 4));
-    keyNumberVal++;
-    if (this.getDigitsInNumber(keyNumberVal) == 1){
-      appendedProdNumKey = '000' + keyNumberVal;
+    if (this.firebaseImageLink){
+      this.afdatabase.object(`products/${this.newProductKey}/`).set(this.food);
+      this.afdatabase.object(`products/${this.newProductKey}/image`).set(this.firebaseImageLink)
+      this.afdatabase.object(`products/${this.newProductKey}/stall`).set(this.targetStall)
+        .then(() => {
+          this.router.navigate(['/tabs/tab4']);
+        });
+    }else{
+      this.presentAlert('Cannot Add Menu Item', 'Please upload the image first!')
     }
-    if (this.getDigitsInNumber(keyNumberVal) == 2){
-      appendedProdNumKey = '00' + keyNumberVal;
-    }
-    if (this.getDigitsInNumber(keyNumberVal) == 3){
-      appendedProdNumKey = '0' + keyNumberVal;
-    }
-    if (this.getDigitsInNumber(keyNumberVal) == 4){
-      appendedProdNumKey = keyNumberVal.toString();
-    }
-    this.newProductKey = 'prod_' + appendedProdNumKey;
-    console.log('newProductKey: ' + this.newProductKey);
-    this.afdatabase.object(`products/${this.newProductKey}/`).set(this.food);
-    this.afdatabase.object(`products/${this.newProductKey}/stall`).set(this.targetStall)
-    .then(() => {
-      this.router.navigate(['/tabs/tab4']);
-    });
   }
 
   async presentAlertConfirm() {

@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Process Withdrawal Request</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div>
+    <h2>Name of requestor: {{reqName}}</h2>
+    <h4>User ID: {{targetUserId}}</h4>
+
+    <ion-card>
+      <ion-card-title>
+        Request Details
+      </ion-card-title>
+      <ion-card-content>
+        <ion-text>
+          Current user balance: {{reqBal}} <br>
+          Amount requested: {{requested}} <br>
+          <br>
+          Request Status: {{reqStatus}} <br>
+          Request Date: {{reqDate | date:'MMMM d, y, HH:mm:ss zzzz'}}
+        </ion-text>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-text style="color:pink">[DEV: Add Paypal Transaction Here?]</ion-text>
+    <ion-button  expand="block" (click)="finaliseWithdrawal()">Withdraw User Balance</ion-button>
+  </div>
+</ion-content>

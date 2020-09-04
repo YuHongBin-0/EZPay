@@ -1,0 +1,26 @@
+ion-content {
+    --color: black;
+    --background: white;
+    height: 600px;
+}
+ion-toolbar{
+    --background: #0079C1;
+    color: white;
+}
+ion-icon {
+    font-size: 35px;
+    // width: 50%;
+    margin-top: 20px;
+    margin-left: 10px;
+}
+ion-toggle {
+    --background: lightblue;
+    --background-checked: lightblue;
+
+    --handle-background: rgb(98, 144, 173);
+    --handle-background-checked: rgb(98, 144, 173);
+}
+ion-card{
+    --background: rgb(228, 228, 228);
+    color: white;
+}
