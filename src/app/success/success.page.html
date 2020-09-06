@@ -13,7 +13,16 @@
 <p style="margin-left: 110px;"><b>Details</b></p>
 <p style="margin-left: 80px;">
 <br>
-<b>{{data}}</b>
+<ion-card *ngIf="data">
+  <ion-card-header>
+    <ion-card-title>
+      {{ data.amount }}
+    </ion-card-title>
+    <ion-card-subtitle>
+      {{ data.time }}
+    </ion-card-subtitle>
+  </ion-card-header>
+</ion-card>
 </p>
 </ion-card>
 <ion-button color="success" style="width: 300px; margin-left: 37px;">Done</ion-button>

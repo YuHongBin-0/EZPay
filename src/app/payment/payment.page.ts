@@ -47,7 +47,10 @@ export class PaymentPage implements OnInit {
 
   transaction = {} as Transaction;
 
-  pAmount = this.transaction.amount;
+  pAmount = {
+    amount: this.transaction.amount,
+    time: this.transaction.date,
+  };
 
   name: string;
 
