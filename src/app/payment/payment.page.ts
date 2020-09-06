@@ -3,12 +3,12 @@ import { ToastController, LoadingController, AlertController, ModalController } 
 import jsQR from 'jsqr';
 import { AngularFireAuth, AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { BarcodeScanner, BarcodeScanResult } from '@ionic-native/barcode-scanner/ngx';
 import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
-import { FormBuilder, Validators } from "@angular/forms";
+import { FormBuilder, Validators } from '@angular/forms';
 import { LockPage } from '../lock/lock.page';
 
 
@@ -18,7 +18,25 @@ import { LockPage } from '../lock/lock.page';
   styleUrls: ['payment.page.scss'],
 })
 export class PaymentPage implements OnInit {
- 
+
+  constructor(private loadingCtrl: LoadingController,
+              private afAuth: AngularFireAuth,
+              private modalCtrl: ModalController,
+              private afDatabase: AngularFireDatabase,
+              public alertController: AlertController,
+              public router: Router,
+              private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
+
+
+
+  get notes() {
+    return this.transactionForm.get('transaction.notes');
+  }
+
+  get amount() {
+    return this.transactionForm.get('transaction.amount');
+  }
+
 
   targetUserNameFrom; targetUserNameTo;
 
@@ -30,59 +48,19 @@ export class PaymentPage implements OnInit {
   transaction = {} as Transaction;
 
   pAmount = this.transaction.amount;
-  
+
   name: string;
 
-  constructor(private loadingCtrl: LoadingController,
-    private afAuth: AngularFireAuth,
-    private modalCtrl: ModalController,
-    private afDatabase: AngularFireDatabase,
-    public alertController: AlertController,
-    public router: Router,
-    private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
-
     scannedCode = null;
-
-  async ngOnInit() {
-
-    this.barcodeScanner.scan().then(
-      barcodeData =>{
-        this.scannedCode = barcodeData.text.toString();
-      }
-    )
-
-    var userId = firebase.auth().currentUser.uid;
-    console.log(userId);
-
-    firebase.database().ref('/users/' + userId).once('value').then(res => {
-      
-      var disName = (res.val() && res.val().name);
-      this.name = disName;
-  })
-
-  this.refStalls.on('value', resp => {
-    this.reference = snapshotToArray1(resp);
-  });
-}
-
-
-
-  get notes() {
-    return this.transactionForm.get("transaction.notes");
-  }
-
-  get amount() {
-    return this.transactionForm.get('transaction.amount');
-  }
 
   public errorMessages = {
     notes: [
       { type: 'maxlength', message: 'Note should not be longer than 100 characters' }
     ],
-    amount: [ 
+    amount: [
       { type: 'required', message: 'Amount is required' },
       { type: 'max', message: 'Maximum amount per transaction should not exceed $20' }]
-  }
+  };
 
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
@@ -91,20 +69,52 @@ export class PaymentPage implements OnInit {
     })
   });
 
+  openDetailsWithQueryParams(){
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(this.pAmount)
+      }
+    };
+    this.router.navigate(['second'], navigationExtras);
+  }
+
+
+  async ngOnInit() {
+
+    this.barcodeScanner.scan().then(
+      barcodeData => {
+        this.scannedCode = barcodeData.text.toString();
+      }
+    );
+
+    const userId = firebase.auth().currentUser.uid;
+    console.log(userId);
+
+    firebase.database().ref('/users/' + userId).once('value').then(res => {
+
+      const disName = (res.val() && res.val().name);
+      this.name = disName;
+  });
+
+    this.refStalls.on('value', resp => {
+    this.reference = snapshotToArray1(resp);
+  });
+}
+
   async presentAlert(title: string, content: string) {
 		const alert = await this.alertController.create({
 			header: title,
 			message: content,
       buttons: ['Ok'],
       cssClass: 'payment-alert',
-		})
-		await alert.present()
+		});
+		await alert.present();
   }
 
-  tryTransactNow () {
+  tryTransactNow() {
     this.presentAlertConfirm().then(() => {
       this.lockApp();
-    })
+    });
   }
 
   async presentAlertConfirm() {
@@ -117,7 +127,7 @@ export class PaymentPage implements OnInit {
           text: 'Cancel',
           role: 'cancel',
           cssClass: 'secondary',
-          handler: (blah) => { 
+          handler: (blah) => {
           }
         }, {
           text: 'Okay',
@@ -130,15 +140,15 @@ export class PaymentPage implements OnInit {
 
     await alert.present();
   }
-  
+
   async genUniqueID() {
-    var id:string;
-    var finalID:string;
+    let id: string;
+    let finalID: string;
     id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-    console.log("initial id is: " + id)
+    console.log('initial id is: ' + id);
     await firebase.database().ref(`/transaction/${id}`).once('value').then(res => {
-      var objFromDB = res.val();
-      if(objFromDB != null){
+      const objFromDB = res.val();
+      if (objFromDB != null){
         console.log('The reportID "' + id + '" exists and CANNOT be used');
         this.genUniqueID();
       }
@@ -151,40 +161,38 @@ export class PaymentPage implements OnInit {
   }
 
   async transactions(){
-    var transactionID: string;
-              
+    let transactionID: string;
+
     transactionID = await this.genUniqueID();
     transactionID = 'TRNSC-' + transactionID;
     firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
       if (res) {
-        var bal:number = (res.val() && res.val().balance);
-        var changedBal:number = Number(bal + this.transaction.amount);
-      
+        const bal: number = (res.val() && res.val().balance);
+        const changedBal: number = Number(bal + this.transaction.amount);
+
         this.afDatabase.object(`users/${this.scannedCode}/balance`).set(changedBal);
-        
+
       }
     });
     firebase.database().ref('/users/' + this.userID).once('value').then(res => {
       if (res) {
-        var bal:number = (res.val() && res.val().balance);
+        const bal: number = (res.val() && res.val().balance);
         this.targetUserNameFrom = (res.val() && res.val().name);
         this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
         }
     });
-    firebase.database().ref('users/'+ this.scannedCode).once('value', resp => {
+    firebase.database().ref('users/' + this.scannedCode).once('value', resp => {
       this.targetUserNameTo = (resp.val() && resp.val().name);
-    })
-    this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction)
-    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode)
-    this.afDatabase.object(`transaction/${transactionID}/from`).set(this.userID)
-    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set(this.targetUserNameFrom)
-    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUserNameTo)
-    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
-    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set("Payment (Goods)")
-    
-    this.presentAlert('Success', 'Payment of : $' + this.transaction.amount + ' Made!').then( res =>{
-      this.router.navigate(['tabs/tab2'])
     });
+    this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction);
+    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode);
+    this.afDatabase.object(`transaction/${transactionID}/from`).set(this.userID);
+    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set(this.targetUserNameFrom);
+    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUserNameTo);
+    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString());
+    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set('Payment (Goods)');
+
+    this.router.navigate(['success']);
   }
 
   async lockApp(){
