@@ -72,14 +72,6 @@ export class PaymentPage implements OnInit {
     })
   });
 
-  openDetailsWithQueryParams(){
-    const navigationExtras: NavigationExtras = {
-      queryParams: {
-        special: JSON.stringify(this.pAmount)
-      }
-    };
-    this.router.navigate(['second'], navigationExtras);
-  }
 
 
   async ngOnInit() {
@@ -115,6 +107,7 @@ export class PaymentPage implements OnInit {
   }
 
   tryTransactNow() {
+    
     this.presentAlertConfirm().then(() => {
       this.lockApp();
     });
@@ -136,6 +129,12 @@ export class PaymentPage implements OnInit {
           text: 'Okay',
           handler: async () => {
             this.transactions();
+            const navigationExtras: NavigationExtras = {
+              queryParams: {
+                special: JSON.stringify(this.pAmount)
+              }
+            };
+            this.router.navigate(['success'], navigationExtras);
           }
         }
       ]
@@ -195,7 +194,7 @@ export class PaymentPage implements OnInit {
     this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString());
     this.afDatabase.object(`transaction/${transactionID}/transactionType`).set('Payment (Goods)');
 
-    this.router.navigate(['success']);
+    
   }
 
   async lockApp(){

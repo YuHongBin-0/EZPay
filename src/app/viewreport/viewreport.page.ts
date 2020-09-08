@@ -46,8 +46,6 @@ export class ViewreportPage implements OnInit {
           text: 'Okay',
           handler: async () => {
             
-            
-              
               await this.afDatabase.object(`reports/${key}/status`).set("- solved")
             
           }

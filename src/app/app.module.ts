@@ -39,7 +39,7 @@ import { Crop } from '@ionic-native/crop/ngx';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { File } from '@ionic-native/File/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { MediaCapture } from '@ionic-native/media-capture/ngx';
 import { Media } from '@ionic-native/media/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
