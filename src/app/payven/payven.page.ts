@@ -60,9 +60,9 @@ export class PayvenPage implements OnInit {
         const detail = new PayPalPaymentDetails('19.99', '0.00', '0.00');
         const payment = new PayPalPayment('19.99', 'BRL', 'CanalDoAbranches', 'Sale', detail);
         this.payPal.renderSinglePaymentUI(payment).then((response) => {
-          console.log('pagamento efetuado');
+          window.alert('payment made');
         }, () => {
-          console.log('erro ao renderizar o pagamento do paypal');
+          window.alert('failed to render paypal payment');
         });
       });
     });
