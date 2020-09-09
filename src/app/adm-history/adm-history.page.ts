@@ -34,14 +34,9 @@ export class AdmHistoryPage implements OnInit {
     this.listRef = firebase.database().ref('transaction');
     this.listRef.on('value', resp => {
       this.reference = snapshotToArray(resp)
-    });
-    // if(this.loadedReference.length != 0){
-    //   this.referenceLoaded = true;
-    //   this.loadedReference.forEach(element => {
-    //     var elementAmt = element.val().amount;
-    //     this.totalAmountInView = this.totalAmountInView + elementAmt
-    //   })
-    // }
+      this.loadedReference = this.reference;
+      this.getTotalAmountInView(this.loadedReference);
+    })
   }
 
   initializeItems() {
@@ -79,12 +74,13 @@ export class AdmHistoryPage implements OnInit {
 
     // if the value is an empty string don't filter the items
     if (!q) {
+      this.getTotalAmountInView(this.loadedReference);
       return;
     }
 
     this.loadedReference = this.loadedReference.filter((v) => {
       if (v.notes && q) {
-        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.from.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.to.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+        if (v.notes.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.recipientName.toLowerCase().indexOf(q.toLowerCase()) > -1 || v.transactorName.toLowerCase().indexOf(q.toLowerCase()) > -1) {
           return true;
         }
         return false;
@@ -92,6 +88,7 @@ export class AdmHistoryPage implements OnInit {
     });
 
     console.log(q, this.loadedReference.length);
+    this.getTotalAmountInView(this.loadedReference);
 
     if (this.loadedReference.length == 0) {
       this.emptysearch = "empty liao"  // equivalent to true or present
@@ -114,6 +111,7 @@ export class AdmHistoryPage implements OnInit {
     }
     this.sortDirection++;
     this.sort();
+    this.getTotalAmountInView(this.loadedReference);
   }
 
   sort() {
@@ -152,6 +150,18 @@ export class AdmHistoryPage implements OnInit {
       this.loadedReference.sort();
       this.sortKey = null;
     }
+  }
+
+  getTotalAmountInView(array){
+    this.totalAmountInView = 0
+    if(array.length != 0){
+      this.referenceLoaded = true;
+      array.forEach(element => {
+        var elementAmt = element.amount;
+        this.totalAmountInView = this.totalAmountInView + elementAmt
+      })
+    }
+    console.log(this.totalAmountInView)
   }
 
 }
