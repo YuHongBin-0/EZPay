@@ -10,6 +10,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class SuccessPage implements OnInit {
 
   data: any;
+  userAmount;
+  date = new Date().toISOString();
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(params => {
@@ -21,6 +23,12 @@ export class SuccessPage implements OnInit {
   }
 
   ngOnInit() {
+
+    
+  }
+
+  backHome(){
+    this.router.navigate(['tabs'])
   }
 
 }

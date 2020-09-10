@@ -1,29 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>success</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content>
-  <img src="assets/paymentsuccess.gif" style="height: 300px; margin: 30px; align-content: center;">
+<ion-content style="align-content: center;">
+  <img src="assets/paymentsuccess.gif" style="height: 250px; align-content: center;">
 <h2 style="margin-left: 90px;">Payment Completed</h2>
 <h1 style="margin-left: 110px;"><b>Successfully!!</b></h1>
 <ion-card style="margin: 50px;">
 <br>
-<p style="margin-left: 110px;"><b>Details</b></p>
-<p style="margin-left: 80px;">
+<p style="align-content: center;"><b style="align-content: center;">Details</b></p>
+
 <br>
-<ion-card *ngIf="data">
+<ion-card *ngIf="data" style="align-content: center;">
   <ion-card-header>
-    <ion-card-title>
-      {{ data.amount }}
+    <ion-card-title style="align-content: center;">
+      {{ data | currency }}
     </ion-card-title>
-    <ion-card-subtitle>
-      {{ data.time }}
-    </ion-card-subtitle>
+    <ion-card-content>
+      {{ date }}
+    </ion-card-content>
   </ion-card-header>
 </ion-card>
-</p>
 </ion-card>
-<ion-button color="success" style="width: 300px; margin-left: 37px;">Done</ion-button>
+<ion-button color="success" style="width: 300px; margin-left: 37px;" (click)="backHome()">Done</ion-button>
 </ion-content>

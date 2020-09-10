@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { Transaction } from '../modals/transaction';
 import { FormBuilder, Validators } from '@angular/forms';
 import { LockPage } from '../lock/lock.page';
+import { CurrencyPipe } from '@angular/common';
 
 
 @Component({
@@ -25,13 +26,11 @@ export class PaymentPage implements OnInit {
   userID = firebase.auth().currentUser.uid;
   name: string; recipientName: string;
   scannedCode = null;
-  transaction = {} as Transaction; transactionDate;
+  transaction = {} as Transaction; 
+  transactionDate;
 
-  pAmount = {
-    amount: this.transaction.amount,
-    time: this.transactionDate,
-  };
-
+  pAmount = this.transaction.amount
+  
   public errorMessages = {
     notes: [
       { type: 'maxlength', message: 'Note should not be longer than 100 characters' }
@@ -116,14 +115,17 @@ export class PaymentPage implements OnInit {
         }, {
           text: 'Okay',
           handler: async () => {
-            this.transactions();
+            this.transactions().then(() => {
             const navigationExtras: NavigationExtras = {
               queryParams: {
-                special: JSON.stringify(this.pAmount)
+                special: JSON.stringify(this.transaction.amount)
               }
+              
             };
             this.router.navigate(['success'], navigationExtras);
+          })
           }
+          
         }
       ]
     });
@@ -165,24 +167,25 @@ export class PaymentPage implements OnInit {
 
       }
     });
-    firebase.database().ref('/users/' + this.userID).once('value').then(res => {
+    await firebase.database().ref('/users/' + this.userID).once('value').then(res => {
       if (res) {
         const bal: number = (res.val() && res.val().balance);
         this.targetUserNameFrom = (res.val() && res.val().name);
         this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
       }
-    });
-    firebase.database().ref('users/' + this.scannedCode).once('value', resp => {
+    })
+    await firebase.database().ref('users/' + this.scannedCode).once('value', resp => {
       this.targetUserNameTo = (resp.val() && resp.val().name);
-    });
-    this.transactionDate = new Date().toISOString();
-    this.afDatabase.object(`transactions/${transactionID}`).set(this.transaction);
-    this.afDatabase.object(`transactions/${transactionID}/to`).set(this.scannedCode);
-    this.afDatabase.object(`transactions/${transactionID}/from`).set(this.userID);
-    this.afDatabase.object(`transactions/${transactionID}/transactorName`).set(this.targetUserNameFrom);
-    this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUserNameTo);
-    this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(this.transactionDate);
-    this.afDatabase.object(`transactions/${transactionID}/transactionType`).set('Payment (Goods)');
+    }).then(_ =>{
+      this.transactionDate = new Date().toISOString();
+      this.afDatabase.object(`transactions/${transactionID}`).set(this.transaction);
+      this.afDatabase.object(`transactions/${transactionID}/to`).set(this.scannedCode);
+      this.afDatabase.object(`transactions/${transactionID}/from`).set(this.userID);
+      this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUserNameTo);
+      this.afDatabase.object(`transactions/${transactionID}/transactorName`).set(this.targetUserNameFrom);
+      this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(this.transactionDate);
+      this.afDatabase.object(`transactions/${transactionID}/transactionType`).set('Payment (Goods)');
+    })
   }
 
   async lockApp() {
