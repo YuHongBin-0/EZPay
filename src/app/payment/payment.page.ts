@@ -19,42 +19,18 @@ import { LockPage } from '../lock/lock.page';
 })
 export class PaymentPage implements OnInit {
 
-  constructor(private loadingCtrl: LoadingController,
-              private afAuth: AngularFireAuth,
-              private modalCtrl: ModalController,
-              private afDatabase: AngularFireDatabase,
-              public alertController: AlertController,
-              public router: Router,
-              private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) {}
-
-
-
-  get notes() {
-    return this.transactionForm.get('transaction.notes');
-  }
-
-  get amount() {
-    return this.transactionForm.get('transaction.amount');
-  }
-
-
   targetUserNameFrom; targetUserNameTo;
-
   reference = [];
   refStalls = firebase.database().ref('stalls');
-
   userID = firebase.auth().currentUser.uid;
-
-  transaction = {} as Transaction;
+  name: string; recipientName: string;
+  scannedCode = null;
+  transaction = {} as Transaction; transactionDate;
 
   pAmount = {
     amount: this.transaction.amount,
-    time: this.transaction.date,
+    time: this.transactionDate,
   };
-
-  name: string;
-
-    scannedCode = null;
 
   public errorMessages = {
     notes: [
@@ -67,15 +43,28 @@ export class PaymentPage implements OnInit {
 
   transactionForm = this.formBuilder.group({
     transaction: this.formBuilder.group({
-      notes: ['', [ Validators.maxLength(100)]],
+      notes: ['', [Validators.maxLength(100)]],
       amount: ['', [Validators.required, Validators.max(20)]],
     })
   });
 
+  constructor(private loadingCtrl: LoadingController,
+    private afAuth: AngularFireAuth,
+    private modalCtrl: ModalController,
+    private afDatabase: AngularFireDatabase,
+    public alertController: AlertController,
+    public router: Router,
+    private formBuilder: FormBuilder, private barcodeScanner: BarcodeScanner) { }
 
+  get notes() {
+    return this.transactionForm.get('transaction.notes');
+  }
+
+  get amount() {
+    return this.transactionForm.get('transaction.amount');
+  }
 
   async ngOnInit() {
-
     this.barcodeScanner.scan().then(
       barcodeData => {
         this.scannedCode = barcodeData.text.toString();
@@ -89,25 +78,24 @@ export class PaymentPage implements OnInit {
 
       const disName = (res.val() && res.val().name);
       this.name = disName;
-  });
+    });
 
     this.refStalls.on('value', resp => {
-    this.reference = snapshotToArray1(resp);
-  });
-}
+      this.reference = snapshotToArray1(resp);
+    });
+  }
 
   async presentAlert(title: string, content: string) {
-		const alert = await this.alertController.create({
-			header: title,
-			message: content,
+    const alert = await this.alertController.create({
+      header: title,
+      message: content,
       buttons: ['Ok'],
       cssClass: 'payment-alert',
-		});
-		await alert.present();
+    });
+    await alert.present();
   }
 
   tryTransactNow() {
-    
     this.presentAlertConfirm().then(() => {
       this.lockApp();
     });
@@ -148,13 +136,13 @@ export class PaymentPage implements OnInit {
     let finalID: string;
     id = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
     console.log('initial id is: ' + id);
-    await firebase.database().ref(`/transaction/${id}`).once('value').then(res => {
+    await firebase.database().ref(`/transactions/${id}`).once('value').then(res => {
       const objFromDB = res.val();
-      if (objFromDB != null){
+      if (objFromDB != null) {
         console.log('The reportID "' + id + '" exists and CANNOT be used');
         this.genUniqueID();
       }
-      else{
+      else {
         console.log('The reportID "' + id + '" does not exist and is usable');
         finalID = id;
       }
@@ -162,13 +150,14 @@ export class PaymentPage implements OnInit {
     return finalID;
   }
 
-  async transactions(){
+  async transactions() {
     let transactionID: string;
 
     transactionID = await this.genUniqueID();
     transactionID = 'TRNSC-' + transactionID;
     firebase.database().ref('/users/' + this.scannedCode).once('value').then(res => {
       if (res) {
+        this.recipientName = (res.val() && res.val().name);
         const bal: number = (res.val() && res.val().balance);
         const changedBal: number = Number(bal + this.transaction.amount);
 
@@ -181,23 +170,22 @@ export class PaymentPage implements OnInit {
         const bal: number = (res.val() && res.val().balance);
         this.targetUserNameFrom = (res.val() && res.val().name);
         this.afDatabase.object(`users/${this.userID}/balance`).set(bal - this.transaction.amount);
-        }
+      }
     });
     firebase.database().ref('users/' + this.scannedCode).once('value', resp => {
       this.targetUserNameTo = (resp.val() && resp.val().name);
     });
-    this.afDatabase.object(`transaction/${transactionID}`).set(this.transaction);
-    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.scannedCode);
-    this.afDatabase.object(`transaction/${transactionID}/from`).set(this.userID);
-    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set(this.targetUserNameFrom);
-    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUserNameTo);
-    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString());
-    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set('Payment (Goods)');
-
-    
+    this.transactionDate = new Date().toISOString();
+    this.afDatabase.object(`transactions/${transactionID}`).set(this.transaction);
+    this.afDatabase.object(`transactions/${transactionID}/to`).set(this.scannedCode);
+    this.afDatabase.object(`transactions/${transactionID}/from`).set(this.userID);
+    this.afDatabase.object(`transactions/${transactionID}/transactorName`).set(this.targetUserNameFrom);
+    this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUserNameTo);
+    this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(this.transactionDate);
+    this.afDatabase.object(`transactions/${transactionID}/transactionType`).set('Payment (Goods)');
   }
 
-  async lockApp(){
+  async lockApp() {
     const modal = await this.modalCtrl.create({
       component: LockPage,
       backdropDismiss: false,

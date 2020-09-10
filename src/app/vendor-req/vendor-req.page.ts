@@ -161,6 +161,4 @@ export class VendorReqPage implements OnInit {
     });
     return finalID;
   }
-
 }
-

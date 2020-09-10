@@ -21,9 +21,7 @@ import { promise } from 'protractor';
 export class TabsPage implements OnInit {
 
   users: Observable<any>
-  
   isStudent: boolean;
-
   UID:string = '';
 
   constructor(private router: Router, public platform:Platform,  public storage: Storage) { 

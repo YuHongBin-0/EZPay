@@ -83,19 +83,20 @@ export class AdminBalancePage implements OnInit {
 
   async changeBalanceValue(action:string){
     var transactionID = await this.genUniqueID();
+    transactionID = 'AdEDT-' + transactionID; 
 
     firebase.database().ref(`users/${this.userK}`).once('value', resp => {
       var targetUserName = (resp.val() && resp.val().name)
       this.targetUsrName = targetUserName
     })
 
-    this.afDatabase.object(`transaction/${transactionID}/to`).set(this.userK)
-    this.afDatabase.object(`transaction/${transactionID}/from`).set("Admin Team")
-    this.afDatabase.object(`transaction/${transactionID}/transactorName`).set("Admin Team")
-    this.afDatabase.object(`transaction/${transactionID}/recipientName`).set(this.targetUsrName)
-    this.afDatabase.object(`transaction/${transactionID}/transactionType`).set(this.changeReason)
-    this.afDatabase.object(`transaction/${transactionID}/notes`).set(this.changeNotes)
-    this.afDatabase.object(`transaction/${transactionID}/transactionDate`).set(new Date().toISOString())
+    this.afDatabase.object(`transactions/${transactionID}/to`).set(this.userK)
+    this.afDatabase.object(`transactions/${transactionID}/from`).set("Admin Team")
+    this.afDatabase.object(`transactions/${transactionID}/transactorName`).set("Admin Team")
+    this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUsrName)
+    this.afDatabase.object(`transactions/${transactionID}/transactionType`).set(this.changeReason)
+    this.afDatabase.object(`transactions/${transactionID}/notes`).set(this.changeNotes)
+    this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(new Date().toISOString())
 
     if (action == 'addTo'){
       firebase.database().ref('/users/' + this.userK).once('value', res => {
@@ -106,7 +107,7 @@ export class AdminBalancePage implements OnInit {
           this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
           
           //update by amount increments
-          this.afDatabase.object(`transaction/${transactionID}/amount`).set(this.changeValue)
+          this.afDatabase.object(`transactions/${transactionID}/amount`).set(this.changeValue)
           }
       });
     } else if (action == 'override'){
@@ -119,7 +120,7 @@ export class AdminBalancePage implements OnInit {
           
           //calculate amount increment and add to transacted amount
           var trnsc_amount = changedBal - bal;
-          this.afDatabase.object(`transaction/${transactionID}/amount`).set(trnsc_amount);
+          this.afDatabase.object(`transactions/${transactionID}/amount`).set(trnsc_amount);
           }
       });
     }

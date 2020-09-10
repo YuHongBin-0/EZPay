@@ -5,7 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { PayPal, PayPalPayment, PayPalConfiguration,  PayPalPaymentDetails} from '@ionic-native/paypal/ngx';
+import { PayPal, PayPalPayment, PayPalConfiguration, PayPalPaymentDetails } from '@ionic-native/paypal/ngx';
 
 @Component({
   selector: 'app-tab1',
@@ -17,39 +17,31 @@ export class Tab1Page implements OnInit {
   reference = [];
   avail = true
   userId = firebase.auth().currentUser.uid;
-  refItems = firebase.database().ref('transaction');
+  refItems = firebase.database().ref('transactions');
   isStudent: boolean;
   refstall = [];
   refStalls = firebase.database().ref('stalls');
   refuser = [];
   refUsers = firebase.database().ref('users');
   userID = firebase.auth().currentUser.uid;
-
-  
-   
-
-  constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
-              public afdatabase: AngularFireDatabase, private router: Router) {
-
-            
-  }
-
   panelOpenState = false;
 
+  constructor(public matExpansionModule: MatExpansionModule, public afAuth: AngularFireAuth,
+    public afdatabase: AngularFireDatabase, private router: Router) {
+  }
+
   ngOnInit() {
-
     var userId = firebase.auth().currentUser.uid
-   
 
-      firebase.database().ref(`/users/` + userId).once('value').then(res => {
-        var role = (res.val() && res.val().role).toString();
-        if (role == "student") {
-          this.isStudent = true
-        }
-        else if (role == "vendor") {
-          this.isStudent = false;
-        }
-      })
+    firebase.database().ref(`/users/` + userId).once('value').then(res => {
+      var role = (res.val() && res.val().role).toString();
+      if (role == "student") {
+        this.isStudent = true
+      }
+      else if (role == "vendor") {
+        this.isStudent = false;
+      }
+    })
 
     this.refItems.on('value', resp => {
       this.reference = snapshotToArray(resp);
@@ -62,12 +54,9 @@ export class Tab1Page implements OnInit {
     this.refUsers.on('value', resp2 => {
       this.refuser = snapshotToArray(resp2);
     });
-
-
-    
   }
 
-  sendToReportError(){
+  sendToReportError() {
     this.router.navigateByUrl('/report');
   }
 
@@ -79,8 +68,8 @@ export class Tab1Page implements OnInit {
     });
 
     this.checkAvail()
-        console.log('Async operation has ended');
-        event.target.complete();
+    console.log('Async operation has ended');
+    event.target.complete();
 
   }
 
@@ -93,7 +82,6 @@ export class Tab1Page implements OnInit {
       this.avail = false
     }
   }
-
 }
 
 export const snapshotToArray = snapshot => {

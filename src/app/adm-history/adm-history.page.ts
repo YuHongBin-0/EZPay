@@ -31,7 +31,7 @@ export class AdmHistoryPage implements OnInit {
     }
 
   ngOnInit() { 
-    this.listRef = firebase.database().ref('transaction');
+    this.listRef = firebase.database().ref('transactions');
     this.listRef.on('value', resp => {
       this.reference = snapshotToArray(resp)
       this.loadedReference = this.reference;
