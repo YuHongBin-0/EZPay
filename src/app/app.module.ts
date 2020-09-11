@@ -46,6 +46,7 @@ import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 
 import { NativeAudio } from '@ionic-native/native-audio/ngx'
+import { HTTP } from '@ionic-native/http/ngx'
 
 
 
@@ -67,7 +68,7 @@ import { from } from 'rxjs';
     AngularFireAuth, PayPal, FingerprintAIO, EmailComposer, Camera, Base64, Crop,
     ImagePicker,
     MediaCapture,
-    File,
+    File,HTTP,
     Media,
     StreamingMedia,
     PhotoViewer,NativeAudio
