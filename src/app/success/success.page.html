@@ -1,16 +1,19 @@
 
-<ion-content style="align-content: center;">
-  <img src="assets/paymentsuccess.gif" style="height: 250px; align-content: center;">
-<h2 style="margin-left: 90px;">Payment Completed</h2>
-<h1 style="margin-left: 110px;"><b>Successfully!!</b></h1>
+<ion-content style="align-content: center; text-align: center;">
+  <div class="vertical-center">
+    <div class="center">
+      <ion-img src="assets/paymentsuccess.gif" class="ion-align-self-end"></ion-img>
+      <h2>Payment Completed</h2>
+<h1 style><b>Successfully!!</b></h1>
 <ion-card style="margin: 50px;">
 <br>
-<p style="align-content: center;"><b style="align-content: center;">Details</b></p>
+<p>
+  <b>Details</b></p>
 
 <br>
-<ion-card *ngIf="data" style="align-content: center;">
+<ion-card *ngIf="data">
   <ion-card-header>
-    <ion-card-title style="align-content: center;">
+    <ion-card-title>
       {{ data | currency }}
     </ion-card-title>
     <ion-card-content>
@@ -19,5 +22,8 @@
   </ion-card-header>
 </ion-card>
 </ion-card>
-<ion-button color="success" style="width: 300px; margin-left: 37px;" (click)="backHome()">Done</ion-button>
+<ion-button color="success" style="width: 300px;" (click)="backHome()">Done</ion-button>
+    </div>   
+  </div>
 </ion-content>
+

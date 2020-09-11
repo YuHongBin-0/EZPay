@@ -62,20 +62,20 @@
         <ion-col size="2.35">
           {{report.date}}  
         </ion-col>
-        <ion-col size="0.85" expand="block" style="background-color: pink; color:white;" *ngIf="report.status == 'pending'">
-          <ion-button class="reportBtn" (click)="presentAlertConfirm(report.key)" style="align-content: center;" >
+        <ion-col size="1" expand="block" style="background-color: pink; color:white;" *ngIf="report.status == 'pending'">
+          <ion-button class="reportBtn" (click)="presentAlertConfirm(report.key)" style="width: 97%;">
             {{ report.status }}
           </ion-button>
         </ion-col>
 
-        <ion-col size="0.85" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="report.status == '- solved'">
+        <ion-col size="1" expand="block" style="background: lightskyblue; color:white; text-align: center;" *ngIf="report.status == '- solved'">
           <ion-label >
             {{ report.status }}
           </ion-label>
         </ion-col>
 
-        <ion-col size="0.85" expand="block" style="background: lightskyblue; color:white;">
-          <ion-button class="sentEmail" (click)="SentEmail(report.key)" > 
+        <ion-col size="0.75" expand="block" style="background: lightskyblue; color:white;">
+          <ion-button class="sentEmail" (click)="SentEmail(report.key)" style="width: 95%;" > 
             <ion-icon name="mail-outline" style="padding-right: 10px;"></ion-icon>
           </ion-button>
         </ion-col>
