@@ -1,17 +1,18 @@
 import { Component , OnInit} from '@angular/core';
 import { Base64 } from '@ionic-native/base64/ngx'
-import { ActionSheetController, Platform } from '@ionic/angular';
+import { ActionSheetController, Platform, AlertController } from '@ionic/angular';
 import {MediaCapture,MediaFile,CaptureError} from '@ionic-native/media-capture/ngx';
-import { File, FileEntry } from '@ionic-native/File/ngx';
+import { File, FileEntry } from '@ionic-native/file/ngx';
 import { Media, MediaObject } from '@ionic-native/media/ngx';
 import { StreamingMedia } from '@ionic-native/streaming-media/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
-
 import { HttpClient } from '@angular/common/http';
 import { HTTP } from '@ionic-native/http/ngx';
 import { LoadingController } from '@ionic/angular';
 import { finalize } from 'rxjs/operators'
 import { from } from 'rxjs';
+import { Router } from '@angular/router';
+
 const MEDIA_FOLDER_NAME = 'Music';
 
 @Component({
@@ -37,7 +38,9 @@ export class VoicePage implements OnInit {
     private plt: Platform,
     public http: HttpClient,
     private nativeHttp: HTTP,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private alertCtrl: AlertController,
+    private router: Router
   ) {}
  
   ngOnInit() {
@@ -82,15 +85,33 @@ export class VoicePage implements OnInit {
     from(nativeCall).pipe(
       finalize(() => loading.dismiss())
     )
-    .subscribe(data => {
+    .subscribe(async data => {
       console.log('native data: ', data);
-      this.data = JSON.parse(data.data);
       
+      this.data = JSON.parse(data.data);
+     
+
+      var dataRes = JSON.parse(data.data)
+    
+      if (dataRes.data.returnData.code == '603'){
+        let alert = await this.alertCtrl.create({
+          header: 'Verification successful! You may proceed.',
+          buttons: [
+            {
+              text: 'Continue',
+              handler: () => {
+                this.router.navigate(['admin'])
+              }
+            }
+          ]
+        })
+      await alert.present();
+      }
     }, err => {
       console.log('JSON Call error: ', err)
     })
   }
- 
+
   loadFiles() {
     this.file.listDir(this.file.dataDirectory, MEDIA_FOLDER_NAME).then(
       res => {
