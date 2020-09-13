@@ -7,15 +7,10 @@
 </ion-header>
  
 <ion-content>
+  <ion-button (click)="enrollVoice()"> Enroll Voice </ion-button>
   <ion-button (click)="getDataNativeHttp()"> Sent for verify </ion-button>
+  <ion-button (click)="recordAudio()"> Record Audio </ion-button>
    
 </ion-content>
  
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button fill="clear" expand="full" color="light" (click)="selectMedia()">
-      <ion-icon slot="start" name="document"></ion-icon>
-      Select Media
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>6+
+

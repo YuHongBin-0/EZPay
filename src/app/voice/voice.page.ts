@@ -23,6 +23,7 @@ export class VoicePage implements OnInit {
   data = [];
 
   base64text: string;
+  base64enroll: string;
  
   constructor(
     private base64: Base64,
@@ -49,16 +50,86 @@ export class VoicePage implements OnInit {
       );
     });
 
-    let filePath: string = 'file:///storage/emulated/0/Music/Recordings/Standard Recordings/Standard 1.mp3';
+    let filePath: string = 'file:///storage/emulated/0/Music/Recordings/Standard Recordings/Standard 2.mp3';
 
     this.base64.encodeFile(filePath).then((base64Audio: string) => {
       this.base64text = base64Audio.replace("data:image/*;charset=utf-8;base64,","")
+      window.alert(this.base64text)
+    }, (err) => {
+      
+    })
 
+    let filePathEnroll: string = 'file:///storage/emulated/0/Music/Recordings/Standard Recordings/Standard Recording 1.mp3';
+
+    this.base64.encodeFile(filePathEnroll).then((base64Audio: string) => {
+      this.base64enroll = base64Audio.replace("data:image/*;charset=utf-8;base64,","")
+      window.alert(this.base64enroll)
     }, (err) => {
       
     })
 
   }
+
+  async enrollVoice(){
+    let loading = await this.loadingCtrl.create();
+    await loading.present();
+
+    let nativeCall = this.nativeHttp.post('https://vpr-sg.oneconnectft.com.sg/vprc_dmz/api/register_no_text', {
+      'appId': '10013', 'scene': 'sg_temasekpoly_cll',
+      'appIdKey': '2534eb7d19b5427a93fa7449882e1fea', 'token': '494cea4ee98171754dc7e61b225baaca',
+      'timestamp': '1552958446757', 'userId': '1903244', 'serialNumber': 'sfsfsefefefsd35',
+      'type': 'modify', 'file_format': 'pcm', 'depend': '0', 'voice': this.base64enroll
+    }, {
+      'Content-Type': 'application/json'
+    });
+
+    from(nativeCall).pipe(
+      finalize(() => loading.dismiss())
+    )
+    .subscribe(async data => {
+      console.log('native data: ', data);
+      var dataRes = JSON.parse(data.data)
+      let returnedCode = dataRes.data.returnData.code;
+      let errorMessage = dataRes.data.returnData.msg
+      if (returnedCode == '600'){
+        let alert = await this.alertCtrl.create({
+          header: 'Enrollment successful!',
+          message: ' You may proceed...',
+          buttons: [
+            {
+              text: "Continue",
+              role: "cancel"
+            }
+          ]
+        })
+      await alert.present();
+      }
+      else if (returnedCode == "0010" || returnedCode == "0011" || returnedCode == "0100" || returnedCode == "201" || returnedCode == "202" || returnedCode == "601" || returnedCode == "806" || returnedCode == "1000" || returnedCode == "1001" || returnedCode == "1011"){
+        let alert1 = await this.alertCtrl.create({
+          header: 'Enrollment failed!',
+          message: 'Error: ' + errorMessage + ". Please try again",
+          buttons: [
+            {
+              text: "Close",
+              role: "cancel"
+            },
+            {
+              text: 'Retry',
+              handler: async () => {
+                await this.enrollVoice();
+              }
+            }
+          ]
+        })
+      await alert1.present();
+      }
+    }, err => {
+      console.log('JSON Call error: ', err)
+    })
+  }
+
+
+
 
   async getDataNativeHttp(){
     let loading = await this.loadingCtrl.create();
@@ -78,15 +149,13 @@ export class VoicePage implements OnInit {
     )
     .subscribe(async data => {
       console.log('native data: ', data);
-      
-      this.data = JSON.parse(data.data);
-     
-
       var dataRes = JSON.parse(data.data)
-    
-      if (dataRes.data.returnData.code == '603'){
+      let returnedCode = dataRes.data.returnData.code;
+      let errorMessage = dataRes.data.returnData.msg
+      if (returnedCode == '603'){
         let alert = await this.alertCtrl.create({
-          header: 'Verification successful! You may proceed.',
+          header: 'Verification successful!',
+          message: ' You may proceed...',
           buttons: [
             {
               text: 'Continue',
@@ -97,6 +166,25 @@ export class VoicePage implements OnInit {
           ]
         })
       await alert.present();
+      }
+      else if (returnedCode == "0010" || returnedCode == "0011" || returnedCode == "0100" || returnedCode == "1000" || returnedCode == "1001" || returnedCode == "1011"){
+        let alert1 = await this.alertCtrl.create({
+          header: 'Verification failed!',
+          message: 'Error: ' + errorMessage + ". Please try again",
+          buttons: [
+            {
+              text: "Close",
+              role: "cancel"
+            },
+            {
+              text: 'Retry',
+              handler: async () => {
+                await this.getDataNativeHttp();
+              }
+            }
+          ]
+        })
+      await alert1.present();
       }
     }, err => {
       console.log('JSON Call error: ', err)
