@@ -154,7 +154,13 @@ export class AddItemsPage implements OnInit {
             };
 
             this.camera.getPicture(options).then(filePath => {
-                  this.croppedImage = 'data:image/jpeg;base64,' + filePath;
+              this.crop.crop(filePath).then((croppedPath) => {
+                this.base64.encodeFile(croppedPath).then(base64Data => {
+
+                  const temp = base64Data.substring(34);
+                  this.croppedImage = 'data:image/jpeg;base64,' + temp;
+                });
+              });
             });
           }
         },
@@ -169,8 +175,14 @@ export class AddItemsPage implements OnInit {
             };
 
             this.camera.getPicture(options).then(filePath => {
-                  this.croppedImage = 'data:image/jpeg;base64,' + filePath;
+              this.crop.crop(filePath).then((croppedPath) => {
+                this.base64.encodeFile(croppedPath).then(base64Data => {
+
+                  const temp = base64Data.substring(34);
+                  this.croppedImage = 'data:image/jpeg;base64,' + temp;
+                });
               });
+            });
           }
         }
       ]
