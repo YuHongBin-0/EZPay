@@ -2,7 +2,9 @@
 <ion-content style="align-content: center; text-align: center;">
   <div class="vertical-center">
     <div class="center">
-      <ion-img src="assets/paymentsuccess.gif" class="ion-align-self-end"></ion-img>
+      <ion-img src="assets/paymentsuccess.gif" class="ion-align-self-end" style="height: 250px;"></ion-img>
+      <br>
+      <br>
       <h2>Payment Completed</h2>
 <h1 style><b>Successfully!!</b></h1>
 <ion-card style="margin: 50px;">
@@ -13,8 +15,9 @@
 <br>
 <ion-card *ngIf="data">
   <ion-card-header>
-    <ion-card-title>
+    <ion-card-title><h2>
       {{ data | currency }}
+    </h2>
     </ion-card-title>
     <ion-card-content>
       {{ date }}

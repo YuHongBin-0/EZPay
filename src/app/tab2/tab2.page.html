@@ -38,8 +38,10 @@
       </ion-card-subtitle>
       </ion-card-header>
     <ion-card-content>
+      <div class="vertical-center">
+        <div class="center">
         <ion-col size="6" (click)="openPay()" style="cursor: pointer;" *ngIf='isStudent'>
-          <ion-item lines="none" style="border-radius:10px; width: 200px; margin-left: 50px;">
+          <ion-item lines="none" style="border-radius:10px; width: 200px;">
               <p style="text-align: center; margin: 0 auto 0 auto;">Pay</p>
               <ion-icon slot="end" style="text-align: center;margin:0 !important;" name="paper-plane-outline"></ion-icon>
           </ion-item>
@@ -64,6 +66,8 @@
             <ion-icon style="text-align: center;margin:0 !important;" name="paper-plane-outline"></ion-icon>
         </ion-item>
       </ion-col>
+    </div>   
+  </div>
     </ion-card-content>
   </ion-card>
   <br>

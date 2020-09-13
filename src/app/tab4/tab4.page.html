@@ -24,7 +24,7 @@
       <img [src]="prodItem.image"><br>
       <p> {{ prodItem.prodDesc }}</p>
       <mat-action-row>
-        <button color="warn" (click)="deleteFood(prodItem.key)"> Delete </button>
+        <button (click)="deleteFood(prodItem.key)" style="background-color: red; color: white; border-radius: 20px; width: 20%; height: 30px;"> Delete </button>
       </mat-action-row>
 
     </mat-expansion-panel>
