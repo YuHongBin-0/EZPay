@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-details',
@@ -15,7 +16,7 @@ export class EditDetailsPage implements OnInit {
   userName; userNRIC; userLevel; userClass; userBal; userStall; userRole; userDept; userEmail;
   // newName; newNRIC; newLevel; newClass; newStall; newDept; newEmail;
 
-  constructor(private router: Router, private afDatabase: AngularFireDatabase) {}
+  constructor(private router: Router, private afDatabase: AngularFireDatabase, private modalCtrl: ModalController) {}
 
   ngOnInit() {
     firebase.database().ref(`users/${this.userK}`).on('value', res => {
@@ -60,5 +61,9 @@ export class EditDetailsPage implements OnInit {
 
   deleteUser(){
     this.afDatabase.object(`users/${this.userK}`).remove();
+  }
+
+  closeModal() {
+    this.modalCtrl.dismiss();
   }
 }

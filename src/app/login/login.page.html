@@ -1,5 +1,12 @@
 <ion-header>
-
+  <script type="text/javascript">
+    $(document).ready(function () {
+        //Disable cut copy paste
+        $('body').bind('cut copy paste', function (e) {
+        e.preventDefault();
+        });
+      });
+  </script>
 </ion-header>
 
 <ion-content style="background-color: white;">

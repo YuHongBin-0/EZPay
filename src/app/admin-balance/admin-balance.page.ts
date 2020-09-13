@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from 'angularfire2/database';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-admin-balance',
@@ -18,13 +19,7 @@ export class AdminBalancePage implements OnInit {
   userKey: string;
   userName; userNRIC; userLevel; userClass; userBal; userStall; userRole;
 
-  constructor(private route: ActivatedRoute, private router: Router, private afDatabase: AngularFireDatabase) {
-    // this.route.queryParams.subscribe(params => {
-    //   if (this.router.getCurrentNavigation().extras.state) {
-    //     this.userKey = this.router.getCurrentNavigation().extras.state.userK;
-    //     console.log(this.userKey)
-    //   }
-    // }); 
+  constructor(private router: Router, private afDatabase: AngularFireDatabase, private modalCtrl: ModalController) {
   }
 
   ngOnInit() {
@@ -53,6 +48,7 @@ export class AdminBalancePage implements OnInit {
       this.changeValue = +this.changeValue.toFixed(2);
     }
   }
+
   decrementValue(){
     if(this.changeValue == null){
       this.changeValue = -1;
@@ -86,43 +82,46 @@ export class AdminBalancePage implements OnInit {
     transactionID = 'AdEDT-' + transactionID; 
 
     firebase.database().ref(`users/${this.userK}`).once('value', resp => {
-      var targetUserName = (resp.val() && resp.val().name)
-      this.targetUsrName = targetUserName
+      var targetUserName = (resp.val() && resp.val().name);
+      this.targetUsrName = targetUserName;
     })
 
-    this.afDatabase.object(`transactions/${transactionID}/to`).set(this.userK)
-    this.afDatabase.object(`transactions/${transactionID}/from`).set("Admin Team")
-    this.afDatabase.object(`transactions/${transactionID}/transactorName`).set("Admin Team")
-    this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUsrName)
-    this.afDatabase.object(`transactions/${transactionID}/transactionType`).set(this.changeReason)
-    this.afDatabase.object(`transactions/${transactionID}/notes`).set(this.changeNotes)
-    this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(new Date().toISOString())
-
-    if (action == 'addTo'){
-      firebase.database().ref('/users/' + this.userK).once('value', res => {
-        if (res) {
-          var bal:number = Number(res.val() && res.val().balance);
-          var changedBal:number = Number(bal + this.changeValue)
-          console.log('current balance: ' + bal, 'balance increment/decrement: ' + changedBal, 'final balance: ' + changedBal)
-          this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
-          
-          //update by amount increments
-          this.afDatabase.object(`transactions/${transactionID}/amount`).set(this.changeValue)
+    this.afDatabase.object(`transactions/${transactionID}/to`).set(this.userK);
+    this.afDatabase.object(`transactions/${transactionID}/from`).set("Admin Team");
+    this.afDatabase.object(`transactions/${transactionID}/transactorName`).set("Admin Team");
+    this.afDatabase.object(`transactions/${transactionID}/recipientName`).set(this.targetUsrName);
+    this.afDatabase.object(`transactions/${transactionID}/transactionType`).set(this.changeReason);
+    this.afDatabase.object(`transactions/${transactionID}/notes`).set(this.changeNotes);
+    await this.afDatabase.object(`transactions/${transactionID}/transactionDate`).set(new Date().toISOString()).then(_ => {
+      if (action == 'addTo'){
+        firebase.database().ref('/users/' + this.userK).once('value', res => {
+          if (res) {
+            var bal:number = Number(res.val() && res.val().balance);
+            var changedBal:number = Number(bal + this.changeValue);
+            console.log('current balance: ' + bal, 'balance increment/decrement: ' + changedBal, 'final balance: ' + changedBal);
+            this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
+            //update by amount increments
+            this.afDatabase.object(`transactions/${transactionID}/amount`).set(this.changeValue).then(_=>{
+              this.closeModal();
+            })
           }
-      });
-    } else if (action == 'override'){
-      firebase.database().ref('/users/' + this.userK).once('value', res => {
-        if (res) {
-          var bal:number = Number(res.val() && res.val().balance);
-          var changedBal:number = this.changeValue;
-          console.log('new balance: ' + changedBal, "transacted amount: " + trnsc_amount);
-          this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
-          
-          //calculate amount increment and add to transacted amount
-          var trnsc_amount = changedBal - bal;
-          this.afDatabase.object(`transactions/${transactionID}/amount`).set(trnsc_amount);
+        });
+      } else if (action == 'override'){
+        firebase.database().ref('/users/' + this.userK).once('value', res => {
+          if (res) {
+            var bal:number = Number(res.val() && res.val().balance);
+            var changedBal:number = this.changeValue;
+            console.log('new balance: ' + changedBal, "transacted amount: " + trnsc_amount);
+            this.afDatabase.object(`users/${this.userK}/balance`).set(changedBal);
+            //calculate amount increment and add to transacted amount
+            var trnsc_amount = changedBal - bal;
+            this.afDatabase.object(`transactions/${transactionID}/amount`).set(trnsc_amount).then(_=>{
+              this.closeModal();
+            })
           }
-      });
-    }
+        });
+      }
+    })
   }
+  closeModal() { this.modalCtrl.dismiss(); }
 }
