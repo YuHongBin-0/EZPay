@@ -54,7 +54,7 @@ export class VoicePage implements OnInit {
 
     this.base64.encodeFile(filePath).then((base64Audio: string) => {
       this.base64text = base64Audio.replace("data:image/*;charset=utf-8;base64,","")
-      window.alert(this.base64text)
+     
     }, (err) => {
       
     })
@@ -63,7 +63,7 @@ export class VoicePage implements OnInit {
 
     this.base64.encodeFile(filePathEnroll).then((base64Audio: string) => {
       this.base64enroll = base64Audio.replace("data:image/*;charset=utf-8;base64,","")
-      window.alert(this.base64enroll)
+      
     }, (err) => {
       
     })

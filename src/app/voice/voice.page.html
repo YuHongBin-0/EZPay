@@ -1,21 +1,22 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
-      Ionic Media Capture
+    <ion-title style="text-align: center;">
+      Voice Verification
     </ion-title>
   </ion-toolbar>
 </ion-header>
  
-<ion-content>
-  <ion-button (click)="getDataNativeHttp()"> Sent for verify </ion-button>
-   
+<ion-content style="align-content: center; text-align: center;">
+  
+  <br><br><ion-button (click)="enrollVoice()" expand="block" style="margin-left: 15%; margin-right: 15%;"> Enroll voice </ion-button><br><br><br><br><br>
+
+  <ion-card (click)="recordAudio()" style="margin-left: 10%; margin-right: 10%;">
+  <img src="assets/soundwave.png" style="height: 80px;"><br>
+  <img src="assets/microphone.png" style="height: 180px;"><br>
+  <ion-label> Click to record Audio</ion-label>
+</ion-card><br><br><br><br>
+
+
+  <ion-button (click)="getDataNativeHttp()" expand="block" style="margin-left: 15%; margin-right: 15%;"> Verify </ion-button>
 </ion-content>
  
-<ion-footer>
-  <ion-toolbar color="primary">
-    <ion-button fill="clear" expand="full" color="light" (click)="selectMedia()">
-      <ion-icon slot="start" name="document"></ion-icon>
-      Select Media
-    </ion-button>
-  </ion-toolbar>
-</ion-footer>6+
