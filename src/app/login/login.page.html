@@ -8,13 +8,11 @@
       });
   </script>
 </ion-header>
-
-<ion-content style="background-color: white;">
-
+<ion-content class="outer-container" style="background-color: white;">
+<div class="outer-container">
   <div style="text-align: center;background-color: white; ">
-    <img src="assets/tp.png" style="height: 80px; margin: 30px;">
+    <img src="assets/tp.png" style="height: 80px; margin: 30px 30px 30px 30px;">
   </div>
-
     <ion-toolbar>
       <ion-segment [(ngModel)]="segment" mode="md">
         <ion-segment-button value="user">
@@ -28,9 +26,8 @@
         </ion-segment-button>
       </ion-segment>
     </ion-toolbar>
-  
-  <ion-content style="--background: linear-gradient( #0079C1 0%, #00457C 100%);">
-
+</div>
+  <div class="inner-container">
     <br>
     <div [ngSwitch]="segment">
       <div *ngSwitchCase="'user'" style="text-align: center;">
@@ -95,8 +92,6 @@
         <!-- ion button -->
         <ion-button  (click)="loginVend(value)">Login</ion-button>
       </div>
-  
-  
     </div>
-  </ion-content>
+  </div>
 </ion-content>

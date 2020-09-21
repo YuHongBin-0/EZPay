@@ -22,3 +22,20 @@ div {
   margin-left: auto;
   margin-right: auto;
 }
+
+.outer-container {
+  height: auto;
+  width:100%;
+  max-width: 100%;
+  background: white;
+}
+
+.inner-container{
+  background: transparent;
+  height: auto;
+  max-width: 100%;
+  width:100%;
+}
+ion-content{
+  --background: linear-gradient( #0079C1 0%, #00457C 100%);
+}
